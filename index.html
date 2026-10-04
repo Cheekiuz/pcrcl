@@ -3,12 +3,22 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Poodle Circle — the honest club for toy poodle owners</title>
+<title>Poodle Circle, the honest club for toy poodle owners</title>
 <meta content="A kindred community for toy poodle owners. Real care guides, real dogs, and a 30-second test: how spoiled is your poodle?" name="description"/>
+<link rel="icon" href="favicon.ico" sizes="32x32"/>
+<link rel="icon" type="image/png" href="assets/favicon.png"/>
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<script>
+try {
+  if (localStorage.getItem("poodlecircle-theme") === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+} catch (e) {}
+</script>
 <style>
   @layer base {
     html, body { margin: 0; padding: 0; }
@@ -67,6 +77,53 @@
     100% { transform: scale(1); }
   }
   .quiz-pop { animation: quiz-pop .55s ease; }
+  .hero-fade {
+    background: linear-gradient(to bottom, rgba(44, 49, 56, 0.85), rgba(44, 49, 56, 0.7), #f8f9ff);
+  }
+  html[data-theme="dark"] { color-scheme: dark; }
+  html[data-theme="dark"] body,
+  html[data-theme="dark"] .bg-surface,
+  html[data-theme="dark"] .bg-\[\#f8f9ff\] {
+    background-color: #12161c;
+    color: #f6f1ea;
+  }
+  html[data-theme="dark"] .bg-surface\/90 {
+    background-color: rgba(18, 22, 28, 0.92);
+  }
+  html[data-theme="dark"] .bg-\[\#f0f4fd\] { background-color: #181d26; }
+  html[data-theme="dark"] .bg-white,
+  html[data-theme="dark"] #mobile-nav { background-color: #222833; color: #f6f1ea; }
+  html[data-theme="dark"] .bg-\[\#eaeef8\],
+  html[data-theme="dark"] .hover\:bg-\[\#eaeef8\]:hover { background-color: #2c3340; }
+  html[data-theme="dark"] .bg-\[\#e1e3e5\] { background-color: #313846; }
+  html[data-theme="dark"] .bg-\[\#2c3138\] { background-color: #2a3140; }
+  html[data-theme="dark"] .text-\[\#171c23\],
+  html[data-theme="dark"] .text-\[\#191c1e\],
+  html[data-theme="dark"] .hover\:text-\[\#171c23\]:hover { color: #f6f1ea; }
+  html[data-theme="dark"] .text-\[\#5b403c\] { color: #c9beb6; }
+  html[data-theme="dark"] .text-primary { color: #ffb4a7; }
+  html[data-theme="dark"] .text-\[\#00685e\],
+  html[data-theme="dark"] .text-\[\#248277\] { color: #80d6c9; }
+  html[data-theme="dark"] .border-\[\#e3beb8\]\/50,
+  html[data-theme="dark"] .border-\[\#e3beb8\]\/60 { border-color: rgba(90, 74, 68, 0.7); }
+  html[data-theme="dark"] .keep-light { background-color: rgba(255, 255, 255, 0.92); color: #171c23; }
+  html[data-theme="dark"] .keep-light .text-\[\#171c23\],
+  html[data-theme="dark"] .keep-light.text-\[\#171c23\] { color: #171c23; }
+  html[data-theme="dark"] .keep-light .text-\[\#5b403c\] { color: #5b403c; }
+  html[data-theme="dark"] .quiz-answer {
+    background: #222833;
+    color: #f6f1ea;
+    border-color: #4a403c;
+  }
+  html[data-theme="dark"] .quiz-answer.is-picked {
+    background: #3d2824;
+    border-color: #ffb4a7;
+  }
+  html[data-theme="dark"] .quiz-bar { background: #3a3330; }
+  html[data-theme="dark"] input { color: #f6f1ea; }
+  html[data-theme="dark"] .keep-light input,
+  html[data-theme="dark"] .keep-light input::placeholder { color: #171c23; }
+  html[data-theme="dark"] input::placeholder { color: #a89890; }
   @media (prefers-reduced-motion: reduce) {
     .quiz-answer, .quiz-card, .quiz-bar > span { transition: none; }
     .quiz-float, .quiz-pop { animation: none; }
@@ -140,7 +197,7 @@ tailwind.config = {
 <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
   <div class="h-20 max-w-[1240px] mx-auto px-6 flex items-center justify-between gap-6">
     <a class="flex items-center gap-3 shrink-0 group" href="#top">
-      <img alt="Poodle Circle logo" class="h-8 w-auto object-contain transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1Vx-ctfxTIUX9YdHl-827FdHh_tp77H3mUHsivlCi5a_IiLSbUWAuNNUcJy1bcUI4H38kmGgT0q97uulIuR2ExsiCvYjBXmxuxw33x2K_vBweUba3SLoelnzaQObyRGu3ImGrGuUdX8yEgj6URYMDcL94D8qGjdWHkEIU2lPCup4H-H-DrO_jBaFwjYkX3OhPmfc3CxdbpMDj8_b0J6Gyg8YtUPbWekTW7Wu6hSLX_aawGwOicLV1SGcoQ"/>
+      <img alt="Poodle Circle logo" class="h-8 w-auto object-contain transition-transform group-hover:scale-105" src="assets/logo.png"/>
       <span class="text-[20px] leading-7 font-semibold tracking-tight">Poodle<span class="italic font-normal text-primary">Circle</span></span>
     </a>
     <nav class="hidden lg:flex items-center gap-1 bg-white px-2 py-1.5 rounded-full shadow-[0_2px_12px_rgba(30,35,42,0.04)]" aria-label="Primary">
@@ -154,6 +211,9 @@ tailwind.config = {
     </nav>
     <div class="flex items-center gap-3 shrink-0">
       <a class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#e1e3e5] text-[#191c1e] hover:bg-[#c4c7c9] text-[13px] font-semibold" href="#signup">Join the Circle</a>
+      <button aria-label="Switch to dark mode" aria-pressed="false" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white text-[#171c23]" id="theme-toggle" type="button">
+        <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+      </button>
       <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white" id="nav-toggle" type="button">
         <span class="material-symbols-outlined" id="nav-icon">menu</span>
       </button>
@@ -178,7 +238,7 @@ tailwind.config = {
 <section class="relative w-full overflow-hidden -mt-20" id="top">
   <div class="absolute inset-0 z-0">
     <img alt="A curly red toy poodle sitting on a cream blanket in a warm evening room" class="w-full h-full object-cover object-center scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmW4avmRcjfIKv--CQNCozGBIU-egdfL-OmVPaB9HpnCuT60QNCTG-k0pZ9SweWySlek4piw89bDUPtkqizyMv6jI_NrqREaMicS9UtnTeVFlCJDXFc0Gi_UEyckc3NfQMFudI045f-iwQmWB6xw90PRvbnejLljLE3zGQM7OViK6zGnrQHyft8ptKoUfgLl4ntKEOahnzQNXEPI4zOq3PQrTswv_DQ-Uks5OqK2wDaM-lASTKFC5B"/>
-    <div class="absolute inset-0 bg-gradient-to-b from-[#2c3138]/85 via-[#2c3138]/70 to-[#f8f9ff]"></div>
+    <div class="hero-fade absolute inset-0"></div>
   </div>
   <div class="relative z-10 max-w-[1240px] mx-auto px-6 pt-36 pb-20 sm:pt-44 sm:pb-28 flex flex-col items-center text-center">
     <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[11px] font-bold tracking-wider uppercase mb-8">
@@ -193,9 +253,9 @@ tailwind.config = {
     </p>
     <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
       <a class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="#signup">Join the Circle <span aria-hidden="true">↗</span></a>
-      <a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/80 backdrop-blur-md text-[#171c23] text-[15px] font-semibold" href="#guides">Read the 30-Day Guide</a>
+      <a class="keep-light inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/80 backdrop-blur-md text-[#171c23] text-[15px] font-semibold" href="#guides">Read the 30-Day Guide</a>
     </div>
-    <div class="mt-12 w-full max-w-md bg-white/90 backdrop-blur-lg p-2.5 rounded-full shadow-xl" id="hero-signup">
+    <div class="keep-light mt-12 w-full max-w-md bg-white/90 backdrop-blur-lg p-2.5 rounded-full shadow-xl" id="hero-signup">
       <form class="flex items-center gap-2" data-signup>
         <span class="material-symbols-outlined text-xl text-[#5b403c] pl-3">mail</span>
         <input class="w-full bg-transparent text-[#171c23] text-[15px] placeholder:text-[#5b403c] focus:outline-none" placeholder="Enter your email for the 10 guides..." required type="email"/>
@@ -209,7 +269,7 @@ tailwind.config = {
 <section class="w-full bg-[#f0f4fd] py-12 px-6">
   <div class="max-w-[1240px] mx-auto">
     <p class="text-center max-w-3xl mx-auto mb-10 text-[20px] leading-7 font-semibold">
-      “Built by dedicated owners for toy and miniature poodle parents — not a clinical veterinary practice, but a real-life circle of care.”
+      “Built by dedicated owners for toy and miniature poodle parents, not a clinical veterinary practice, but a real-life circle of care.”
     </p>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
       <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
@@ -436,7 +496,7 @@ tailwind.config = {
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-14">
       <div class="md:col-span-5">
         <div class="flex items-center gap-3">
-          <img alt="" class="h-7 w-auto" src="https://lh3.googleusercontent.com/aida/AEtjO1Vx-ctfxTIUX9YdHl-827FdHh_tp77H3mUHsivlCi5a_IiLSbUWAuNNUcJy1bcUI4H38kmGgT0q97uulIuR2ExsiCvYjBXmxuxw33x2K_vBweUba3SLoelnzaQObyRGu3ImGrGuUdX8yEgj6URYMDcL94D8qGjdWHkEIU2lPCup4H-H-DrO_jBaFwjYkX3OhPmfc3CxdbpMDj8_b0J6Gyg8YtUPbWekTW7Wu6hSLX_aawGwOicLV1SGcoQ"/>
+          <img alt="" class="h-7 w-auto" src="assets/logo.png"/>
           <span class="text-[20px] font-semibold">Poodle<span class="italic font-normal text-primary">Circle</span></span>
         </div>
         <p class="text-[15px] leading-6 text-[#5b403c] max-w-sm mt-4">A community journal for toy poodle companions. Mindful care, honest routines, and the joy of a very small dog with a very large opinion.</p>
@@ -467,6 +527,23 @@ tailwind.config = {
 
 <script>
 (function () {
+  var themeButton = document.getElementById("theme-toggle");
+  var themeIcon = document.getElementById("theme-icon");
+  function paintTheme(theme) {
+    var dark = theme === "dark";
+    if (dark) document.documentElement.setAttribute("data-theme", "dark");
+    else document.documentElement.removeAttribute("data-theme");
+    themeButton.setAttribute("aria-pressed", dark ? "true" : "false");
+    themeButton.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+    themeIcon.textContent = dark ? "light_mode" : "dark_mode";
+  }
+  paintTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
+  themeButton.addEventListener("click", function () {
+    var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    try { localStorage.setItem("poodlecircle-theme", next); } catch (e) {}
+    paintTheme(next);
+  });
+
   var toggle = document.getElementById("nav-toggle");
   var menu = document.getElementById("mobile-nav");
   var icon = document.getElementById("nav-icon");
