@@ -1,0 +1,7 @@
+{
+  "name": "pcrcl",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Open http://localhost:5173' && python3 -m http.server 5173"
+  }
+}

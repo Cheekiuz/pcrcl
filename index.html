@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Poodle Circle — the honest club for toy poodle owners</title>
+<meta content="A kindred community for toy poodle owners. Real care guides, real dogs, and a 30-second test: how spoiled is your poodle?" name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<style>
+  @layer base {
+    html, body { margin: 0; padding: 0; }
+    body { overscroll-behavior: none; }
+    main > :first-child { margin-top: 0 !important; }
+    main > :last-child { margin-bottom: 0 !important; }
+  }
+  ::-webkit-scrollbar { display: none; }
+  section[id] { scroll-margin-top: 5.5rem; }
+  .quiz-answer {
+    width: 100%;
+    min-height: 3.5rem;
+    text-align: left;
+    border-radius: 1.25rem;
+    padding: 1rem 1.15rem;
+    background: #fff;
+    color: #171c23;
+    border: 1px solid #e3beb8;
+    font: 600 15px/1.35 "Plus Jakarta Sans", sans-serif;
+    cursor: pointer;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+  }
+  .quiz-answer:hover { transform: translateY(-1px); border-color: #b22110; }
+  .quiz-answer:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
+  .quiz-answer.is-picked {
+    background: #ffdad4;
+    border-color: #b22110;
+    transform: scale(0.985);
+  }
+  .quiz-card { transition: opacity .28s ease, transform .28s ease; }
+  .quiz-card.is-leaving { opacity: 0; transform: translateY(8px); }
+  .quiz-bar { height: 6px; border-radius: 999px; background: #e3beb8; overflow: hidden; }
+  .quiz-bar > span {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #d63b27, #b22110);
+    transition: width .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .quiz-score { font-variant-numeric: tabular-nums; }
+  .quiz-float {
+    position: absolute;
+    font-size: 1.15rem;
+    animation: quiz-rise 1.6s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes quiz-rise {
+    0% { opacity: 0; transform: translateY(16px) scale(.7); }
+    18% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-92px) scale(1.05); }
+  }
+  @keyframes quiz-pop {
+    0% { transform: scale(.94); }
+    55% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+  }
+  .quiz-pop { animation: quiz-pop .55s ease; }
+  @media (prefers-reduced-motion: reduce) {
+    .quiz-answer, .quiz-card, .quiz-bar > span { transition: none; }
+    .quiz-float, .quiz-pop { animation: none; }
+  }
+</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        "on-primary-fixed": "#400200",
+        primary: "#b22110",
+        "primary-fixed-dim": "#ffb4a7",
+        "inverse-surface": "#2c3138",
+        outline: "#8f706a",
+        "on-surface-variant": "#5b403c",
+        "on-secondary-fixed": "#191c1e",
+        "tertiary-fixed": "#9cf2e5",
+        "surface-dim": "#d6dae4",
+        "inverse-primary": "#ffb4a7",
+        tertiary: "#00685e",
+        "primary-fixed": "#ffdad4",
+        "on-secondary-container": "#606365",
+        secondary: "#5c5f61",
+        "secondary-fixed-dim": "#c4c7c9",
+        "surface-container-low": "#f0f4fd",
+        "surface-tint": "#b62412",
+        "on-secondary": "#ffffff",
+        "on-tertiary-container": "#f4fffb",
+        "on-tertiary-fixed": "#00201c",
+        "on-tertiary": "#ffffff",
+        "surface-variant": "#dee2ec",
+        "outline-variant": "#e3beb8",
+        surface: "#f8f9ff",
+        "on-error": "#ffffff",
+        "secondary-fixed": "#e1e3e5",
+        "tertiary-container": "#248277",
+        "on-tertiary-fixed-variant": "#005048",
+        "on-surface": "#171c23",
+        "surface-container": "#eaeef8",
+        "on-background": "#171c23",
+        "on-error-container": "#93000a",
+        error: "#ba1a1a",
+        "error-container": "#ffdad6",
+        "inverse-on-surface": "#edf1fb",
+        "surface-bright": "#f8f9ff",
+        background: "#f8f9ff",
+        "on-primary": "#ffffff",
+        "on-secondary-fixed-variant": "#444749",
+        "surface-container-high": "#e4e8f2",
+        "on-primary-fixed-variant": "#910a00",
+        "on-primary-container": "#fffbff",
+        "tertiary-fixed-dim": "#80d6c9",
+        "surface-container-lowest": "#ffffff",
+        "primary-container": "#d63b27",
+        "surface-container-highest": "#dee2ec",
+        "secondary-container": "#dee0e2"
+      },
+      borderRadius: { DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px" },
+      fontFamily: {
+        headline: ["Plus Jakarta Sans", "sans-serif"],
+        body: ["Plus Jakarta Sans", "sans-serif"]
+      }
+    }
+  }
+};
+</script>
+</head>
+<body class="bg-surface text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed" style="font-family:'Plus Jakarta Sans',sans-serif">
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+  <div class="h-20 max-w-[1240px] mx-auto px-6 flex items-center justify-between gap-6">
+    <a class="flex items-center gap-3 shrink-0 group" href="#top">
+      <img alt="Poodle Circle logo" class="h-8 w-auto object-contain transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1Vx-ctfxTIUX9YdHl-827FdHh_tp77H3mUHsivlCi5a_IiLSbUWAuNNUcJy1bcUI4H38kmGgT0q97uulIuR2ExsiCvYjBXmxuxw33x2K_vBweUba3SLoelnzaQObyRGu3ImGrGuUdX8yEgj6URYMDcL94D8qGjdWHkEIU2lPCup4H-H-DrO_jBaFwjYkX3OhPmfc3CxdbpMDj8_b0J6Gyg8YtUPbWekTW7Wu6hSLX_aawGwOicLV1SGcoQ"/>
+      <span class="text-[20px] leading-7 font-semibold tracking-tight">Poodle<span class="italic font-normal text-primary">Circle</span></span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-1 bg-white px-2 py-1.5 rounded-full shadow-[0_2px_12px_rgba(30,35,42,0.04)]" aria-label="Primary">
+      <a class="px-4 py-2 rounded-full text-[13px] font-semibold bg-[#eaeef8]" href="#top">Home</a>
+      <a class="px-4 py-2 rounded-full text-[13px] font-semibold text-[#5b403c] hover:text-[#171c23] hover:bg-[#eaeef8]" href="#game">Spoiled Test</a>
+      <a class="px-4 py-2 rounded-full text-[13px] font-semibold text-[#5b403c] hover:text-[#171c23] hover:bg-[#eaeef8]" href="#guides">New Owner Guide</a>
+      <a class="px-4 py-2 rounded-full text-[13px] font-semibold text-[#5b403c] hover:text-[#171c23] hover:bg-[#eaeef8]" href="#guides">Care Library</a>
+      <a class="px-4 py-2 rounded-full text-[13px] font-semibold text-[#5b403c] hover:text-[#171c23] hover:bg-[#eaeef8]" href="#dogs">Meet the Dogs</a>
+      <a class="px-4 py-2 rounded-full text-[13px] font-semibold text-[#5b403c] hover:text-[#171c23] hover:bg-[#eaeef8]" href="#questions">Questions</a>
+      <a class="px-4 py-2 rounded-full text-[13px] font-semibold text-[#5b403c] hover:text-[#171c23] hover:bg-[#eaeef8]" href="#about">About</a>
+    </nav>
+    <div class="flex items-center gap-3 shrink-0">
+      <a class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#e1e3e5] text-[#191c1e] hover:bg-[#c4c7c9] text-[13px] font-semibold" href="#signup">Join the Circle</a>
+      <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white" id="nav-toggle" type="button">
+        <span class="material-symbols-outlined" id="nav-icon">menu</span>
+      </button>
+    </div>
+  </div>
+  <div class="hidden lg:hidden absolute top-20 inset-x-0 bg-[#f8f9ff] border-t border-[#e3beb8]/60 px-6 py-4 shadow-lg" id="mobile-nav">
+    <nav class="flex flex-col gap-1" aria-label="Mobile">
+      <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#top">Home</a>
+      <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#game">Spoiled Test</a>
+      <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#guides">New Owner Guide</a>
+      <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#dogs">Meet the Dogs</a>
+      <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#questions">Questions</a>
+      <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#about">About</a>
+      <a class="mt-2 px-3 py-3 rounded-full bg-primary text-white text-center text-[15px] font-semibold" href="#signup">Join the Circle</a>
+    </nav>
+  </div>
+</header>
+
+<main class="w-full pt-20 bg-surface">
+<div class="flex flex-col w-full">
+
+<section class="relative w-full overflow-hidden -mt-20" id="top">
+  <div class="absolute inset-0 z-0">
+    <img alt="A curly red toy poodle sitting on a cream blanket in a warm evening room" class="w-full h-full object-cover object-center scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmW4avmRcjfIKv--CQNCozGBIU-egdfL-OmVPaB9HpnCuT60QNCTG-k0pZ9SweWySlek4piw89bDUPtkqizyMv6jI_NrqREaMicS9UtnTeVFlCJDXFc0Gi_UEyckc3NfQMFudI045f-iwQmWB6xw90PRvbnejLljLE3zGQM7OViK6zGnrQHyft8ptKoUfgLl4ntKEOahnzQNXEPI4zOq3PQrTswv_DQ-Uks5OqK2wDaM-lASTKFC5B"/>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#2c3138]/85 via-[#2c3138]/70 to-[#f8f9ff]"></div>
+  </div>
+  <div class="relative z-10 max-w-[1240px] mx-auto px-6 pt-36 pb-20 sm:pt-44 sm:pb-28 flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[11px] font-bold tracking-wider uppercase mb-8">
+      <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+      <span>A kindred space for toy poodle parents</span>
+    </div>
+    <h1 class="text-[36px] leading-[42px] sm:text-[56px] sm:leading-[64px] font-extrabold tracking-tight text-white max-w-4xl">
+      The honest club for toy poodle owners, <span class="text-[#ffb4a7] italic font-serif font-normal">from day one.</span>
+    </h1>
+    <p class="mt-6 text-[18px] leading-7 text-[#dee2ec] max-w-2xl">
+      One supportive community, real owner experiences, zero fluff. Everything you need for the first 30 days, coat care routines, and raising a happy companion in city life.
+    </p>
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <a class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="#signup">Join the Circle <span aria-hidden="true">↗</span></a>
+      <a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/80 backdrop-blur-md text-[#171c23] text-[15px] font-semibold" href="#guides">Read the 30-Day Guide</a>
+    </div>
+    <div class="mt-12 w-full max-w-md bg-white/90 backdrop-blur-lg p-2.5 rounded-full shadow-xl" id="hero-signup">
+      <form class="flex items-center gap-2" data-signup>
+        <span class="material-symbols-outlined text-xl text-[#5b403c] pl-3">mail</span>
+        <input class="w-full bg-transparent text-[#171c23] text-[15px] placeholder:text-[#5b403c] focus:outline-none" placeholder="Enter your email for the 10 guides..." required type="email"/>
+        <button class="shrink-0 px-6 py-2.5 rounded-full bg-primary text-white text-[13px] font-semibold hover:bg-[#d63b27]" type="submit">Get Access</button>
+      </form>
+    </div>
+    <p class="mt-3 text-[13px] text-white/80 signup-note">No spam. Only vetted rituals, food safety, and sleep training guides.</p>
+  </div>
+</section>
+
+<section class="w-full bg-[#f0f4fd] py-12 px-6">
+  <div class="max-w-[1240px] mx-auto">
+    <p class="text-center max-w-3xl mx-auto mb-10 text-[20px] leading-7 font-semibold">
+      “Built by dedicated owners for toy and miniature poodle parents — not a clinical veterinary practice, but a real-life circle of care.”
+    </p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+      <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
+        <span class="material-symbols-outlined text-primary text-3xl mb-2">auto_stories</span>
+        <span class="text-[28px] leading-9 font-bold">10</span>
+        <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Essential starter guides</span>
+      </div>
+      <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
+        <span class="material-symbols-outlined text-[#00685e] text-3xl mb-2">pets</span>
+        <span class="text-[28px] leading-9 font-bold">200+</span>
+        <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Dogs introduced</span>
+      </div>
+      <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
+        <span class="material-symbols-outlined text-primary text-3xl mb-2">block</span>
+        <span class="text-[28px] leading-9 font-bold">Zero</span>
+        <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Puppy sales allowed</span>
+      </div>
+      <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
+        <span class="material-symbols-outlined text-[#248277] text-3xl mb-2">verified</span>
+        <span class="text-[28px] leading-9 font-bold">100%</span>
+        <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Owner verified advice</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-20 px-6 bg-[#f8f9ff]" id="game">
+  <div class="max-w-[760px] mx-auto">
+    <div class="rounded-[2rem] bg-white shadow-sm px-5 py-8 sm:px-10 sm:py-12 relative overflow-hidden" id="quiz">
+      <div class="text-center" id="quiz-heading">
+        <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">For people who live with a tiny monarch</p>
+        <h2 class="mt-3 text-[28px] leading-9 sm:text-[40px] sm:leading-[48px] font-extrabold tracking-tight">How spoiled is your poodle? 🐩</h2>
+        <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">Take the 30-second test. Your poodle already knows the answer.</p>
+      </div>
+      <div class="mt-8" id="quiz-progress" hidden>
+        <div class="flex items-center justify-between text-[13px] font-semibold text-[#5b403c] mb-2">
+          <span id="quiz-step">Question 1 of 6</span>
+          <span id="quiz-mood">Still in charge. Allegedly.</span>
+        </div>
+        <div class="quiz-bar" aria-hidden="true"><span id="quiz-bar"></span></div>
+      </div>
+      <div class="quiz-card mt-8" id="quiz-stage"></div>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-20 px-6 bg-[#f8f9ff]" id="guides">
+  <div class="max-w-[1240px] mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Curated knowledge</span>
+        <h2 class="text-[28px] sm:text-[40px] leading-tight font-bold mt-2">Essential reading for toy poodle parents</h2>
+      </div>
+      <a class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary" href="#guides">Browse the care library <span class="material-symbols-outlined text-lg">arrow_forward</span></a>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <article class="flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm group">
+        <div class="relative h-60 overflow-hidden bg-[#eaeef8]">
+          <img alt="A toy poodle puppy asleep in a plush bed" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2zPodg4DxLy8uUGvGo1FlXaRK0JYMhs1Tji-l-nNZByUHaGI4y8GHOxr6SbFb5MVpCbK46_I6YkzlkMv4Q9TeMQa5fgP6HbqMcERwWPwNDCJ_eRV_3KIiXjLf9y96k44jP1ozvvZz9VEvUEg-QmUCjaXXEdsc5ZvB_t5Tj5dszYWT0TOMQoM9p1lUwHVKFPYiHRXu8QRCJ15spbkVWrsQ2W75teo1-clKSZydxyXuVCNWKhFXEMZJ"/>
+          <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-primary text-white text-[11px] font-bold">Most shared</span>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="text-[11px] uppercase tracking-wider text-[#5b403c]">Early days</span>
+          <h3 class="text-[20px] leading-7 font-semibold mt-1">The first 30 days: settling in and sleep</h3>
+          <p class="text-[15px] leading-6 text-[#5b403c] mt-3 flex-1">Toilet habits, night whining, the 48-hour calm rule, what you actually need to buy, and what can wait.</p>
+          <div class="mt-6 flex items-center justify-between">
+            <span class="text-[11px] text-[#5b403c]">10 min read</span>
+            <a class="text-[13px] font-semibold text-primary" href="#guides">Read guide →</a>
+          </div>
+        </div>
+      </article>
+      <article class="flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm group">
+        <div class="relative h-60 overflow-hidden bg-[#eaeef8]">
+          <img alt="A groomer brushing a caramel toy poodle coat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRZ3Rkl_H6kZQYsL_R_AYnRMCmX4rRcDDeLdWTcneNi1hpvh76_E_yBTVDqRvUBAGsdela5an1DdHbSM5GNKxYPda9mBvRFheHMufGJjJnGmNsk8e5_XgrRaiWzDKHgytU3tRnJDxl_usxSaZvlTyF2sNdnpOXD6u_UTCXkyY5d4z7UuUhnNTbKM-Y25e4b3rkQNMvSSfSFOVVj0K_SKqelLJQLGG7L4frpkZIytIrIUSCMhfa2zA1"/>
+          <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-[#e1e3e5] text-[#191c1e] text-[11px] font-bold">Care library</span>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="text-[11px] uppercase tracking-wider text-[#5b403c]">Grooming and coat</span>
+          <h3 class="text-[20px] leading-7 font-semibold mt-1">Coat care and matting prevention</h3>
+          <p class="text-[15px] leading-6 text-[#5b403c] mt-3 flex-1">Line brushing, a daily five-minute detangle, and how to avoid the full-body groomer shave.</p>
+          <div class="mt-6 flex items-center justify-between">
+            <span class="text-[11px] text-[#5b403c]">7 min read</span>
+            <a class="text-[13px] font-semibold text-primary" href="#guides">Read guide →</a>
+          </div>
+        </div>
+      </article>
+      <article class="flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm group">
+        <div class="relative h-60 overflow-hidden bg-[#eaeef8]">
+          <img alt="A toy poodle playing with a puzzle toy on an apartment floor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFSYepoPzwUCDVp4uZiCUtu_27_MgU_nE1scdaT6IWc6RpQB1py0uIjGvTYLqQZxrobhNGZgD3KeYw_ryRHQnl6cZWE0VVOg5nkKg6HVzECLfvEGzofhw44muFeCWa6d0K3wzumHvtyBnF0SBvoSHywaye4x17z6XZKPoebMs5XfTCmQq8YqALv5xww_G9f9T6vsic57Trl6TwHApALqj0tHO8UkbdBjMPZyy7qpwZv9hGshozVMrf"/>
+          <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-[#9cf2e5] text-[#00201c] text-[11px] font-bold">Life and home</span>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <span class="text-[11px] uppercase tracking-wider text-[#5b403c]">Behavior and play</span>
+          <h3 class="text-[20px] leading-7 font-semibold mt-1">Apartment energy and barking</h3>
+          <p class="text-[15px] leading-6 text-[#5b403c] mt-3 flex-1">Mental games that tire a clever poodle faster than a long walk around the block.</p>
+          <div class="mt-6 flex items-center justify-between">
+            <span class="text-[11px] text-[#5b403c]">8 min read</span>
+            <a class="text-[13px] font-semibold text-primary" href="#guides">Read guide →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="mt-10 p-5 rounded-[2rem] bg-[#f0f4fd] flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+      <span class="material-symbols-outlined text-primary text-2xl shrink-0">medical_services</span>
+      <p class="text-[13px] leading-5 text-[#5b403c]"><strong class="text-[#171c23]">Health topic notice:</strong> Every care guide ends with “ask your vet.” These are everyday routines from owners, not medical advice.</p>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-20 px-6 bg-[#f0f4fd]" id="dogs">
+  <div class="max-w-[1240px] mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <span class="text-[11px] font-bold tracking-widest uppercase text-primary">The collective</span>
+      <h2 class="text-[28px] sm:text-[40px] font-bold mt-2">Meet the dogs of the circle</h2>
+      <p class="text-[15px] leading-6 text-[#5b403c] mt-3">The community before the forum. Real companion toy poodles, from owners who live with them.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <article class="rounded-[2rem] bg-white p-5 shadow-sm">
+        <div class="h-52 rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img alt="Apricot toy poodle Mochi by a window" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY4uVaPy0F-BmH5g4pQzyWc5NCs6lcU52zNdMVEdbIL0fCYOHVvzDbO161408__5hZwQs0p_Vq8129-7NfJa8bAyG_Gov-sa-5OCftZagyNxlj_vEJ4rQFDkQ930IngcEhJ3tc_i7JQSBp5QWWj7dNnxvFvljRk-DsdIdvjrSBJMOrDvE_b_LnsSRayQj-cH4VXNOiXeL8q3L326svfBHUYDbTC7TYCf6TxL7yk1xIYyPn3OGGtA3P"/></div>
+        <div class="flex items-baseline justify-between"><h3 class="text-[20px] font-semibold">Mochi</h3><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eaeef8]">1.5 yrs</span></div>
+        <p class="text-[13px] text-[#5b403c] mt-1">Brooklyn, NY · Apricot</p>
+        <p class="text-[13px] italic text-[#5b403c] mt-3">“Loves plush toys and sleeping in afternoon sunbeams.”</p>
+      </article>
+      <article class="rounded-[2rem] bg-white p-5 shadow-sm">
+        <div class="h-52 rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img alt="Chocolate toy poodle Coco on a rug" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLtVpRFSwsA1j50zIDIx3SD_9g9y3KYB91YYV50tRr9wlJdxJ0C8jKsSfqeEAlI9cG8beZoKWF6WD3n-9aNZ49JsA9LusvSABDU6EJSEc96ZGwB2flSpHW7naV1Z81Baxh_ke3rHkPpPbXrKh77u2VkBGWLpygdgz11VB-5uzOQZaQpJ2SINj4eMqQZ2JVkS1UeP-6QJU7VJnhNSpn8lI3D7tRt5_cdSckFOwMGtqmukxPiK7AIPmy"/></div>
+        <div class="flex items-baseline justify-between"><h3 class="text-[20px] font-semibold">Coco</h3><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eaeef8]">8 mos</span></div>
+        <p class="text-[13px] text-[#5b403c] mt-1">London, UK · Chocolate</p>
+        <p class="text-[13px] italic text-[#5b403c] mt-3">“Master of the high-speed hallway zoomies.”</p>
+      </article>
+      <article class="rounded-[2rem] bg-white p-5 shadow-sm">
+        <div class="h-52 rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img alt="Cream toy poodle Biscotti on a sofa" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKhVfP3yDpTigKOSjcw39LS5y9FvmNCyiqf7T-2cOZ_A5fxsqmbkqOfmwVTAf5wpmMk38dtZUzXswpW0VpsXPKUgVBIF0w3EEisj9hEcDvhMeivhjUtN_Za2eMzoDVu8AsmxB2rC-QLeO3aVlXTO-xTbahC3ZnToq7pkgHPjiCdtCQlw0kY-Z2TpljCcOlSY3tSRAMnvqJSOG-fnR5E9t52P3KasBRat4bGstQ29aF5VjhbwZ5ecSD"/></div>
+        <div class="flex items-baseline justify-between"><h3 class="text-[20px] font-semibold">Biscotti</h3><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eaeef8]">3 yrs</span></div>
+        <p class="text-[13px] text-[#5b403c] mt-1">San Francisco, CA · Cream</p>
+        <p class="text-[13px] italic text-[#5b403c] mt-3">“Agility trainee and dedicated lap expert.”</p>
+      </article>
+      <article class="rounded-[2rem] bg-white p-5 shadow-sm">
+        <div class="h-52 rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img alt="Red toy poodle Teddy looking up" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPjUj7xDayKqLo3BYBi44a32IhqDVrdSHqfqCY2EU1C2zlJjU3lsacoSFUwdagGuSTfTA6CiA7b9uo1wC_x8ZedAfDQd3tJLhguv5J0Mo03GWkzSCSpp18K12liap5G6s5H75FFsDAEKR7oPUza01Qk2aQyAXcaf85pvk7-Y29kxSZ7h8IGPufXG5O8-2Uc3eoY9Ys1sklbDvOKKc0W9QUQ3XaFWkcyyXDkZIjAUuuZhW_TGDBeSmU"/></div>
+        <div class="flex items-baseline justify-between"><h3 class="text-[20px] font-semibold">Teddy</h3><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eaeef8]">2 yrs</span></div>
+        <p class="text-[13px] text-[#5b403c] mt-1">Toronto, CA · Red</p>
+        <p class="text-[13px] italic text-[#5b403c] mt-3">“Prefers humans to other dogs. Obsessed with cheese.”</p>
+      </article>
+    </div>
+    <div class="mt-12 text-center">
+      <a class="inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#eaeef8] text-[13px] font-semibold" href="#signup">Add your poodle’s profile <span class="font-normal text-[#5b403c]">→ two minutes</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-20 px-6 bg-[#f8f9ff]" id="questions">
+  <div class="max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <div class="lg:col-span-5">
+      <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Peer support</span>
+      <h2 class="text-[28px] sm:text-[40px] font-bold mt-2">Have a toy poodle question?</h2>
+      <p class="text-[18px] leading-7 text-[#5b403c] mt-4">Ask the circle. Experienced owners answer from real life: feeding, barking, harnesses, tear stains.</p>
+      <form class="mt-6 p-6 rounded-[2rem] bg-[#f0f4fd]" data-question>
+        <label class="block text-[13px] font-semibold mb-2" for="question">Ask the community</label>
+        <input class="w-full bg-white px-4 py-3.5 rounded-[1rem] text-[15px] focus:outline-none" id="question" placeholder="Best car seat for a 4 lb puppy?" required type="text"/>
+        <button class="mt-4 w-full py-3 rounded-full bg-primary text-white text-[13px] font-semibold" type="submit">Post question to members</button>
+        <p class="mt-2 text-center text-[13px] text-[#5b403c] question-note">Moderated so the feed stays about dogs, not ads.</p>
+      </form>
+    </div>
+    <div class="lg:col-span-7 flex flex-col gap-4">
+      <article class="p-6 rounded-[2rem] bg-white shadow-sm">
+        <h3 class="text-[20px] font-semibold">How do you handle sudden separation anxiety at 6 months?</h3>
+        <p class="text-[15px] leading-6 text-[#5b403c] mt-2">“Milo slept happily in his pen. Now he barks the second we leave the room. Fear period, or did we misstep?”</p>
+        <p class="text-[13px] text-[#5b403c] mt-4"><span class="font-semibold text-[#171c23]">Sarah &amp; Milo</span> · 2 hours ago · 3 answers</p>
+      </article>
+      <article class="p-6 rounded-[2rem] bg-white shadow-sm">
+        <h3 class="text-[20px] font-semibold">Best slicker brush that doesn’t scratch delicate skin?</h3>
+        <p class="text-[15px] leading-6 text-[#5b403c] mt-2">“Something with bent pins that doesn’t hurt on ear curls and armpits.”</p>
+        <p class="text-[13px] text-[#5b403c] mt-4"><span class="font-semibold text-[#171c23]">Julian &amp; Pip</span> · Yesterday · 5 recommendations</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-20 px-6 bg-[#f0f4fd]" id="about">
+  <div class="max-w-[1240px] mx-auto flex flex-col gap-16">
+    <div class="rounded-[2rem] bg-white p-8 md:p-12 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="max-w-xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eaeef8] text-[11px] font-bold mb-4"><span class="material-symbols-outlined text-base text-primary">play_circle</span> Instagram</div>
+        <h3 class="text-[28px] leading-9 font-bold">Short clips, then the full guide.</h3>
+        <p class="text-[15px] leading-6 text-[#5b403c] mt-2">Follow <strong class="text-[#171c23]">@poodle.circle</strong>. Every short Reel points back to a longer guide here, so the useful part doesn’t disappear in the feed.</p>
+      </div>
+      <a class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#e1e3e5] text-[#191c1e] text-[13px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank">Follow @poodle.circle <span class="material-symbols-outlined text-lg">open_in_new</span></a>
+    </div>
+    <div>
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Our philosophy</span>
+        <h2 class="text-[28px] font-bold mt-1">Four circle principles</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <article class="p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">01</span><h3 class="text-[20px] font-semibold mt-2">Be kind</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">Every owner was once awake at 3 a.m. with an eight-week-old puppy. No judgment.</p></article>
+        <article class="p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">02</span><h3 class="text-[20px] font-semibold mt-2">No puppy sales</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">No breeding ads, brokers, or classifieds. This is a companionship circle.</p></article>
+        <article class="p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">03</span><h3 class="text-[20px] font-semibold mt-2">Vet first</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">We share habits, not doses. Illness and emergencies belong with a veterinarian.</p></article>
+        <article class="p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">04</span><h3 class="text-[20px] font-semibold mt-2">Real homes</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">Muddy paws, imperfect haircuts, and the actual dog who lives with you.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="w-full py-20 px-6 bg-[#f8f9ff]" id="signup">
+  <div class="max-w-[1240px] mx-auto">
+    <div class="rounded-[3rem] bg-[#2c3138] text-white p-8 sm:p-14 text-center relative overflow-hidden">
+      <div class="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-primary/20 blur-3xl"></div>
+      <div class="relative z-10 max-w-2xl mx-auto">
+        <span class="px-4 py-1 rounded-full bg-white/10 text-[#ffdad4] text-[11px] font-bold uppercase tracking-wider">Early membership</span>
+        <h2 class="text-[28px] sm:text-[40px] font-bold mt-6">Join before the first meetup and directory launch.</h2>
+        <p class="text-[18px] leading-7 text-[#dee2ec] mt-4">Get the 10 starter guides, and a place to introduce your pup when the map of owners opens.</p>
+        <form class="mt-8 w-full max-w-md mx-auto flex flex-col sm:flex-row gap-3" data-signup>
+          <input class="flex-1 bg-white/10 px-5 py-3.5 rounded-full text-white placeholder:text-white/60 focus:outline-none" placeholder="Enter your email address" required type="email"/>
+          <button class="px-8 py-3.5 rounded-full bg-primary text-white text-[13px] font-semibold" type="submit">Claim free guides</button>
+        </form>
+        <p class="mt-4 text-[13px] text-[#dee2ec] signup-note">The guides arrive by email. No spam, and the starter set stays free.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</main>
+
+<footer class="w-full bg-[#f0f4fd]">
+  <div class="max-w-[1240px] mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-14">
+      <div class="md:col-span-5">
+        <div class="flex items-center gap-3">
+          <img alt="" class="h-7 w-auto" src="https://lh3.googleusercontent.com/aida/AEtjO1Vx-ctfxTIUX9YdHl-827FdHh_tp77H3mUHsivlCi5a_IiLSbUWAuNNUcJy1bcUI4H38kmGgT0q97uulIuR2ExsiCvYjBXmxuxw33x2K_vBweUba3SLoelnzaQObyRGu3ImGrGuUdX8yEgj6URYMDcL94D8qGjdWHkEIU2lPCup4H-H-DrO_jBaFwjYkX3OhPmfc3CxdbpMDj8_b0J6Gyg8YtUPbWekTW7Wu6hSLX_aawGwOicLV1SGcoQ"/>
+          <span class="text-[20px] font-semibold">Poodle<span class="italic font-normal text-primary">Circle</span></span>
+        </div>
+        <p class="text-[15px] leading-6 text-[#5b403c] max-w-sm mt-4">A community journal for toy poodle companions. Mindful care, honest routines, and the joy of a very small dog with a very large opinion.</p>
+        <p class="mt-4 text-[13px] leading-5 text-[#5b403c] max-w-md"><strong class="text-[#171c23]">Community note:</strong> Stories here come from owners, not veterinarians. Be kind. No selling puppies.</p>
+      </div>
+      <div class="md:col-span-2 md:col-start-7 flex flex-col gap-2.5 text-[15px]">
+        <span class="text-[13px] font-semibold uppercase tracking-wide">Explore</span>
+        <a class="text-[#5b403c]" href="#top">Home</a>
+        <a class="text-[#5b403c]" href="#game">Spoiled test</a>
+        <a class="text-[#5b403c]" href="#guides">Care library</a>
+        <a class="text-[#5b403c]" href="#dogs">Meet the dogs</a>
+      </div>
+      <div class="md:col-span-2 flex flex-col gap-2.5 text-[15px]">
+        <span class="text-[13px] font-semibold uppercase tracking-wide">Community</span>
+        <a class="text-[#5b403c]" href="#questions">Questions</a>
+        <a class="text-[#5b403c]" href="#signup">Join the circle</a>
+        <a class="text-[#5b403c]" href="#about">About</a>
+      </div>
+      <div class="md:col-span-2 flex flex-col gap-2.5 text-[15px]">
+        <span class="text-[13px] font-semibold uppercase tracking-wide">Trust</span>
+        <a class="text-[#5b403c]" href="#about">Code of conduct</a>
+        <a class="text-[#5b403c]" href="#guides">Health notice</a>
+      </div>
+    </div>
+    <p class="text-[13px] text-[#5b403c] pt-8 border-t border-[#e3beb8]/50">© 2026 Poodle Circle. Made for tiny companions.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var toggle = document.getElementById("nav-toggle");
+  var menu = document.getElementById("mobile-nav");
+  var icon = document.getElementById("nav-icon");
+  toggle.addEventListener("click", function () {
+    var open = menu.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    icon.textContent = open ? "close" : "menu";
+  });
+  menu.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      menu.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+      icon.textContent = "menu";
+    });
+  });
+
+  document.querySelectorAll("form[data-signup]").forEach(function (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var scope = form.closest("section") || form.parentElement;
+      var note = scope.querySelector(".signup-note");
+      if (note) note.textContent = "You’re in. Check your inbox for the 10 starter guides.";
+      form.reset();
+    });
+  });
+  var questionForm = document.querySelector("form[data-question]");
+  questionForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    questionForm.querySelector(".question-note").textContent = "Received. A member will see it once the circle opens.";
+    questionForm.reset();
+  });
+
+  var questions = [
+    { text: "Where does your poodle sleep?", mood: "Be honest. The dog is watching.", answers: [
+      ["In their own bed. Obviously.", 0],
+      ["In my bed.", 1],
+      ["Wherever they decide. I just pay the mortgage.", 2]
+    ]},
+    { text: "How many toys does your poodle have?", mood: "A basket is not a number.", answers: [
+      ["A reasonable number.", 0],
+      ["More than my shoes.", 1],
+      ["We don't count anymore.", 2]
+    ]},
+    { text: "Your poodle refuses to walk. What happens?", mood: "Selective hearing is a breed talent.", answers: [
+      ["I encourage them to continue.", 0],
+      ["I negotiate.", 1],
+      ["I carry the tiny aristocrat home.", 2]
+    ]},
+    { text: "Who gets the best spot on the sofa?", mood: "This one is not really a question.", answers: [
+      ["Whoever gets there first.", 0],
+      ["My poodle.", 1],
+      ["I am apparently just furniture now.", 2]
+    ]},
+    { text: "Your poodle hears a snack wrapper from another room.", mood: "The ears work when cheese is involved.", answers: [
+      ["They come running.", 0],
+      ["They teleport.", 1],
+      ["They were already standing next to me.", 2]
+    ]},
+    { text: "Who is actually in charge at home?", mood: "Last one. You already know.", answers: [
+      ["Me.", 0],
+      ["It's complicated.", 1],
+      ["The poodle. Obviously.", 2]
+    ]}
+  ];
+  var levels = [
+    { max: 25, title: "Responsible Poodle Parent", line: "You still have control of your household. For now." },
+    { max: 50, title: "Slightly Spoiled", line: "Your poodle has privileges. You still have boundaries." },
+    { max: 75, title: "Premium Poodle Lifestyle", line: "Your poodle has better service than most five-star hotels." },
+    { max: 90, title: "Officially Spoiled", line: "You don't say “no” anymore. You say “maybe later.”" },
+    { max: 100, title: "POODLE ROYALTY 👑", line: "Congratulations. You don't own a poodle. Your poodle owns you." }
+  ];
+
+  var stage = document.getElementById("quiz-stage");
+  var progress = document.getElementById("quiz-progress");
+  var step = document.getElementById("quiz-step");
+  var mood = document.getElementById("quiz-mood");
+  var bar = document.getElementById("quiz-bar");
+  var index = 0;
+  var points = 0;
+  var locked = false;
+
+  function levelFor(score) {
+    return levels.find(function (level) { return score <= level.max; });
+  }
+
+  function button(label, className) {
+    var el = document.createElement("a");
+    el.href = className === "join" ? "#signup" : "#game";
+    el.className = className === "join"
+      ? "inline-flex items-center justify-center min-h-14 px-6 rounded-full bg-primary text-white text-[15px] font-semibold"
+      : "inline-flex items-center justify-center min-h-14 px-6 rounded-full bg-[#eaeef8] text-[#171c23] text-[15px] font-semibold";
+    el.textContent = label;
+    return el;
+  }
+
+  function renderQuestion() {
+    var q = questions[index];
+    step.textContent = "Question " + (index + 1) + " of 6";
+    mood.textContent = q.mood;
+    bar.style.width = Math.round((index / questions.length) * 100) + "%";
+    stage.innerHTML = "";
+    var title = document.createElement("h3");
+    title.className = "text-[22px] sm:text-[28px] leading-snug font-bold";
+    title.textContent = q.text;
+    var list = document.createElement("div");
+    list.className = "mt-6 flex flex-col gap-3";
+    q.answers.forEach(function (answer) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "quiz-answer";
+      b.textContent = answer[0];
+      b.addEventListener("click", function () { choose(answer[1], b); });
+      list.appendChild(b);
+    });
+    stage.appendChild(title);
+    stage.appendChild(list);
+    stage.classList.remove("is-leaving");
+  }
+
+  function choose(value, chosen) {
+    if (locked) return;
+    locked = true;
+    points += value;
+    chosen.classList.add("is-picked");
+    window.setTimeout(function () {
+      stage.classList.add("is-leaving");
+      window.setTimeout(function () {
+        index += 1;
+        locked = false;
+        if (index >= questions.length) renderResult();
+        else renderQuestion();
+      }, 220);
+    }, 240);
+  }
+
+  function renderResult() {
+    var score = Math.round((points / (questions.length * 2)) * 100);
+    var level = levelFor(score);
+    progress.hidden = false;
+    bar.style.width = "100%";
+    step.textContent = "Result";
+    mood.textContent = score > 75 ? "The household has spoken." : "Noted, with affection.";
+    stage.innerHTML = "";
+    stage.classList.remove("is-leaving");
+
+    var wrap = document.createElement("div");
+    wrap.className = "text-center relative quiz-pop";
+    wrap.innerHTML =
+      '<p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">Your poodle spoiled score</p>' +
+      '<p class="quiz-score mt-3 text-[72px] leading-none font-extrabold tracking-tight" id="quiz-number">0%</p>' +
+      '<h3 class="mt-4 text-[28px] sm:text-[36px] leading-tight font-extrabold" id="quiz-title"></h3>' +
+      '<p class="mt-4 text-[18px] leading-7 text-[#5b403c] max-w-md mx-auto" id="quiz-line"></p>' +
+      '<p class="mt-3 text-[16px] leading-6">Your poodle has successfully trained you.</p>';
+    stage.appendChild(wrap);
+    document.getElementById("quiz-title").textContent = level.title;
+    document.getElementById("quiz-line").textContent = level.line;
+
+    var actions = document.createElement("div");
+    actions.className = "mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3";
+    var again = button("🐩  Play again", "again");
+    again.addEventListener("click", function (event) {
+      event.preventDefault();
+      index = 0;
+      points = 0;
+      locked = false;
+      renderQuestion();
+    });
+    actions.appendChild(again);
+    actions.appendChild(button("💗  Join Poodle Circle", "join"));
+    stage.appendChild(actions);
+
+    if (score > 75) {
+      ["🐾", "✨", "👑", "🐾", "✨"].forEach(function (mark, i) {
+        var spark = document.createElement("span");
+        spark.className = "quiz-float";
+        spark.setAttribute("aria-hidden", "true");
+        spark.textContent = mark;
+        spark.style.left = (12 + i * 18) + "%";
+        spark.style.bottom = "28%";
+        spark.style.animationDelay = (i * 0.12) + "s";
+        wrap.appendChild(spark);
+      });
+    }
+
+    var number = document.getElementById("quiz-number");
+    var start = performance.now();
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function tick(now) {
+      var t = reduce ? 1 : Math.min(1, (now - start) / 900);
+      var eased = 1 - Math.pow(1 - t, 3);
+      number.textContent = Math.round(score * eased) + "%";
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  progress.hidden = false;
+  renderQuestion();
+})();
+</script>
+</body>
+</html>
