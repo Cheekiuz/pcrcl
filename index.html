@@ -77,8 +77,21 @@ try {
     100% { transform: scale(1); }
   }
   .quiz-pop { animation: quiz-pop .55s ease; }
+  .hero-photo {
+    object-position: 70% center;
+  }
   .hero-fade {
-    background: linear-gradient(to bottom, rgba(44, 49, 56, 0.85), rgba(44, 49, 56, 0.7), #f8f9ff);
+    background:
+      linear-gradient(to right, rgba(32, 28, 26, 0.42) 0%, rgba(32, 28, 26, 0.34) 46%, rgba(32, 28, 26, 0.08) 72%, rgba(32, 28, 26, 0.16) 100%),
+      linear-gradient(to bottom, rgba(32, 28, 26, 0.18) 0%, rgba(32, 28, 26, 0.05) 58%, #f8f9ff 100%);
+  }
+  html[data-theme="dark"] .hero-fade {
+    background:
+      linear-gradient(to right, rgba(12, 14, 18, 0.5) 0%, rgba(12, 14, 18, 0.34) 46%, rgba(12, 14, 18, 0.08) 72%, rgba(12, 14, 18, 0.2) 100%),
+      linear-gradient(to bottom, rgba(12, 14, 18, 0.2) 0%, rgba(12, 14, 18, 0.05) 55%, #12161c 100%);
+  }
+  #top h1, #top .hero-copy {
+    text-shadow: 0 2px 16px rgba(20, 16, 14, 0.45);
   }
   html[data-theme="dark"] { color-scheme: dark; }
   html[data-theme="dark"] body,
@@ -290,8 +303,7 @@ tailwind.config = {
 <header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
   <div class="h-20 max-w-[1240px] mx-auto px-6 flex items-center justify-between gap-6">
     <a class="flex items-center gap-3 shrink-0 group" href="#top">
-      <img alt="Poodle Circle logo" class="h-8 w-auto object-contain transition-transform group-hover:scale-105" src="assets/logo.png"/>
-      <span class="text-[20px] leading-7 font-semibold tracking-tight">Poodle<span class="italic font-normal text-primary">Circle</span></span>
+      <img alt="Poodle Circle" class="h-14 w-auto object-contain transition-transform group-hover:scale-105" src="assets/logo.png"/>
     </a>
     <nav class="hidden lg:flex items-center gap-1 bg-white px-2 py-1.5 rounded-full shadow-[0_2px_12px_rgba(30,35,42,0.04)]" aria-label="Primary">
       <a class="px-4 py-2 rounded-full text-[13px] font-semibold bg-[#eaeef8]" href="#top">Home</a>
@@ -331,7 +343,7 @@ tailwind.config = {
 
 <section class="relative w-full overflow-hidden -mt-20" id="top">
   <div class="absolute inset-0 z-0">
-    <img alt="A curly red toy poodle sitting on a cream blanket in a warm evening room" class="w-full h-full object-cover object-center scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmW4avmRcjfIKv--CQNCozGBIU-egdfL-OmVPaB9HpnCuT60QNCTG-k0pZ9SweWySlek4piw89bDUPtkqizyMv6jI_NrqREaMicS9UtnTeVFlCJDXFc0Gi_UEyckc3NfQMFudI045f-iwQmWB6xw90PRvbnejLljLE3zGQM7OViK6zGnrQHyft8ptKoUfgLl4ntKEOahnzQNXEPI4zOq3PQrTswv_DQ-Uks5OqK2wDaM-lASTKFC5B"/>
+    <img alt="A curly red toy poodle sitting on a cream blanket in a warm evening room" class="hero-photo w-full h-full object-cover" src="assets/hero.png"/>
     <div class="hero-fade absolute inset-0"></div>
   </div>
   <div class="relative z-10 max-w-[1240px] mx-auto px-6 pt-36 pb-20 sm:pt-44 sm:pb-28 flex flex-col items-center text-center">
@@ -342,7 +354,7 @@ tailwind.config = {
     <h1 class="text-[36px] leading-[42px] sm:text-[56px] sm:leading-[64px] font-extrabold tracking-tight text-white max-w-4xl">
       The honest club for toy poodle owners, <span class="text-[#ffb4a7] italic font-serif font-normal">from day one.</span>
     </h1>
-    <p class="mt-6 text-[18px] leading-7 text-[#dee2ec] max-w-2xl">
+    <p class="hero-copy mt-6 text-[18px] leading-7 text-[#dee2ec] max-w-2xl">
       One supportive community, real owner experiences, zero fluff. Everything you need for the first 30 days, coat care routines, and raising a happy companion in city life.
     </p>
     <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -626,8 +638,7 @@ tailwind.config = {
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-14">
       <div class="md:col-span-5">
         <div class="flex items-center gap-3">
-          <img alt="" class="h-7 w-auto" src="assets/logo.png"/>
-          <span class="text-[20px] font-semibold">Poodle<span class="italic font-normal text-primary">Circle</span></span>
+          <img alt="Poodle Circle" class="h-14 w-auto object-contain" src="assets/logo.png"/>
         </div>
         <p class="text-[15px] leading-6 text-[#5b403c] max-w-sm mt-4">A community journal for toy poodle companions. Mindful care, honest routines, and the joy of a very small dog with a very large opinion.</p>
         <p class="mt-4 text-[13px] leading-5 text-[#5b403c] max-w-md"><strong class="text-[#171c23]">Community note:</strong> Stories here come from owners, not veterinarians. Be kind. No selling puppies.</p>
