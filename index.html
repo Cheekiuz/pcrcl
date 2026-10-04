@@ -124,6 +124,99 @@ try {
   html[data-theme="dark"] .keep-light input,
   html[data-theme="dark"] .keep-light input::placeholder { color: #171c23; }
   html[data-theme="dark"] input::placeholder { color: #a89890; }
+  .parkour-board {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    border-radius: 2rem;
+    overflow: hidden;
+    background: #f7f1ea;
+    box-shadow: 0 12px 32px rgba(44, 49, 56, 0.08);
+    touch-action: none;
+    outline: none;
+  }
+  .parkour-board:focus-visible { outline: 3px solid #b22110; outline-offset: 4px; }
+  .parkour-board canvas { width: 100%; height: 100%; display: block; }
+  .parkour-hud {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: #2c241f;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    pointer-events: none;
+  }
+  .parkour-banner {
+    position: absolute;
+    top: 54px;
+    left: 12px;
+    right: 12px;
+    text-align: center;
+    color: #b22110;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.03em;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .parkour-banner.show { animation: parkour-pop 1.5s ease; }
+  .parkour-float {
+    position: absolute;
+    color: #b22110;
+    font-weight: 800;
+    pointer-events: none;
+    animation: parkour-rise 0.7s ease forwards;
+  }
+  .parkour-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px;
+    text-align: center;
+    background: rgba(247, 241, 234, 0.78);
+    backdrop-filter: blur(8px);
+  }
+  .parkour-overlay[hidden] { display: none; }
+  .parkour-board, .parkour-overlay h3 { color: #2c241f; }
+  .parkour-overlay h3 { margin: 0; font-size: 28px; line-height: 1.15; letter-spacing: -0.03em; }
+  .parkour-overlay p { margin: 0; color: #5b403c; }
+  .parkour-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 8px; }
+  .parkour-actions button, .parkour-actions a, #parkour-start-btn {
+    min-height: 48px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 999px;
+    font: 700 15px/1 "Plus Jakarta Sans", sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  #parkour-start-btn, #parkour-again { background: #b22110; color: #fff; }
+  #parkour-join { display: inline-flex; align-items: center; background: #eaeef8; color: #171c23; }
+  @keyframes parkour-pop {
+    0% { opacity: 0; transform: translateY(8px) scale(0.96); }
+    12% { opacity: 1; transform: none; }
+    75% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes parkour-rise {
+    to { opacity: 0; transform: translateY(-28px); }
+  }
+  @media (max-width: 640px) {
+    .parkour-board { height: 280px; border-radius: 1.4rem; }
+    .parkour-overlay h3 { font-size: 22px; }
+  }
+  @media (pointer: coarse) { .parkour-keys { display: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .parkour-banner.show, .parkour-float { animation: none; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .quiz-answer, .quiz-card, .quiz-bar > span { transition: none; }
     .quiz-float, .quiz-pop { animation: none; }
@@ -223,6 +316,7 @@ tailwind.config = {
     <nav class="flex flex-col gap-1" aria-label="Mobile">
       <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#top">Home</a>
       <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#game">Spoiled Test</a>
+      <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#parkour">Parkour</a>
       <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#guides">New Owner Guide</a>
       <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#dogs">Meet the Dogs</a>
       <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#questions">Questions</a>
@@ -313,6 +407,42 @@ tailwind.config = {
       </div>
       <div class="quiz-card mt-8" id="quiz-stage"></div>
     </div>
+  </div>
+</section>
+
+<section class="w-full py-20 px-6 bg-[#f0f4fd]" id="parkour">
+  <div class="max-w-[1240px] mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-8">
+      <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">A tiny athletic event</p>
+      <h2 class="mt-3 text-[28px] leading-9 sm:text-[40px] sm:leading-[48px] font-extrabold tracking-tight">🐩 Ready, set, poodle!</h2>
+      <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">How long can your tiny fluffball survive?</p>
+    </div>
+    <div class="parkour-board" id="parkour-board" tabindex="0" role="application" aria-label="Poodle Parkour. Tap or press space to jump.">
+      <canvas id="parkour-canvas"></canvas>
+      <div class="parkour-hud" aria-hidden="true">
+        <span>POODLE POWER: <span id="parkour-power">0</span></span>
+        <span>🦴 Treats: <span id="parkour-treats">0</span></span>
+      </div>
+      <div class="parkour-banner" id="parkour-banner"></div>
+      <div class="parkour-overlay" id="parkour-start">
+        <p class="text-[13px] font-bold tracking-[0.14em] uppercase text-primary">🐩 Poodle Parkour</p>
+        <h3>How long can your tiny athlete survive?</h3>
+        <button id="parkour-start-btn" type="button">Tap to jump</button>
+        <p class="parkour-keys">Space = jump</p>
+      </div>
+      <div class="parkour-overlay" id="parkour-over" hidden>
+        <h3 id="parkour-ohno">OH NO! 😭</h3>
+        <p id="parkour-result"></p>
+        <p id="parkour-time"></p>
+        <p id="parkour-quip"></p>
+        <div class="parkour-actions">
+          <button id="parkour-again" type="button">🐩 Play again</button>
+          <a id="parkour-join" href="#signup">💗 Join Poodle Circle</a>
+        </div>
+      </div>
+    </div>
+    <p class="mt-6 text-center text-[16px] text-[#5b403c]">Think your poodle can beat that score?</p>
+    <p class="mt-1 text-center text-[18px] font-extrabold">🏆 Best score: <span id="parkour-best">0</span></p>
   </div>
 </section>
 
@@ -506,6 +636,7 @@ tailwind.config = {
         <span class="text-[13px] font-semibold uppercase tracking-wide">Explore</span>
         <a class="text-[#5b403c]" href="#top">Home</a>
         <a class="text-[#5b403c]" href="#game">Spoiled test</a>
+        <a class="text-[#5b403c]" href="#parkour">Parkour</a>
         <a class="text-[#5b403c]" href="#guides">Care library</a>
         <a class="text-[#5b403c]" href="#dogs">Meet the dogs</a>
       </div>
@@ -745,5 +876,6 @@ tailwind.config = {
   renderQuestion();
 })();
 </script>
+<script src="parkour.js"></script>
 </body>
 </html>
