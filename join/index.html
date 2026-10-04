@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="robots" content="noindex"/>
+<title>Join Poodle Circle</title>
+<meta name="description" content="Register an owner profile for your toy poodle. Your email stays in the member list. The public directory is still closed."/>
+<link rel="icon" href="../favicon.ico" sizes="32x32"/>
+<link rel="icon" type="image/png" href="../assets/favicon.png"/>
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/circle.css"/>
+<script>
+try {
+  if (localStorage.getItem("poodlecircle-theme") === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+} catch (e) {}
+</script>
+</head>
+<body data-page="join">
+<header class="bar">
+  <a class="brand" href="../">
+    <img class="site-logo-light" alt="Poodle Circle" src="../assets/logo.png"/>
+    <img class="site-logo-dark" alt="Poodle Circle" src="../assets/logo-dark.png"/>
+  </a>
+  <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">☾</button>
+</header>
+<main class="page">
+  <p class="kicker">Owner profile</p>
+  <h1>Join the circle</h1>
+  <p class="lede">A private profile for you and your toy poodle. Your email is saved. This does not publish a member directory.</p>
+  <section class="card">
+    <div class="switch">
+      <button class="is-on" id="show-register" type="button">Register</button>
+      <button id="show-signin" type="button">Sign in</button>
+    </div>
+    <p class="error" id="form-error" hidden></p>
+    <div id="register-panel">
+      <form id="register-form">
+        <label>Your name
+          <input name="owner_name" autocomplete="name" required type="text"/>
+        </label>
+        <label>Email
+          <input name="email" autocomplete="email" required type="email"/>
+        </label>
+        <label>Password
+          <input name="password" autocomplete="new-password" minlength="8" required type="password"/>
+        </label>
+        <label>Puppy's name
+          <input name="puppy_name" autocomplete="off" type="text"/>
+        </label>
+        <label>Color
+          <input name="color" autocomplete="off" placeholder="Apricot, red, cream" type="text"/>
+        </label>
+        <label>City
+          <input name="city" autocomplete="address-level2" type="text"/>
+        </label>
+        <label>A line about your dog
+          <textarea name="about" maxlength="180"></textarea>
+        </label>
+        <button class="primary" type="submit">Create my profile</button>
+        <p class="note">The password stays with your account. This page does not show other owners' emails.</p>
+      </form>
+    </div>
+    <div id="signin-panel" hidden>
+      <form id="signin-form">
+        <label>Email
+          <input name="email" autocomplete="email" required type="email"/>
+        </label>
+        <label>Password
+          <input name="password" autocomplete="current-password" required type="password"/>
+        </label>
+        <button class="primary" type="submit">Open my profile</button>
+      </form>
+    </div>
+    <div id="done-panel" hidden>
+      <h2 class="puppy">Check your email</h2>
+      <p class="lede">Your address is saved. Open the confirmation message for <strong id="done-email"></strong>, then sign in to see your profile.</p>
+      <div class="actions">
+        <button class="primary" id="done-signin" type="button">Sign in</button>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="../assets/supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/owner.js"></script>
+<script>
+document.getElementById("done-signin").addEventListener("click", function () {
+  document.getElementById("done-panel").hidden = true;
+  document.querySelector(".switch").hidden = false;
+  document.getElementById("show-signin").click();
+});
+</script>
+</body>
+</html>
