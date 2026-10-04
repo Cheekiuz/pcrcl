@@ -78,11 +78,10 @@ try {
       </form>
     </div>
     <div id="done-panel" hidden>
-      <h2 class="puppy">Your profile is almost ready</h2>
-      <p class="lede">Poodle Circle saved <strong id="done-email"></strong>. Open the message and confirm your address, then come back to poodlecircle.com and sign in.</p>
-      <p class="note">This is your Poodle Circle profile, not a public directory.</p>
+      <p class="lede" id="done-copy" style="margin-top: 0;">Poodle Circle saved <strong id="done-email"></strong>. Confirm the message, then open your profile.</p>
+      <p class="error" id="done-error" hidden></p>
       <div class="actions">
-        <button class="primary" id="done-signin" type="button">Sign in</button>
+        <button class="primary" id="done-signin" type="button">Open my profile</button>
       </div>
     </div>
   </section>
@@ -90,15 +89,5 @@ try {
 <script src="../assets/supabase-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="../assets/owner.js"></script>
-<script>
-document.getElementById("done-signin").addEventListener("click", function () {
-  document.getElementById("done-panel").hidden = true;
-  document.querySelector(".switch").hidden = false;
-  document.getElementById("page-kicker").textContent = "Owner profile";
-  document.getElementById("page-title").textContent = "Join the circle";
-  document.getElementById("page-lede").textContent = "A private profile for you and your toy poodle. Your email is saved. This does not publish a member directory.";
-  document.getElementById("show-signin").click();
-});
-</script>
 </body>
 </html>

@@ -85,8 +85,31 @@
     return "https://poodlecircle.com/profile/";
   }
 
+  function hideJoinForm() {
+    document.querySelector(".switch").style.setProperty("display", "none", "important");
+    document.getElementById("register-panel").style.setProperty("display", "none", "important");
+    document.getElementById("signin-panel").style.setProperty("display", "none", "important");
+    document.getElementById("form-error").style.setProperty("display", "none", "important");
+  }
+
+  function showProfileReady(email) {
+    hideJoinForm();
+    document.getElementById("done-panel").hidden = false;
+    document.getElementById("done-email").textContent = email;
+    document.getElementById("page-kicker").textContent = "Poodle Circle";
+    document.getElementById("page-title").textContent = "Your profile is ready";
+    document.getElementById("page-lede").textContent = "This profile stays private. Open it after you confirm the email.";
+  }
+
   function mountJoin() {
     bindTheme();
+    var pending = null;
+    var sb = client();
+    if (sb) {
+      sb.auth.getSession().then(function (existing) {
+        if (existing.data.session) window.location.replace(redirectTo());
+      });
+    }
     var registerForm = document.getElementById("register-form");
     var signinForm = document.getElementById("signin-form");
     var registerPanel = document.getElementById("register-panel");
@@ -153,15 +176,8 @@
         window.location.href = redirectTo();
         return;
       }
-      registerPanel.hidden = true;
-      signinPanel.hidden = true;
-      document.querySelector(".switch").hidden = true;
-      errorNode.hidden = true;
-      donePanel.hidden = false;
-      document.getElementById("done-email").textContent = fields.email;
-      document.getElementById("page-kicker").textContent = "Poodle Circle";
-      document.getElementById("page-title").textContent = "Check your email";
-      document.getElementById("page-lede").textContent = "Poodle Circle sent a confirmation for your owner profile. After you confirm, sign in at poodlecircle.com.";
+      pending = { email: fields.email, password: fields.password, fields: fields };
+      showProfileReady(fields.email);
     });
 
     signinForm.addEventListener("submit", async function (event) {
@@ -179,6 +195,29 @@
         showError(errorNode, friendly(result.error));
         return;
       }
+      window.location.href = redirectTo();
+    });
+
+    document.getElementById("done-signin").addEventListener("click", async function () {
+      var doneError = document.getElementById("done-error");
+      if (!pending) {
+        showError(doneError, "Register again, then open your profile.");
+        return;
+      }
+      var ready = client();
+      if (!ready) {
+        showError(doneError, "Registration is not connected yet. The project API key is still missing.");
+        return;
+      }
+      var signed = await ready.auth.signInWithPassword({
+        email: pending.email,
+        password: pending.password
+      });
+      if (signed.error) {
+        showError(doneError, friendly(signed.error));
+        return;
+      }
+      await saveRow(ready, signed.data.user, pending.fields);
       window.location.href = redirectTo();
     });
   }
