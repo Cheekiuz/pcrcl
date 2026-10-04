@@ -41,6 +41,17 @@ try {
     </div>
   </section>
   <section class="card" id="profile-card" hidden>
+    <div class="photo" id="photo">
+      <img id="dog-photo-img" alt="Your toy poodle" hidden/>
+      <div class="photo-empty" id="photo-empty">
+        <p class="note" id="photo-hint">A picture of your toy poodle, just for this profile.</p>
+        <label class="ghost file-label">
+          <span id="photo-label-text">Add your dog's picture</span>
+          <input class="file-input" id="dog-photo" accept="image/jpeg,image/png,image/webp" type="file"/>
+        </label>
+      </div>
+    </div>
+    <p class="error" id="photo-error" hidden></p>
     <div class="profile-top">
       <div class="mark" id="mark" aria-hidden="true">P</div>
       <div>

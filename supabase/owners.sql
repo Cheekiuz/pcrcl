@@ -11,8 +11,11 @@ create table if not exists public.owners (
   color text,
   city text,
   about text,
+  photo_path text,
   created_at timestamptz not null default now()
 );
+
+alter table public.owners add column if not exists photo_path text;
 
 alter table public.owners enable row level security;
 
@@ -73,3 +76,60 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_owner();
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'dog-photos',
+  'dog-photos',
+  false,
+  5242880,
+  array['image/jpeg', 'image/png', 'image/webp']
+)
+on conflict (id) do update
+set public = false,
+    file_size_limit = excluded.file_size_limit,
+    allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "owners read own dog photo" on storage.objects;
+create policy "owners read own dog photo"
+  on storage.objects
+  for select
+  to authenticated
+  using (
+    bucket_id = 'dog-photos'
+    and (storage.foldername(name))[1] = auth.uid()::text
+  );
+
+drop policy if exists "owners upload own dog photo" on storage.objects;
+create policy "owners upload own dog photo"
+  on storage.objects
+  for insert
+  to authenticated
+  with check (
+    bucket_id = 'dog-photos'
+    and (storage.foldername(name))[1] = auth.uid()::text
+  );
+
+drop policy if exists "owners replace own dog photo" on storage.objects;
+create policy "owners replace own dog photo"
+  on storage.objects
+  for update
+  to authenticated
+  using (
+    bucket_id = 'dog-photos'
+    and (storage.foldername(name))[1] = auth.uid()::text
+  )
+  with check (
+    bucket_id = 'dog-photos'
+    and (storage.foldername(name))[1] = auth.uid()::text
+  );
+
+drop policy if exists "owners delete own dog photo" on storage.objects;
+create policy "owners delete own dog photo"
+  on storage.objects
+  for delete
+  to authenticated
+  using (
+    bucket_id = 'dog-photos'
+    and (storage.foldername(name))[1] = auth.uid()::text
+  );

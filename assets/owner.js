@@ -42,6 +42,7 @@
       color: source.color || meta.color || "",
       city: source.city || meta.city || "",
       about: source.about || meta.about || "",
+      photo_path: source.photo_path || meta.photo_path || "",
       email: source.email || (user && user.email) || "",
       created_at: source.created_at || (user && user.created_at) || ""
     };
@@ -182,6 +183,38 @@
     });
   }
 
+  function photoFailure(error) {
+    var message = (error && error.message) || "";
+    if (/bucket not found|not found/i.test(message)) return "Picture storage is not ready yet. The dog-photos folder still needs to be created.";
+    if (/row-level security|unauthorized|403/i.test(message)) return "This picture could not be saved to your profile yet.";
+    if (/mime|invalid/i.test(message)) return "Use a JPG, PNG, or WebP picture.";
+    if (/size|too large|payload/i.test(message)) return "Use a picture smaller than 5 MB.";
+    return "The picture did not upload. Try again.";
+  }
+
+  function paintDogPhoto(src, puppyName) {
+    var img = document.getElementById("dog-photo-img");
+    img.src = src;
+    img.alt = puppyName ? puppyName + ", a toy poodle" : "Your toy poodle";
+    img.hidden = false;
+    document.getElementById("photo").classList.add("has-image");
+    document.getElementById("photo-label-text").textContent = "Change picture";
+  }
+
+  function clearDogPhoto() {
+    var img = document.getElementById("dog-photo-img");
+    img.hidden = true;
+    img.removeAttribute("src");
+    document.getElementById("photo").classList.remove("has-image");
+    document.getElementById("photo-label-text").textContent = "Add your dog's picture";
+  }
+
+  async function showDogPhoto(sb, path, puppyName) {
+    var signed = await sb.storage.from("dog-photos").createSignedUrl(path, 60 * 60);
+    if (signed.error || !signed.data || !signed.data.signedUrl) return;
+    paintDogPhoto(signed.data.signedUrl, puppyName);
+  }
+
   function formatDate(value) {
     var date = new Date(value);
     if (!value || Number.isNaN(date.getTime())) return "";
@@ -222,6 +255,46 @@
     joinedNode.hidden = !joined;
     joinedNode.textContent = joined ? "Registered " + joined : "";
     card.hidden = false;
+    var photoPath = profile.photo_path;
+    if (photoPath) await showDogPhoto(sb, photoPath, profile.puppy_name);
+
+    document.getElementById("dog-photo").addEventListener("change", async function (event) {
+      var file = event.target.files && event.target.files[0];
+      event.target.value = "";
+      var photoErrorNode = document.getElementById("photo-error");
+      if (!file) return;
+      if (!/^image\/(jpeg|png|webp)$/.test(file.type)) {
+        showError(photoErrorNode, "Use a JPG, PNG, or WebP picture.");
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        showError(photoErrorNode, "Use a picture smaller than 5 MB.");
+        return;
+      }
+      showError(photoErrorNode, "");
+      var img = document.getElementById("dog-photo-img");
+      var previous = img.getAttribute("src") || "";
+      var preview = URL.createObjectURL(file);
+      paintDogPhoto(preview, profile.puppy_name);
+      var path = user.id + "/dog";
+      var uploaded = await sb.storage.from("dog-photos").upload(path, file, {
+        upsert: true,
+        contentType: file.type,
+        cacheControl: "3600"
+      });
+      URL.revokeObjectURL(preview);
+      if (uploaded.error) {
+        if (previous && previous.indexOf("blob:") !== 0) paintDogPhoto(previous, profile.puppy_name);
+        else clearDogPhoto();
+        showError(photoErrorNode, photoFailure(uploaded.error));
+        return;
+      }
+      await sb.auth.updateUser({ data: { photo_path: path } });
+      await sb.from("owners").update({ photo_path: path }).eq("id", user.id);
+      photoPath = path;
+      profile.photo_path = path;
+      await showDogPhoto(sb, path, profile.puppy_name);
+    });
 
     document.getElementById("sign-out").addEventListener("click", async function () {
       await sb.auth.signOut();
