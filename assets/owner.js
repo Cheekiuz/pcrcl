@@ -77,7 +77,11 @@
   }
 
   function redirectTo() {
-    return new URL("../profile/", window.location.href).href;
+    var host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") {
+      return new URL("../profile/", window.location.href).href;
+    }
+    return "https://poodlecircle.com/profile/";
   }
 
   function mountJoin() {
@@ -151,8 +155,12 @@
       registerPanel.hidden = true;
       signinPanel.hidden = true;
       document.querySelector(".switch").hidden = true;
+      errorNode.hidden = true;
       donePanel.hidden = false;
       document.getElementById("done-email").textContent = fields.email;
+      document.getElementById("page-kicker").textContent = "Poodle Circle";
+      document.getElementById("page-title").textContent = "Check your email";
+      document.getElementById("page-lede").textContent = "Poodle Circle sent a confirmation for your owner profile. After you confirm, sign in at poodlecircle.com.";
     });
 
     signinForm.addEventListener("submit", async function (event) {

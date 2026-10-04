@@ -87,6 +87,7 @@ h1 {
   padding: 28px;
   box-shadow: var(--shadow);
 }
+[hidden] { display: none !important; }
 .switch {
   display: flex;
   gap: 8px;

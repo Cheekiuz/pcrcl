@@ -30,9 +30,9 @@ try {
   <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">☾</button>
 </header>
 <main class="page">
-  <p class="kicker">Owner profile</p>
-  <h1>Join the circle</h1>
-  <p class="lede">A private profile for you and your toy poodle. Your email is saved. This does not publish a member directory.</p>
+  <p class="kicker" id="page-kicker">Owner profile</p>
+  <h1 id="page-title">Join the circle</h1>
+  <p class="lede" id="page-lede">A private profile for you and your toy poodle. Your email is saved. This does not publish a member directory.</p>
   <section class="card">
     <div class="switch">
       <button class="is-on" id="show-register" type="button">Register</button>
@@ -78,8 +78,9 @@ try {
       </form>
     </div>
     <div id="done-panel" hidden>
-      <h2 class="puppy">Check your email</h2>
-      <p class="lede">Your address is saved. Open the confirmation message for <strong id="done-email"></strong>, then sign in to see your profile.</p>
+      <h2 class="puppy">Your profile is almost ready</h2>
+      <p class="lede">Poodle Circle saved <strong id="done-email"></strong>. Open the message and confirm your address, then come back to poodlecircle.com and sign in.</p>
+      <p class="note">This is your Poodle Circle profile, not a public directory.</p>
       <div class="actions">
         <button class="primary" id="done-signin" type="button">Sign in</button>
       </div>
@@ -93,6 +94,9 @@ try {
 document.getElementById("done-signin").addEventListener("click", function () {
   document.getElementById("done-panel").hidden = true;
   document.querySelector(".switch").hidden = false;
+  document.getElementById("page-kicker").textContent = "Owner profile";
+  document.getElementById("page-title").textContent = "Join the circle";
+  document.getElementById("page-lede").textContent = "A private profile for you and your toy poodle. Your email is saved. This does not publish a member directory.";
   document.getElementById("show-signin").click();
 });
 </script>
