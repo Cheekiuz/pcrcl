@@ -52,6 +52,23 @@
 <link rel="icon" href="favicon.ico" sizes="32x32"/>
 <link rel="icon" type="image/png" href="assets/favicon.png"/>
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+<script>
+(function () {
+  var hash = window.location.hash || "";
+  var search = window.location.search || "";
+  var hasSession = /(?:^|[#&])access_token=/.test(hash) || /(?:^|[?&])code=/.test(search);
+  var hasError = /(?:^|[#&])error=/.test(hash) || /(?:^|[?&])error=/.test(search);
+  if (!hasSession && !hasError) return;
+  var next = new URL(hasSession ? "profile/" : "join/", window.location.href);
+  if (hasSession) {
+    next.search = search;
+    next.hash = hash;
+  } else {
+    next.search = "?mode=signin";
+  }
+  window.location.replace(next.href);
+})();
+</script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&amp;display=swap" rel="stylesheet"/>

@@ -270,10 +270,22 @@
       document.getElementById("gate-copy").textContent = "This profile is not connected yet. The project API key is still missing.";
       return;
     }
-    var sessionResult = await sb.auth.getSession();
-    var user = sessionResult.data.session && sessionResult.data.session.user;
+    var code = new URLSearchParams(window.location.search).get("code");
+    if (code) {
+      try { await sb.auth.exchangeCodeForSession(code); } catch (e) {}
+    }
+    var sessionResult = null;
+    try {
+      sessionResult = await sb.auth.getSession();
+    } catch (e) {
+      sessionResult = null;
+    }
+    var user = sessionResult && sessionResult.data.session && sessionResult.data.session.user;
     if (!user) {
       gate.hidden = false;
+      if (/error=|otp_expired|access_denied/.test(window.location.hash + window.location.search)) {
+        document.getElementById("gate-copy").textContent = "That confirmation link has expired. Sign in with your email and password.";
+      }
       return;
     }
     var rowResult = await sb.from("owners").select("*").eq("id", user.id).maybeSingle();
