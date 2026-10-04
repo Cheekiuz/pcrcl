@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<title>The first 30 days with your toy poodle</title>
+<meta name="description" content="A practical first-month guide for toy poodle owners. Safety, routine, house training, socialisation, and trust."/>
+<link rel="icon" href="../favicon.ico" sizes="32x32"/>
+<link rel="icon" type="image/png" href="../assets/favicon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,650;1,6..72,520&amp;family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<script>
+try {
+  if (localStorage.getItem("poodlecircle-theme") === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+  if (localStorage.getItem("poodlecircle-owner")) {
+    document.documentElement.classList.add("is-owner");
+  }
+} catch (e) {}
+</script>
+<style>
+  :root {
+    --bg: #f8f9ff;
+    --ink: #171c23;
+    --muted: #5b403c;
+    --card: #ffffff;
+    --soft: #f0f4fd;
+    --primary: #b22110;
+    --accent: #b22110;
+    --line: #e7d5cf;
+    --shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+  }
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #12161c;
+    --ink: #f6f1ea;
+    --muted: #c9beb6;
+    --card: #222833;
+    --soft: #181d26;
+    --accent: #ffb4a7;
+    --line: #5c6573;
+    --shadow: none;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    line-height: 1.6;
+  }
+  a { color: var(--accent); }
+  img { max-width: 100%; display: block; }
+  .wrap { width: min(760px, calc(100% - 40px)); margin: 0 auto; }
+  .wide { width: min(920px, calc(100% - 40px)); margin: 0 auto; }
+  header.bar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: 76px;
+    padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; }
+  .brand img { height: 48px; width: auto; }
+  .site-logo-dark { display: none; }
+  html[data-theme="dark"] .site-logo-light { display: none; }
+  html[data-theme="dark"] .site-logo-dark { display: block; }
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+    font: inherit;
+    font-size: 18px;
+  }
+  .kicker {
+    margin: 0;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 10px 0 0;
+    font-family: Newsreader, serif;
+    font-weight: 650;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .dek { margin: 16px 0 0; color: var(--muted); font-size: 18px; }
+  .figure {
+    margin: 28px 0;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--soft);
+  }
+  .figure img { width: 100%; height: auto; }
+  .figure figcaption {
+    padding: 10px 16px 14px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 28px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+  form { display: grid; gap: 14px; }
+  label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; }
+  input {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 14px 18px;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 400;
+  }
+  input:focus { outline: 2px solid var(--primary); outline-offset: 2px; }
+  button.primary, a.primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 999px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 22px;
+    cursor: pointer;
+  }
+  .note { margin: 0; color: var(--muted); font-size: 13px; }
+  .error { margin: 0; color: var(--accent); font-size: 13px; font-weight: 600; }
+  #guide { display: none; }
+  html.is-owner #gate { display: none; }
+  html.is-owner #guide { display: block; }
+  .reader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 28px auto 0;
+    padding: 14px 18px;
+    background: var(--card);
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+  }
+  .text-btn {
+    border: 0;
+    background: transparent;
+    color: var(--accent);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+  }
+  .focuses {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin: 28px 0 8px;
+    padding: 0;
+    list-style: none;
+  }
+  .focuses li {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 14px 10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 650;
+    box-shadow: var(--shadow);
+  }
+  .focuses span {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--accent);
+    font-family: Newsreader, serif;
+    font-size: 22px;
+  }
+  .guide h2 {
+    margin: 56px 0 12px;
+    font-family: Newsreader, serif;
+    font-weight: 650;
+    font-size: clamp(30px, 4vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .guide h3 { margin: 28px 0 8px; font-size: 20px; line-height: 1.3; }
+  .guide p { margin: 0 0 14px; font-size: 17px; }
+  .guide strong { font-weight: 700; }
+  .guide ul, .guide ol { margin: 0 0 16px; padding-left: 1.2rem; }
+  .guide li { margin: 6px 0; font-size: 16px; }
+  .cols { columns: 2; column-gap: 32px; }
+  .cols li { break-inside: avoid; }
+  blockquote {
+    margin: 22px 0;
+    padding: 4px 0 4px 18px;
+    border-left: 3px solid var(--accent);
+    font-family: Newsreader, serif;
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.35;
+  }
+  .callout {
+    margin: 22px 0;
+    padding: 18px 20px;
+    border-radius: 20px;
+    background: var(--soft);
+  }
+  .weeks {
+    display: grid;
+    gap: 12px;
+    margin: 18px 0 8px;
+  }
+  .week {
+    background: var(--card);
+    border-radius: 22px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+  }
+  .week p { margin: 0; }
+  .week .when {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .checks { list-style: none; padding: 0; }
+  .checks li {
+    position: relative;
+    padding: 8px 0 8px 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .checks li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--accent);
+    border-radius: 5px;
+  }
+  .remember { display: grid; gap: 12px; }
+  .remember article {
+    background: var(--card);
+    border-radius: 22px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+  }
+  .remember h3 { margin: 0 0 6px; }
+  .end {
+    margin-top: 48px;
+    padding: 36px 28px;
+    border-radius: 28px;
+    background: #2c3138;
+    color: white;
+    text-align: center;
+  }
+  html[data-theme="dark"] .end { background: #2a3140; border: 1px solid var(--line); }
+  .end h2 { color: white; margin-top: 0; }
+  .end p { color: #dee2ec; }
+  .end a.primary { margin-top: 8px; }
+  @media (min-width: 701px) {
+    .register-card { max-width: 520px; margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 700px) {
+    .wrap, .wide { width: min(760px, calc(100% - 32px)); }
+    h1 { font-size: 34px; }
+    .dek, .guide p { font-size: 16px; }
+    .card { padding: 20px 16px; border-radius: 22px; }
+    .figure { border-radius: 20px; }
+    header.bar { height: 64px; }
+    .brand img { height: 40px; }
+    .cols { columns: 1; }
+    .focuses { grid-template-columns: 1fr; }
+    .focuses li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      padding: 12px 14px;
+    }
+    .focuses span { margin: 0; font-size: 20px; }
+    .reader { border-radius: 20px; align-items: flex-start; margin-top: 16px; }
+    blockquote { font-size: 22px; }
+    .guide h2 { margin-top: 40px; }
+    .end { padding: 28px 18px; border-radius: 22px; }
+  }
+</style>
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="../">
+    <img class="site-logo-light" alt="Poodle Circle" src="../assets/logo.png"/>
+    <img class="site-logo-dark" alt="Poodle Circle" src="../assets/logo-dark.png"/>
+  </a>
+  <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">☾</button>
+</header>
+
+<main>
+  <section class="wide" id="gate">
+    <div class="wrap" style="padding-top: 48px;">
+      <p class="kicker">For registered owners</p>
+      <h1>The first 30 days with your toy poodle</h1>
+      <p class="dek">A practical guide for new toy poodle owners. The full guide opens after you register.</p>
+    </div>
+    <figure class="figure">
+      <img alt="An apricot toy poodle puppy sitting on a cream blanket in a quiet room" src="../assets/guide/guide-home.jpg"/>
+    </figure>
+    <div class="wrap" style="padding-bottom: 72px;">
+      <div class="card register-card">
+        <h2 style="margin: 0 0 8px; font-family: Newsreader, serif; font-size: 32px; letter-spacing: -0.02em;">Register to read</h2>
+        <p class="note" style="margin-bottom: 18px;">Your pass stays in this browser, so you can come back to the guide. This page does not send email.</p>
+        <form id="register">
+          <label>Your name
+            <input name="name" autocomplete="name" required type="text"/>
+          </label>
+          <label>Email
+            <input name="email" autocomplete="email" required type="email"/>
+          </label>
+          <label>Puppy's name
+            <input name="puppy" autocomplete="off" type="text"/>
+          </label>
+          <p class="error" id="form-error" hidden>Add your name and a real email address.</p>
+          <button class="primary" type="submit">Register and read the guide</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <article class="guide" id="guide">
+    <div class="wide">
+      <div class="reader wrap">
+        <p class="note" style="margin: 0;">Reading as <strong id="reader-name" style="color: var(--ink);"></strong></p>
+        <button class="text-btn" id="leave" type="button">Use a different pass</button>
+      </div>
+      <div class="wrap" style="padding-top: 36px;">
+        <p class="kicker">Guide 1 of 10</p>
+        <h1>The first 30 days with your toy poodle</h1>
+        <p class="dek">A practical guide for new toy poodle owners</p>
+      </div>
+      <figure class="figure">
+        <img alt="An apricot toy poodle puppy sitting on a cream blanket in a quiet room" src="../assets/guide/guide-home.jpg"/>
+      </figure>
+      <div class="wrap">
+        <p><strong>Congratulations. Your toy poodle is home.</strong></p>
+        <p>The first month is about much more than buying the right food or teaching a few commands. Your puppy is learning that your home is safe, that you are trustworthy, and that the world is an interesting place.</p>
+        <p>You do <strong>not</strong> need to train everything at once.</p>
+        <p>During these first 30 days, focus on five things:</p>
+        <ol class="focuses">
+          <li><span>1</span>Safety</li>
+          <li><span>2</span>Routine</li>
+          <li><span>3</span>House training</li>
+          <li><span>4</span>Positive socialisation</li>
+          <li><span>5</span>Building trust</li>
+        </ol>
+        <p>Everything else can come gradually.</p>
+
+        <h2 id="before">Before day 1: prepare your home</h2>
+        <p>Ideally, have these things ready before your puppy arrives.</p>
+        <h3>Essential supplies</h3>
+        <ul class="cols">
+          <li>Puppy food recommended by the breeder or veterinarian</li>
+          <li>Food and water bowls</li>
+          <li>Comfortable bed</li>
+          <li>Puppy safe crate or playpen</li>
+          <li>Harness and lightweight leash</li>
+          <li>ID tag</li>
+          <li>Puppy pads, if you plan to use them</li>
+          <li>Poop bags</li>
+          <li>Small training treats</li>
+          <li>Age appropriate chew toys</li>
+          <li>Soft toys</li>
+          <li>Puppy brush and comb</li>
+          <li>Dog shampoo</li>
+          <li>Nail clippers or grinder</li>
+          <li>Enzyme based cleaner for accidents</li>
+          <li>Baby gates or other barriers</li>
+          <li>Safe transport carrier or secured car harness</li>
+        </ul>
+        <h3>Puppy proof the home</h3>
+        <p>Toy poodles are small, curious, and surprisingly capable of getting into trouble.</p>
+        <p>Before bringing your puppy home:</p>
+        <ul>
+          <li>Hide electrical cables.</li>
+          <li>Remove small objects that could be swallowed.</li>
+          <li>Keep medications and cleaning products out of reach.</li>
+          <li>Secure rubbish bins.</li>
+          <li>Keep human food away from the puppy.</li>
+          <li>Check houseplants for toxicity.</li>
+          <li>Block unsafe stairs or balconies.</li>
+          <li>Remove accessible strings, cords, and loose fabrics.</li>
+          <li>Check gaps where a tiny puppy could become trapped.</li>
+        </ul>
+        <div class="callout"><strong>Remember:</strong> something that is harmless for a large dog can be dangerous for a toy poodle puppy.</div>
+
+        <h2 id="day-1">Day 1: coming home</h2>
+        <p>The first day should be intentionally boring.</p>
+        <p>Your puppy has just left familiar people, smells, sounds, and possibly littermates. Even a confident puppy may be overwhelmed.</p>
+        <figure class="figure">
+          <img alt="A toy poodle puppy stepping from a doorway onto a small patch of grass" src="../assets/guide/guide-day.jpg"/>
+          <figcaption>Day 1 is a toilet trip, one quiet room, and sleep.</figcaption>
+        </figure>
+        <h3>Your first priorities</h3>
+        <p><strong>1. Go straight outside for a toilet break.</strong></p>
+        <p>Take your puppy to the place where you want them to toilet. When they do it, calmly praise them.</p>
+        <p><strong>2. Introduce the home slowly.</strong></p>
+        <p>You do not need to give the puppy access to the entire house immediately. Start with one safe area.</p>
+        <p><strong>3. Show them their essentials.</strong></p>
+        <p>Introduce the bed, water, food, toilet area, toys, and the crate or playpen.</p>
+        <p><strong>4. Keep visitors away.</strong></p>
+        <p>The puppy does not need a welcome party on day one. Give them time to settle.</p>
+        <p><strong>5. Let the puppy sleep.</strong></p>
+        <p>Young puppies need a lot of sleep. A puppy who suddenly becomes wild, bitey, or unable to settle may simply be overtired.</p>
+        <h3>Your goal for day 1</h3>
+        <p>Not obedience. Not tricks. Not perfect toilet training.</p>
+        <blockquote>This place is safe. These people are safe.</blockquote>
+
+        <h2 id="routine">Days 2 to 3: build a simple routine</h2>
+        <p>Dogs feel secure when they can predict what happens next. Start creating a simple daily rhythm.</p>
+        <h3>Example routine</h3>
+        <div class="weeks">
+          <article class="week"><p class="when">Morning</p><p>Wake up, toilet, breakfast, short play, toilet, nap.</p></article>
+          <article class="week"><p class="when">Midday</p><p>Toilet, short training session, play, a meal if it is due, nap.</p></article>
+          <article class="week"><p class="when">Afternoon</p><p>Toilet, gentle exploration, handling and grooming practice, nap.</p></article>
+          <article class="week"><p class="when">Evening</p><p>Dinner, calm play, toilet, quiet time, a final toilet trip, sleep.</p></article>
+        </div>
+        <p>The exact times are less important than <strong>consistency</strong>.</p>
+
+        <h2 id="house">House training</h2>
+        <p>House training should begin immediately. Take your puppy to the toilet:</p>
+        <ul>
+          <li>Immediately after waking</li>
+          <li>After eating</li>
+          <li>After drinking a lot</li>
+          <li>After playing</li>
+          <li>After exciting activity</li>
+          <li>Before going into the crate</li>
+          <li>Before bedtime</li>
+          <li>Whenever you notice signs they need to go</li>
+        </ul>
+        <h3>Watch for signals</h3>
+        <p>Your puppy may sniff the floor, walk in circles, suddenly stop playing, move toward a corner, whine, or search for a suitable spot. When you see these signs, take them outside immediately.</p>
+        <h3>When they get it right</h3>
+        <p>Praise them <strong>immediately after they finish</strong>. You can use a happy voice and a tiny treat.</p>
+        <h3>When they have an accident</h3>
+        <p>Do not punish them. Do not rub their nose in it. Do not shout. Your puppy does not understand that the accident was "bad" in the way a human does.</p>
+        <p>Clean the area thoroughly with an enzyme based cleaner and continue the routine.</p>
+        <div class="callout"><strong>Accidents are part of puppyhood.</strong></div>
+
+        <h2 id="training">Days 4 to 7: start gentle training</h2>
+        <p>Toy poodles are intelligent and often learn very quickly. That does not mean training sessions should be long.</p>
+        <p>Start with <strong>30 to 90 second sessions</strong>.</p>
+        <figure class="figure">
+          <img alt="A toy poodle puppy sitting and looking at a small treat" src="../assets/guide/guide-train.jpg"/>
+          <figcaption>Keep the session shorter than a minute and a half.</figcaption>
+        </figure>
+        <h3>Their name</h3>
+        <p>Say the puppy's name. When they look at you: <strong>"Yes!" and a treat.</strong> Repeat several times.</p>
+        <blockquote>When I hear my name, something good happens.</blockquote>
+        <h3>Come</h3>
+        <p>Move a short distance away. Use a cheerful voice: <strong>"Come!"</strong> When your puppy comes to you, praise and reward.</p>
+        <p>Never call your puppy to you for something unpleasant and then punish them for arriving.</p>
+        <h3>Sit</h3>
+        <p>Hold a small treat above the puppy's nose and slowly move it backwards. As the puppy naturally sits: <strong>"Yes!" and a reward.</strong></p>
+        <h3>Leave it</h3>
+        <p>Do not try to take everything away from the puppy by force. Instead, teach that giving something up can result in something even better. This becomes extremely useful later.</p>
+
+        <h2 id="handling">The first week: start handling practice</h2>
+        <p>Toy poodles require regular grooming. Your puppy should learn early that being touched is normal.</p>
+        <p>Every day, briefly and gently touch paws, toes, ears, tail, face, mouth, legs, and belly.</p>
+        <p>Also practise looking inside the ears, touching the teeth, holding each paw, running a brush through the coat, and standing on a stable surface. Reward calm behaviour.</p>
+        <figure class="figure">
+          <img alt="A toy poodle puppy standing calmly while a brush touches the curls by one ear" src="../assets/guide/guide-groom.jpg"/>
+          <figcaption>A few calm seconds with a brush is the whole lesson.</figcaption>
+        </figure>
+        <h3>Keep it short</h3>
+        <p>You are not trying to complete a grooming session. You are teaching:</p>
+        <blockquote>People touching me is normal and safe.</blockquote>
+        <p>This can make future grooming appointments much easier.</p>
+
+        <h2 id="social">Week 2: socialisation begins</h2>
+        <p>Socialisation does <strong>not</strong> mean meeting as many dogs and people as possible. It means teaching your puppy that different experiences are safe.</p>
+        <p>Depending on your veterinarian's vaccination advice and local disease risk, begin appropriate exposure.</p>
+        <h3>People</h3>
+        <p>Gradually introduce men, women, calm children, people wearing hats, people wearing glasses, people with different voices, and people carrying bags or umbrellas. Your puppy does not need to interact with everyone. Simply observing people calmly is valuable.</p>
+        <h3>Sounds</h3>
+        <p>Expose your puppy gradually to the vacuum cleaner, hair dryer, doorbell, traffic, kitchen noises, television, washing machine, and outdoor sounds. Start quietly and increase the intensity gradually. If your puppy becomes frightened, reduce the intensity.</p>
+        <h3>Surfaces</h3>
+        <p>When it is appropriate and safe, let your puppy experience carpet, wood, grass, pavement, sand, and different floor textures. Always supervise.</p>
+        <h3>Socialisation rule</h3>
+        <p><strong>New experience, calm exposure, positive reward.</strong></p>
+        <p>Do not force your puppy toward something frightening. If your puppy backs away from a strange object, give them distance. Let them observe. Reward curiosity.</p>
+        <blockquote>I can investigate the world at my own pace.</blockquote>
+
+        <h2 id="alone">Week 2: start alone time practice</h2>
+        <p>One of the most important skills you can teach a puppy is that being alone is normal. Do not wait until you need to leave for several hours. Start with tiny periods: 30 seconds, 1 minute, 2 minutes, 5 minutes, 10 minutes. Return calmly.</p>
+        <blockquote>My person leaves, and my person comes back.</blockquote>
+        <h3>Avoid making departures dramatic</h3>
+        <p>You do not need a long goodbye ritual. Simply leave calmly and return calmly. If your puppy shows significant distress, shorten the duration and progress more gradually.</p>
+
+        <h2 id="crate">Crate practice</h2>
+        <p>A crate should be a safe place, never a punishment. Make it attractive with comfortable bedding, a safe chew, treats, and calm surroundings.</p>
+        <p>Start with the door open. Allow your puppy to enter voluntarily. Later, briefly close the door while they are relaxed. Gradually increase the time.</p>
+        <p>Never use the crate as a place to send the puppy because they were "bad."</p>
+        <figure class="figure">
+          <img alt="A toy poodle puppy asleep in a small bed inside an open wooden box" src="../assets/guide/guide-sleep.jpg"/>
+          <figcaption>The crate is a bed, not a penalty.</figcaption>
+        </figure>
+
+        <h2 id="habits">Week 3: establish good habits</h2>
+        <p>By now, your puppy should be starting to understand your daily rhythm. This is a good time to reinforce:</p>
+        <h3>1. Calm behaviour</h3>
+        <p>Reward your puppy when they are lying quietly. You do not always need to entertain them.</p>
+        <h3>2. Four paws on the floor</h3>
+        <p>Reward calm greetings rather than jumping.</p>
+        <h3>3. Appropriate chewing</h3>
+        <p>Puppies need to chew. Provide appropriate chew toys and redirect them when they choose furniture, cables, or clothing.</p>
+        <h3>4. Waiting</h3>
+        <p>Before putting down food, opening a door, or attaching the leash, ask for a moment of calm. You are beginning to build impulse control.</p>
+
+        <h2 id="biting">The bitey puppy</h2>
+        <p>Puppy biting is normal. Puppies explore with their mouths and have developing teeth.</p>
+        <p>When your puppy bites your hands:</p>
+        <ol>
+          <li>Stop moving your hands.</li>
+          <li>Calmly redirect to a toy.</li>
+          <li>Praise them for chewing the toy.</li>
+          <li>If the puppy becomes excessively wild, consider whether they need sleep.</li>
+        </ol>
+        <p>Avoid rough hand games if they consistently encourage biting.</p>
+        <div class="callout"><strong>A tired puppy is not always a sleepy puppy.</strong> Sometimes an overtired puppy becomes a tiny, chaotic land shark.</div>
+
+        <h2 id="vet">Week 3: veterinary care</h2>
+        <p>Your puppy should have a veterinary care plan appropriate to their age, vaccination history, and health status. Discuss vaccinations, parasite prevention, a microchip, identification, nutrition, dental care, grooming, weight, future neutering or spaying, breed specific health concerns, and emergency contacts.</p>
+        <p>Bring the breeder's health and vaccination documentation to the appointment.</p>
+        <h3>Keep a puppy health folder</h3>
+        <p>Store vaccination records, microchip information, veterinary records, insurance documents, breeder information, medication information, and important phone numbers.</p>
+
+        <h2 id="feeding">Toy poodle feeding</h2>
+        <p>Toy poodle puppies have small bodies and small stomachs. Follow the feeding plan recommended by your breeder and veterinarian, particularly during the first days.</p>
+        <p>Avoid suddenly changing food unless it is medically necessary. If you change food, a gradual transition is generally easier on the digestive system.</p>
+        <div class="callout">
+          <p><strong>Important.</strong> Very small puppies can be vulnerable to low blood sugar, especially if they are not eating normally.</p>
+          <p>If your puppy is unusually weak, very sleepy, trembling, uncoordinated, collapses, or refuses food, contact a veterinarian promptly. Do not try to diagnose a serious problem yourself.</p>
+        </div>
+
+        <h2 id="confidence">Week 4: build confidence</h2>
+        <p>Your puppy should now be experiencing a wider variety of safe, positive situations. Continue exposing them gradually to new rooms, different people, different sounds, grooming, car journeys, calm environments, appropriate dogs, new objects, and short periods alone.</p>
+        <p>The goal is not to overwhelm your puppy. The goal is to create many small experiences of:</p>
+        <blockquote>I tried something new, and everything was okay.</blockquote>
+
+        <h2 id="leash">Start leash and harness practice</h2>
+        <p>Before going on longer walks, let your puppy become comfortable wearing a properly fitted harness. Start indoors. Put it on. Reward. Let the puppy walk around. Then attach the leash. Reward calm movement.</p>
+        <p>Do not expect perfect walking immediately. At this stage, you are building positive associations.</p>
+
+        <h2 id="car">Car travel</h2>
+        <p>Start with very short trips. Drive around the block, then return home. Later try 5 minutes, 10 minutes, 20 minutes. Use an appropriate carrier or secure restraint. Never allow a puppy to travel loose in the car.</p>
+
+        <h2 id="grooming">Grooming: start now, not later</h2>
+        <p>Toy poodles have a coat that requires ongoing maintenance. Introduce grooming gradually. During the first month, practise brushing, combing, paw handling, face handling, ear handling, tooth brushing, nail handling, and standing calmly.</p>
+        <p>Keep sessions short and positive. Your goal is not to make your puppy look perfect.</p>
+        <blockquote>Grooming is normal.</blockquote>
+
+        <h2 id="teeth">Teeth</h2>
+        <p>Start dental care early. Introduce a puppy safe toothbrush and appropriate toothpaste gradually. First touch the lips, then reward. Then touch the teeth, then reward. Then brush a few teeth, then reward. Gradually build duration.</p>
+        <p>Regular dental care is particularly important for small breeds.</p>
+
+        <h2 id="sleep">Sleep</h2>
+        <p>Puppies sleep a lot. Do not feel guilty about allowing your puppy to nap. A predictable cycle of toilet, play or training, food, calm time, and sleep can make life considerably easier.</p>
+        <p>If your puppy suddenly becomes hyperactive, bitey, or unable to listen, try a quiet rest period rather than adding more stimulation.</p>
+
+        <h2 id="avoid">What not to do in the first month</h2>
+        <p>Avoid trying to accomplish everything immediately. Do not:</p>
+        <ul>
+          <li>Expect perfect toilet training</li>
+          <li>Punish accidents</li>
+          <li>Force social interactions</li>
+          <li>Over exercise a young puppy</li>
+          <li>Allow uncontrolled interactions with unfamiliar dogs</li>
+          <li>Leave a tiny puppy alone for long periods immediately</li>
+          <li>Use the crate as punishment</li>
+          <li>Constantly entertain the puppy</li>
+          <li>Change food repeatedly</li>
+          <li>Ignore grooming until the first professional appointment</li>
+          <li>Allow children to handle the puppy without supervision</li>
+          <li>Assume every behaviour is "just stubbornness"</li>
+        </ul>
+        <p>Your puppy is learning. So are you.</p>
+
+        <h2 id="checklist">A simple daily checklist</h2>
+        <ul class="checks">
+          <li>Fresh water</li>
+          <li>Appropriate meals</li>
+          <li>Toilet opportunities</li>
+          <li>Short training</li>
+          <li>Safe play</li>
+          <li>Chew opportunities</li>
+          <li>Grooming and handling practice</li>
+          <li>Calm and nap time</li>
+          <li>Positive socialisation</li>
+          <li>Mental stimulation</li>
+          <li>Plenty of sleep</li>
+          <li>One on one bonding time</li>
+        </ul>
+
+        <h2 id="roadmap">Your 30 day roadmap</h2>
+        <div class="weeks">
+          <article class="week">
+            <p class="when">Days 1 to 3</p>
+            <h3>Safety and settling</h3>
+            <p>A safe area, food and water, a toilet routine, sleep, few visitors, and bonding.</p>
+          </article>
+          <article class="week">
+            <p class="when">Days 4 to 7</p>
+            <h3>Communication</h3>
+            <p>Name, come, sit, gentle handling, short training sessions, and a crate introduction.</p>
+          </article>
+          <article class="week">
+            <p class="when">Week 2</p>
+            <h3>Socialisation</h3>
+            <p>New sounds, new people, new environments, safe experiences, short alone time, and toilet training.</p>
+          </article>
+          <article class="week">
+            <p class="when">Week 3</p>
+            <h3>Good habits</h3>
+            <p>Chewing, calm behaviour, leash and harness, car travel, grooming, and veterinary care.</p>
+          </article>
+          <article class="week">
+            <p class="when">Week 4</p>
+            <h3>Confidence</h3>
+            <p>Broader socialisation, longer calm periods, more environments, consistent routines, and the next stage.</p>
+          </article>
+        </div>
+
+        <h2 id="remember">The 5 most important things to remember</h2>
+        <div class="remember">
+          <article><h3>1. You do not need a perfect puppy.</h3><p>You need a puppy who feels safe with you.</p></article>
+          <article><h3>2. Consistency beats intensity.</h3><p>Five minutes every day is more useful than one exhausting training session.</p></article>
+          <article><h3>3. Reward what you want to see again.</h3><p>When your puppy is calm, reward calmness. When they come to you, reward them. When they choose a toy instead of your furniture, reward them.</p></article>
+          <article><h3>4. Socialisation is about confidence, not quantity.</h3><p>One positive experience is better than ten overwhelming ones.</p></article>
+          <article><h3>5. Your relationship comes first.</h3><p>Your toy poodle will learn many commands during their lifetime. The most important lesson during the first month is:</p><blockquote>My human keeps me safe.</blockquote></article>
+        </div>
+
+        <h2 id="call-vet">When to call the vet</h2>
+        <p>Contact your veterinarian promptly if your puppy has concerning symptoms such as:</p>
+        <ul>
+          <li>Repeated vomiting</li>
+          <li>Persistent or severe diarrhoea</li>
+          <li>Blood in vomit or stool</li>
+          <li>Difficulty breathing</li>
+          <li>Collapse</li>
+          <li>Severe weakness</li>
+          <li>Seizures</li>
+          <li>Significant injury</li>
+          <li>A swollen or painful abdomen</li>
+          <li>Refusal to eat, with weakness or unusual behaviour</li>
+          <li>Signs of dehydration</li>
+          <li>Sudden major changes in behaviour</li>
+        </ul>
+        <p>For a very young or very small puppy, do not wait for symptoms to become severe if you are concerned. When in doubt, <strong>call your veterinarian.</strong></p>
+
+        <div class="end">
+          <h2>Your first month is a foundation</h2>
+          <p>You will probably remember your puppy's first month for years. There will be adorable moments. There will also be accidents, chewed objects, interrupted sleep, barking, biting, and days when you wonder whether you are doing everything correctly.</p>
+          <p>You probably are.</p>
+          <p>You do not need to raise a perfect dog in 30 days. You are building the foundation for the next 10 to 15 years together.</p>
+          <p>Give your toy poodle safety, structure, patience, and positive experiences.</p>
+          <p><strong>Enjoy your tiny new family member.</strong></p>
+          <p>Welcome to Poodle Circle.</p>
+          <a class="primary" href="../">Back to the circle</a>
+        </div>
+        <p class="note" style="margin: 28px 0 64px;">Owner routines, not a veterinary diagnosis. Illness and emergencies belong with a veterinarian.</p>
+      </div>
+    </div>
+  </article>
+</main>
+<script>
+(function () {
+  var key = "poodlecircle-owner";
+  var themeButton = document.getElementById("theme-toggle");
+  function paintTheme(theme) {
+    var dark = theme === "dark";
+    if (dark) document.documentElement.setAttribute("data-theme", "dark");
+    else document.documentElement.removeAttribute("data-theme");
+    themeButton.setAttribute("aria-pressed", dark ? "true" : "false");
+    themeButton.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+    themeButton.textContent = dark ? "☀" : "☾";
+  }
+  paintTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
+  themeButton.addEventListener("click", function () {
+    var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    try { localStorage.setItem("poodlecircle-theme", next); } catch (e) {}
+    paintTheme(next);
+  });
+
+  function readOwner() {
+    try { return JSON.parse(localStorage.getItem(key) || "null"); }
+    catch (e) { return null; }
+  }
+  function label(owner) {
+    if (owner.puppy) return owner.name + " and " + owner.puppy;
+    return owner.name;
+  }
+  function openGuide(owner) {
+    document.getElementById("reader-name").textContent = label(owner);
+    document.documentElement.classList.add("is-owner");
+    window.scrollTo(0, 0);
+  }
+  var existing = readOwner();
+  if (existing && existing.email && existing.name) openGuide(existing);
+  else document.documentElement.classList.remove("is-owner");
+
+  document.getElementById("register").addEventListener("submit", function (event) {
+    event.preventDefault();
+    var data = new FormData(event.currentTarget);
+    var name = String(data.get("name") || "").trim();
+    var email = String(data.get("email") || "").trim();
+    var puppy = String(data.get("puppy") || "").trim();
+    var error = document.getElementById("form-error");
+    if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      error.hidden = false;
+      return;
+    }
+    error.hidden = true;
+    var owner = { name: name, email: email, puppy: puppy };
+    try { localStorage.setItem(key, JSON.stringify(owner)); } catch (e) {}
+    openGuide(owner);
+  });
+  document.getElementById("leave").addEventListener("click", function () {
+    try { localStorage.removeItem(key); } catch (e) {}
+    document.documentElement.classList.remove("is-owner");
+    window.scrollTo(0, 0);
+  });
+})();
+</script>
+</body>
+</html>

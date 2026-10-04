@@ -2,7 +2,7 @@
 <html class="scroll-smooth" lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>Poodle Circle, the honest club for toy poodle owners</title>
 <meta content="A kindred community for toy poodle owners. Real care guides, real dogs, and a 30-second test: how spoiled is your poodle?" name="description"/>
 <link rel="icon" href="favicon.ico" sizes="32x32"/>
@@ -77,6 +77,9 @@ try {
     100% { transform: scale(1); }
   }
   .quiz-pop { animation: quiz-pop .55s ease; }
+  .site-logo-dark { display: none; }
+  html[data-theme="dark"] .site-logo-light { display: none; }
+  html[data-theme="dark"] .site-logo-dark { display: block; }
   .hero-photo {
     object-position: 70% center;
   }
@@ -226,9 +229,15 @@ try {
   @keyframes parkour-rise {
     to { opacity: 0; transform: translateY(-28px); }
   }
+  @media (max-width: 1024px) {
+    .parkour-board { height: 460px; }
+  }
   @media (max-width: 640px) {
-    .parkour-board { height: 280px; border-radius: 1.4rem; }
+    .parkour-board { height: 420px; border-radius: 1.4rem; }
+    .parkour-overlay { padding: 16px; }
     .parkour-overlay h3 { font-size: 22px; }
+    .parkour-actions { flex-direction: column; width: min(100%, 280px); }
+    .parkour-actions button, .parkour-actions a, #parkour-start-btn { width: 100%; }
   }
   @media (pointer: coarse) { .parkour-keys { display: none; } }
   @media (prefers-reduced-motion: reduce) {
@@ -304,10 +313,11 @@ tailwind.config = {
 </script>
 </head>
 <body class="bg-surface text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed" style="font-family:'Plus Jakarta Sans',sans-serif">
-<header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
   <div class="h-20 max-w-[1240px] mx-auto px-6 flex items-center justify-between gap-6">
     <a class="flex items-center gap-3 shrink-0 group" href="#top">
-      <img alt="Poodle Circle" class="h-14 w-auto object-contain transition-transform group-hover:scale-105" src="assets/logo.png"/>
+      <img alt="Poodle Circle" class="site-logo-light h-10 sm:h-14 w-auto object-contain transition-transform group-hover:scale-105" src="assets/logo.png"/>
+      <img alt="Poodle Circle" class="site-logo-dark h-10 sm:h-14 w-auto object-contain transition-transform group-hover:scale-105" src="assets/logo-dark.png"/>
     </a>
     <nav class="hidden lg:flex items-center gap-1 bg-white px-2 py-1.5 rounded-full shadow-[0_2px_12px_rgba(30,35,42,0.04)]" aria-label="Primary">
       <a class="px-3 py-2 rounded-full text-[13px] font-semibold bg-[#eaeef8]" href="#top">Home</a>
@@ -359,10 +369,10 @@ tailwind.config = {
       The honest club for toy poodle owners, <span class="text-[#ffb4a7] italic font-serif font-normal">from day one.</span>
     </h1>
     <p class="hero-copy mt-6 text-[18px] leading-7 text-[#dee2ec] max-w-2xl">
-      Real owner routines for toy poodles. The first 30 days are ready to read. Coat care, city life, and the rest of the library are still being written.
+      Real owner routines for toy poodles. The first 30 days guide is open to registered owners. Coat care, city life, and the rest of the library are still being written.
     </p>
     <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-      <a class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="#first-30-days">Read the 30-Day Guide <span aria-hidden="true">↗</span></a>
+      <a class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="30daysguide/">Read the 30-Day Guide <span aria-hidden="true">↗</span></a>
       <a class="keep-light inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/80 backdrop-blur-md text-[#171c23] text-[15px] font-semibold" href="#signup">See what is open</a>
     </div>
     <p class="mt-8 text-[13px] text-white/80 max-w-md">Email signup is not open yet. This page does not send anything to an inbox.</p>
@@ -374,11 +384,11 @@ tailwind.config = {
     <p class="text-center max-w-3xl mx-auto mb-10 text-[20px] leading-7 font-semibold">
       “Built by owners for toy poodle parents. Not a clinic. A circle for the first weeks, the coat, and life with a very small dog.”
     </p>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
       <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
         <span class="material-symbols-outlined text-primary text-3xl mb-2">auto_stories</span>
         <span class="text-[28px] leading-9 font-bold">1</span>
-        <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Guide you can read today</span>
+        <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Guide for registered owners</span>
       </div>
       <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
         <span class="material-symbols-outlined text-[#00685e] text-3xl mb-2">edit_note</span>
@@ -401,18 +411,18 @@ tailwind.config = {
 
 <section class="w-full py-20 px-6 bg-[#f8f9ff]" id="guides">
   <div class="max-w-[1240px] mx-auto">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
       <div>
         <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Toy poodle library</span>
         <h2 class="text-[28px] sm:text-[40px] leading-tight font-bold mt-2">One guide is ready. Nine are still being written.</h2>
       </div>
-      <a class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary" href="#guide-list">See all 10 guides <span class="material-symbols-outlined text-lg">arrow_forward</span></a>
+      <a class="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-semibold text-primary whitespace-nowrap" href="#guide-list">See all 10 guides <span class="material-symbols-outlined text-lg">arrow_forward</span></a>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
       <article class="flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm group" id="guide-first">
         <div class="relative h-60 overflow-hidden bg-[#eaeef8]">
           <img alt="A toy poodle puppy asleep in a plush bed" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2zPodg4DxLy8uUGvGo1FlXaRK0JYMhs1Tji-l-nNZByUHaGI4y8GHOxr6SbFb5MVpCbK46_I6YkzlkMv4Q9TeMQa5fgP6HbqMcERwWPwNDCJ_eRV_3KIiXjLf9y96k44jP1ozvvZz9VEvUEg-QmUCjaXXEdsc5ZvB_t5Tj5dszYWT0TOMQoM9p1lUwHVKFPYiHRXu8QRCJ15spbkVWrsQ2W75teo1-clKSZydxyXuVCNWKhFXEMZJ"/>
-          <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-primary text-white text-[11px] font-bold">Ready to read</span>
+          <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-primary text-white text-[11px] font-bold">Owners only</span>
         </div>
         <div class="p-6 flex flex-col flex-1">
           <span class="text-[11px] uppercase tracking-wider text-[#5b403c]">Early days</span>
@@ -420,7 +430,7 @@ tailwind.config = {
           <p class="text-[15px] leading-6 text-[#5b403c] mt-3 flex-1">Toilet habits, night whining, the 48-hour calm rule, what you actually need to buy, and what can wait.</p>
           <div class="mt-6 flex items-center justify-between">
             <span class="text-[11px] text-[#5b403c]">About 4 min</span>
-            <a class="text-[13px] font-semibold text-primary" href="#first-30-days">Read the guide</a>
+            <a class="text-[13px] font-semibold text-primary" href="30daysguide/">Register to read</a>
           </div>
         </div>
       </article>
@@ -456,7 +466,7 @@ tailwind.config = {
       </article>
     </div>
     <ol class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-3" id="guide-list">
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="#first-30-days">1. The first 30 days</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Ready</span></li>
+      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="30daysguide/">1. The first 30 days</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Register</span></li>
       <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="#guide-coat">2. Line brushing before a full shave</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-[#5b403c]">Preview</span></li>
       <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><span class="text-[15px] font-semibold">3. Tear stains, without a product pitch</span><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-[#5b403c]">Later</span></li>
       <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><span class="text-[15px] font-semibold">4. Dental care for a crowded toy mouth</span><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-[#5b403c]">Later</span></li>
@@ -476,24 +486,12 @@ tailwind.config = {
 
 
 <section class="w-full py-20 px-6 bg-[#f0f4fd]" id="first-30-days">
-  <article class="max-w-[760px] mx-auto">
+  <div class="max-w-[760px] mx-auto text-center">
     <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Guide 1 of 10</span>
     <h2 class="text-[28px] sm:text-[40px] leading-tight font-bold mt-2">The first 30 days</h2>
-    <p class="mt-4 text-[18px] leading-7 text-[#5b403c]">A toy poodle's first month is mostly sleep, small meals, and a bladder about the size of a walnut. These are home routines from owners. If your pup seems ill, call a vet. This is not a dose chart.</p>
-    <h3 class="mt-10 text-[22px] font-semibold">The 48-hour calm</h3>
-    <p class="mt-3 text-[16px] leading-7 text-[#5b403c]">Keep the house quiet. One room, one bed, and the food they already know. Skip the welcome party. A toy poodle is reading the whole room, and a parade of hands is a lot of news for a dog this small.</p>
-    <h3 class="mt-8 text-[22px] font-semibold">Nights</h3>
-    <p class="mt-3 text-[16px] leading-7 text-[#5b403c]">Put the pen or crate where they can hear you breathe. If they wake, take them out once, then back to bed. A play session at 2 a.m. teaches them that night is when the fun starts.</p>
-    <h3 class="mt-8 text-[22px] font-semibold">Toilet habits</h3>
-    <p class="mt-3 text-[16px] leading-7 text-[#5b403c]">Go out after sleep, after meals, and after play. An accident on the rug is a timing clue, not a character flaw. Use an enzyme cleaner so that spot does not become the official bathroom.</p>
-    <h3 class="mt-8 text-[22px] font-semibold">Buy now</h3>
-    <p class="mt-3 text-[16px] leading-7 text-[#5b403c]">A pen or crate, a bed that fits inside it, a collar or harness that cannot slip a narrow head, the same food they were eating, and enzyme cleaner. Choose a leash light enough that they are not dragging a rope.</p>
-    <h3 class="mt-8 text-[22px] font-semibold">What can wait</h3>
-    <p class="mt-3 text-[16px] leading-7 text-[#5b403c]">A closet of coats, a pile of toys, a stroller, and a new food on day two. Add one toy. Change food only after they are settled, and change it slowly.</p>
-    <h3 class="mt-8 text-[22px] font-semibold">When to call a vet</h3>
-    <p class="mt-3 text-[16px] leading-7 text-[#5b403c]">Skip the group chat for repeated vomiting, a pup who will not eat, a limp, a collapse, or trouble breathing. Owners can tell you what their week looked like. They cannot give a dose.</p>
-    <p class="mt-10 text-[15px] leading-6 text-[#5b403c]">The other nine guides are named in the <a class="font-semibold text-primary" href="#guide-list">library list</a>. They are not written yet.</p>
-  </article>
+    <p class="mt-4 text-[18px] leading-7 text-[#5b403c]">The full guide, from coming home through week four, is on its own page. Registered owners can read it. Everyone else sees the cover and a short registration.</p>
+    <a class="mt-8 inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-primary text-white text-[15px] font-semibold" href="30daysguide/">Register and read the guide</a>
+  </div>
 </section>
 
 <section class="w-full py-20 px-6 bg-[#f8f9ff]" id="game">
@@ -543,7 +541,7 @@ tailwind.config = {
         <p id="parkour-quip"></p>
         <div class="parkour-actions">
           <button id="parkour-again" type="button">🐩 Play again</button>
-          <a id="parkour-join" href="#first-30-days">Read the 30-day guide</a>
+          <a id="parkour-join" href="30daysguide/">Register to read the guide</a>
         </div>
       </div>
     </div>
@@ -626,7 +624,7 @@ tailwind.config = {
       <div class="max-w-xl">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eaeef8] text-[11px] font-bold mb-4"><span class="material-symbols-outlined text-base text-primary">play_circle</span> Instagram</div>
         <h3 class="text-[28px] leading-9 font-bold">Short clips, then the full guide.</h3>
-        <p class="text-[15px] leading-6 text-[#5b403c] mt-2">Follow <strong class="text-[#171c23]">@poodle.circle</strong>. The longer guide that exists today is <a class="font-semibold text-primary" href="#first-30-days">the first 30 days</a>. New Reels can point at a guide here once that guide is written.</p>
+        <p class="text-[15px] leading-6 text-[#5b403c] mt-2">Follow <strong class="text-[#171c23]">@poodle.circle</strong>. The longer guide that exists today is <a class="font-semibold text-primary" href="30daysguide/">the first 30 days</a>. New Reels can point at a guide here once that guide is written.</p>
       </div>
       <a class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#e1e3e5] text-[#191c1e] text-[13px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank">Follow @poodle.circle <span class="material-symbols-outlined text-lg">open_in_new</span></a>
     </div>
@@ -652,9 +650,9 @@ tailwind.config = {
       <div class="relative z-10 max-w-2xl mx-auto">
         <span class="px-4 py-1 rounded-full bg-white/10 text-[#ffdad4] text-[11px] font-bold uppercase tracking-wider">Early circle</span>
         <h2 class="text-[28px] sm:text-[40px] font-bold mt-6">What is open today</h2>
-        <p class="text-[18px] leading-7 text-[#dee2ec] mt-4">Read the first 30 days now. Follow @poodle.circle for the weekly question. The email list and the map of owners open when there is a directory to join. This page does not send email.</p>
+        <p class="text-[18px] leading-7 text-[#dee2ec] mt-4">Register to read the first 30 days. Your owner pass stays in this browser. This page does not send email, and the map of owners is still closed.</p>
         <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-primary text-white text-[13px] font-semibold" href="#first-30-days">Read the 30-day guide</a>
+          <a class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-primary text-white text-[13px] font-semibold" href="30daysguide/">Register to read the guide</a>
           <a class="keep-light inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white text-[#171c23] text-[13px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank">Follow @poodle.circle</a>
         </div>
       </div>
@@ -666,15 +664,16 @@ tailwind.config = {
 
 <footer class="w-full bg-[#f0f4fd]">
   <div class="max-w-[1240px] mx-auto px-6 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pb-14">
-      <div class="md:col-span-5">
+    <div class="grid grid-cols-1 gap-10 pb-14 sm:grid-cols-3 lg:grid-cols-[minmax(240px,1.2fr)_repeat(3,minmax(160px,1fr))] lg:gap-x-10">
+      <div class="sm:col-span-3 lg:col-span-1">
         <div class="flex items-center gap-3">
-          <img alt="Poodle Circle" class="h-14 w-auto object-contain" src="assets/logo.png"/>
+          <img alt="Poodle Circle" class="site-logo-light h-14 w-auto object-contain" src="assets/logo.png"/>
+          <img alt="Poodle Circle" class="site-logo-dark h-14 w-auto object-contain" src="assets/logo-dark.png"/>
         </div>
-        <p class="text-[15px] leading-6 text-[#5b403c] max-w-sm mt-4">A community journal for toy poodle companions. Mindful care, honest routines, and the joy of a very small dog with a very large opinion.</p>
+        <p class="text-[15px] leading-6 text-[#5b403c] max-w-md mt-4">A community journal for toy poodle companions. Mindful care, honest routines, and the joy of a very small dog with a very large opinion.</p>
         <p class="mt-4 text-[13px] leading-5 text-[#5b403c] max-w-md"><strong class="text-[#171c23]">Community note:</strong> Stories here come from owners, not veterinarians. Be kind. No selling puppies.</p>
       </div>
-      <div class="md:col-span-2 md:col-start-7 flex flex-col gap-2.5 text-[15px]">
+      <div class="flex flex-col gap-2.5 text-[15px]">
         <span class="text-[13px] font-semibold uppercase tracking-wide">Explore</span>
         <a class="text-[#5b403c]" href="#top">Home</a>
         <a class="text-[#5b403c]" href="#guides">Guides</a>
@@ -682,13 +681,13 @@ tailwind.config = {
         <a class="text-[#5b403c]" href="#parkour">Parkour</a>
         <a class="text-[#5b403c]" href="#dogs">Example dogs</a>
       </div>
-      <div class="md:col-span-2 flex flex-col gap-2.5 text-[15px]">
+      <div class="flex flex-col gap-2.5 text-[15px]">
         <span class="text-[13px] font-semibold uppercase tracking-wide">Community</span>
         <a class="text-[#5b403c]" href="#questions">This week’s question</a>
         <a class="text-[#5b403c]" href="#signup">What is open</a>
         <a class="text-[#5b403c]" href="#about">About</a>
       </div>
-      <div class="md:col-span-2 flex flex-col gap-2.5 text-[15px]">
+      <div class="flex flex-col gap-2.5 text-[15px]">
         <span class="text-[13px] font-semibold uppercase tracking-wide">Trust</span>
         <a class="text-[#5b403c]" href="#principles">Code of conduct</a>
         <a class="text-[#5b403c]" href="#health-notice">Health notice</a>
@@ -767,7 +766,7 @@ tailwind.config = {
     ]}
   ];
   var levels = [
-    { max: 25, title: "Responsible Poodle Parent", line: "You still have control of your household. For now.", guide: "Read the first 30 days", href: "#first-30-days" },
+    { max: 25, title: "Responsible Poodle Parent", line: "You still have control of your household. For now.", guide: "Read the first 30 days", href: "30daysguide/" },
     { max: 50, title: "Slightly Spoiled", line: "Your poodle has privileges. You still have boundaries.", guide: "Line brushing is still being written", href: "#guide-coat" },
     { max: 75, title: "Premium Poodle Lifestyle", line: "Your poodle has better service than most five-star hotels.", guide: "Apartment energy is still being written", href: "#guide-apartment" },
     { max: 90, title: "Officially Spoiled", line: "You don't say “no” anymore. You say “maybe later.”", guide: "Apartment energy is still being written", href: "#guide-apartment" },
