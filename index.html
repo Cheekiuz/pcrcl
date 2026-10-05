@@ -186,6 +186,7 @@ try {
   }
   @media (prefers-reduced-motion: reduce) {
     .lift, .lift:hover { transition: none; transform: none; }
+    .site-bar, .site-header, #theme-toggle, #nav-toggle, #mobile-nav { transition: none; }
   }
   #guides, #guide-list, #guide-coat, #guide-apartment, #health-notice,
   #game, #parkour, #dogs, #questions, #about, #principles, #read {
@@ -198,8 +199,41 @@ try {
     background-color: #12161c;
     color: #f6f1ea;
   }
-  html[data-theme="dark"] .bg-surface\/90 {
-    background-color: rgba(18, 22, 28, 0.92);
+  header.site-bar {
+    padding: env(safe-area-inset-top) 0 0;
+    transition: padding .45s ease;
+  }
+  header.site-bar.is-scrolled {
+    padding: 0.5rem 0.75rem 0;
+  }
+  @media (min-width: 640px) {
+    header.site-bar.is-scrolled { padding: 0.5rem 1.25rem 0; }
+  }
+  header.site-bar .site-header {
+    max-width: 100%;
+    border-radius: 0;
+    background-color: rgba(248, 249, 255, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 10px 30px rgba(23, 28, 35, 0.08);
+    backdrop-filter: blur(18px);
+    transition: background-color .45s ease, border-color .45s ease, box-shadow .45s ease, backdrop-filter .45s ease, border-radius .45s ease, max-width .45s ease;
+  }
+  header.site-bar.is-scrolled .site-header {
+    max-width: 1240px;
+    border-radius: 9999px;
+    background-color: rgba(248, 249, 255, 0.58);
+    box-shadow: 0 12px 32px rgba(23, 28, 35, 0.12);
+  }
+  #theme-toggle, #nav-toggle, #mobile-nav {
+    transition: background-color .45s ease, color .45s ease, border-color .45s ease;
+  }
+  html[data-theme="dark"] header.site-bar .site-header {
+    background-color: rgba(18, 22, 28, 0.82);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  }
+  html[data-theme="dark"] header.site-bar.is-scrolled .site-header {
+    background-color: rgba(18, 22, 28, 0.5);
   }
   html[data-theme="dark"] .bg-\[\#f0f4fd\] { background-color: #181d26; }
   html[data-theme="dark"] .bg-white,
@@ -406,8 +440,8 @@ tailwind.config = {
 </script>
 </head>
 <body class="bg-surface text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed" style="font-family:'Plus Jakarta Sans',sans-serif">
-<header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] pl-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)]">
-  <div class="h-20 max-w-[1240px] mx-auto px-6 flex items-center justify-between gap-6">
+<header class="site-bar fixed top-0 inset-x-0 z-50 px-3 pt-[max(0.75rem,env(safe-area-inset-top))] sm:px-5 pointer-events-none">
+  <div class="site-header pointer-events-auto h-16 sm:h-20 max-w-[1240px] mx-auto px-4 sm:px-6 flex items-center justify-between gap-6 rounded-full">
     <a class="flex items-center gap-3 shrink-0 group" href="#top">
       <img alt="Poodle Circle" class="site-logo-light h-10 sm:h-14 w-auto object-contain transition-transform group-hover:scale-105" src="assets/logo.png"/>
       <img alt="Poodle Circle" class="site-logo-dark h-10 sm:h-14 w-auto object-contain transition-transform group-hover:scale-105" src="assets/logo-dark.png"/>
@@ -430,7 +464,7 @@ tailwind.config = {
       </button>
     </div>
   </div>
-  <div class="hidden lg:hidden absolute top-20 inset-x-0 bg-[#f8f9ff] border-t border-[#e3beb8]/60 px-6 py-4 shadow-lg" id="mobile-nav">
+  <div class="pointer-events-auto hidden lg:hidden mx-auto mt-2 max-w-[1240px] rounded-[1.75rem] bg-[#f8f9ff] border border-[#e3beb8]/60 px-4 py-3 shadow-lg" id="mobile-nav">
     <nav class="flex flex-col gap-1" aria-label="Mobile">
       <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#top">Home</a>
       <a class="px-3 py-3 rounded-2xl text-[15px] font-semibold" href="#guides">Guides</a>
@@ -840,6 +874,12 @@ tailwind.config = {
     themeIcon.textContent = dark ? "light_mode" : "dark_mode";
   }
   paintTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
+  var siteBar = document.querySelector(".site-bar");
+  function paintHeader() {
+    if (siteBar) siteBar.classList.toggle("is-scrolled", window.scrollY > 24);
+  }
+  paintHeader();
+  window.addEventListener("scroll", paintHeader, { passive: true });
   themeButton.addEventListener("click", function () {
     var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
     try { localStorage.setItem("poodlecircle-theme", next); } catch (e) {}
