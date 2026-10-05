@@ -1,5 +1,4 @@
 name: Publish site
-run-name: ${{ github.event.head_commit.message || 'Publish site' }}
 
 on:
   push:
