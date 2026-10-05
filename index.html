@@ -141,6 +141,28 @@ try {
     background: #f6f1ea;
     padding: 2rem 1.25rem 1.75rem;
   }
+  .quiz-share-panel {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .55s ease, opacity .4s ease;
+  }
+  .quiz-share-panel.is-open { max-height: 680px; opacity: 1; }
+  .quiz-share-clip { overflow: hidden; }
+  .quiz-share-sheet {
+    margin-top: 16px;
+    padding: 18px 18px 16px;
+    border-radius: 1.75rem;
+    background: #f6f1ea;
+    text-align: center;
+  }
+  .quiz-share-preview {
+    width: min(200px, 72%);
+    height: auto;
+    margin: 4px auto 0;
+    border-radius: 1.25rem;
+    box-shadow: 0 12px 28px rgba(23, 28, 35, 0.12);
+  }
   .quiz-rec {
     display: block;
     margin-top: 12px;
@@ -204,10 +226,7 @@ try {
     transition: padding .45s ease;
   }
   header.site-bar.is-scrolled {
-    padding: 0.5rem 0.75rem 0;
-  }
-  @media (min-width: 640px) {
-    header.site-bar.is-scrolled { padding: 0.5rem 1.25rem 0; }
+    padding: 0.5rem 0.5rem 0;
   }
   header.site-bar .site-header {
     max-width: 100%;
@@ -219,10 +238,12 @@ try {
     transition: background-color .45s ease, border-color .45s ease, box-shadow .45s ease, backdrop-filter .45s ease, border-radius .45s ease, max-width .45s ease;
   }
   header.site-bar.is-scrolled .site-header {
-    max-width: 1240px;
+    max-width: 100%;
     border-radius: 9999px;
-    background-color: rgba(248, 249, 255, 0.58);
-    box-shadow: 0 12px 32px rgba(23, 28, 35, 0.12);
+    background-color: rgba(248, 249, 255, 0.36);
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 12px 32px rgba(23, 28, 35, 0.08);
+    backdrop-filter: blur(22px);
   }
   #theme-toggle, #nav-toggle, #mobile-nav {
     transition: background-color .45s ease, color .45s ease, border-color .45s ease;
@@ -233,7 +254,8 @@ try {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
   }
   html[data-theme="dark"] header.site-bar.is-scrolled .site-header {
-    background-color: rgba(18, 22, 28, 0.5);
+    background-color: rgba(18, 22, 28, 0.32);
+    border-color: rgba(255, 255, 255, 0.08);
   }
   html[data-theme="dark"] .bg-\[\#f0f4fd\] { background-color: #181d26; }
   html[data-theme="dark"] .bg-white,
@@ -265,7 +287,8 @@ try {
     border-color: #ffb4a7;
   }
   html[data-theme="dark"] .quiz-bar { background: #3a3330; }
-  html[data-theme="dark"] .quiz-share-card { background: #181d26; }
+  html[data-theme="dark"] .quiz-share-card,
+  html[data-theme="dark"] .quiz-share-sheet { background: #181d26; }
   html[data-theme="dark"] .quiz-rec { background: #222833; }
   html[data-theme="dark"] input { color: #f6f1ea; }
   html[data-theme="dark"] .keep-light input,
@@ -371,7 +394,7 @@ try {
     .parkour-banner.show, .parkour-float { animation: none; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .quiz-answer, .quiz-card, .quiz-bar > span { transition: none; }
+    .quiz-answer, .quiz-card, .quiz-bar > span, .quiz-share-panel { transition: none; }
     .quiz-float, .quiz-pop { animation: none; }
   }
 </style>
@@ -1112,39 +1135,6 @@ tailwind.config = {
     });
   }
 
-  function shareCard(file, caption, url) {
-    var canShareFile = false;
-    try {
-      canShareFile = !!(file && navigator.canShare && navigator.canShare({ files: [file] }));
-    } catch (e) {}
-    if (canShareFile) {
-      return navigator.share({ files: [file], title: "Poodle Circle", text: caption }).then(function () {
-        return "shared";
-      }, function (error) {
-        if (error && error.name === "AbortError") return "cancel";
-        return saveCard(file, caption, url);
-      });
-    }
-    if (file) return saveCard(file, caption, url);
-    return postResult(caption, url).then(function (result) { return result; }, function () { return "failed"; });
-  }
-
-  function saveCard(file, caption, url) {
-    var link = document.createElement("a");
-    var objectUrl = URL.createObjectURL(file);
-    link.href = objectUrl;
-    link.download = "poodle-circle-result.png";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1500);
-    return copyText(caption + "\n" + url).then(function (result) {
-      return result === "copied" ? "saved" : "downloaded";
-    }, function () {
-      return "downloaded";
-    });
-  }
-
   function siteUrl(path) {
     return new URL(path, "https://poodlecircle.com/").href;
   }
@@ -1306,27 +1296,94 @@ tailwind.config = {
     var post = document.createElement("button");
     post.type = "button";
     post.className = "mt-6 mx-auto flex w-full sm:w-auto items-center justify-center min-h-14 px-6 rounded-full bg-primary text-white text-[15px] font-semibold";
+    post.setAttribute("aria-expanded", "false");
     post.textContent = "Share your result";
-    var postLabel = "Share your result";
+    var panel = document.createElement("div");
+    panel.className = "quiz-share-panel";
+    panel.setAttribute("aria-hidden", "true");
+    var clip = document.createElement("div");
+    clip.className = "quiz-share-clip";
+    var sheet = document.createElement("div");
+    sheet.className = "quiz-share-sheet";
+    var preview = document.createElement("img");
+    preview.className = "quiz-share-preview";
+    preview.alt = type.name + ", your Poodle Circle result";
+    var line = addText(sheet, "p", "mt-4 text-[15px] leading-6 font-semibold", caption);
+    addText(sheet, "p", "mt-1 text-[13px] leading-5 text-[#5b403c]", pageUrl.replace(/^https:\/\//, ""));
+    var actions = document.createElement("div");
+    actions.className = "mt-4 flex flex-col sm:flex-row gap-3";
+    function quietButton(label) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "inline-flex flex-1 items-center justify-center min-h-12 px-5 rounded-full bg-[#eaeef8] text-[#171c23] text-[14px] font-semibold";
+      button.textContent = label;
+      return button;
+    }
+    var copyBtn = quietButton("Copy the line");
+    var saveBtn = quietButton("Save the image");
+    copyBtn.addEventListener("click", function () {
+      copyText(caption + "\n" + pageUrl).then(function (result) {
+        var note = result === "copied" ? "Copied." : "Could not copy that.";
+        copyBtn.textContent = note;
+        status.textContent = note + " " + caption;
+        window.setTimeout(function () { copyBtn.textContent = "Copy the line"; }, 1600);
+      });
+    });
+    saveBtn.addEventListener("click", function () {
+      if (!cardFile) return;
+      var link = document.createElement("a");
+      var objectUrl = URL.createObjectURL(cardFile);
+      link.href = objectUrl;
+      link.download = "poodle-circle-result.png";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1500);
+      saveBtn.textContent = "Saved.";
+      status.textContent = "Saved. " + caption;
+      window.setTimeout(function () { saveBtn.textContent = "Save the image"; }, 1600);
+    });
+    actions.appendChild(copyBtn);
+    actions.appendChild(saveBtn);
+    sheet.insertBefore(preview, line);
+    sheet.appendChild(actions);
+    clip.appendChild(sheet);
+    panel.appendChild(clip);
     post.addEventListener("click", function () {
+      if (panel.classList.contains("is-open")) {
+        panel.classList.remove("is-open");
+        panel.setAttribute("aria-hidden", "true");
+        post.setAttribute("aria-expanded", "false");
+        return;
+      }
+      post.disabled = true;
+      post.textContent = "Preparing your card";
       var ready = cardFile ? Promise.resolve(cardFile) : drawCard(type, score).then(function (blob) {
         if (blob) cardFile = new File([blob], "poodle-circle-result.png", { type: "image/png" });
         return cardFile;
       });
       ready.then(function (file) {
-        return shareCard(file, caption, pageUrl);
-      }).then(function (result) {
-        if (result === "cancel") return;
-        var note = result === "shared" ? "Shared." : result === "saved" ? "Image saved. Caption copied." : result === "downloaded" ? "Image saved." : result === "copied" ? "Copied." : "Could not share that.";
-        post.textContent = note;
-        status.textContent = note + " " + caption;
-        window.setTimeout(function () { post.textContent = postLabel; }, 1800);
+        post.disabled = false;
+        post.textContent = "Share your result";
+        if (!file) {
+          status.textContent = "Could not prepare that card.";
+          return;
+        }
+        if (!preview.getAttribute("src")) preview.src = URL.createObjectURL(file);
+        panel.classList.add("is-open");
+        panel.setAttribute("aria-hidden", "false");
+        post.setAttribute("aria-expanded", "true");
+        window.setTimeout(function () {
+          panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }, 80);
       }).catch(function () {
-        post.textContent = "Could not share that.";
-        window.setTimeout(function () { post.textContent = postLabel; }, 1800);
+        post.disabled = false;
+        post.textContent = "Share your result";
+        status.textContent = "Could not prepare that card.";
       });
     });
     wrap.appendChild(post);
+    wrap.appendChild(panel);
 
     var again = document.createElement("button");
     again.type = "button";
