@@ -147,13 +147,15 @@ try {
     overflow: hidden;
     transition: max-height .55s ease, opacity .4s ease;
   }
-  .quiz-share-panel.is-open { max-height: 680px; opacity: 1; }
+  .quiz-share-panel.is-open { max-height: 820px; opacity: 1; }
   .quiz-share-clip { overflow: hidden; }
   .quiz-share-sheet {
     margin-top: 16px;
     padding: 18px 18px 16px;
     border-radius: 1.75rem;
     background: #f6f1ea;
+    border: 1px solid rgba(227, 190, 184, 0.55);
+    box-shadow: 0 10px 28px rgba(23, 28, 35, 0.06);
     text-align: center;
   }
   .quiz-share-preview {
@@ -287,8 +289,12 @@ try {
     border-color: #ffb4a7;
   }
   html[data-theme="dark"] .quiz-bar { background: #3a3330; }
-  html[data-theme="dark"] .quiz-share-card,
-  html[data-theme="dark"] .quiz-share-sheet { background: #181d26; }
+  html[data-theme="dark"] .quiz-share-card { background: #181d26; }
+  html[data-theme="dark"] .quiz-share-sheet {
+    background: #2a3140;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+  }
   html[data-theme="dark"] .quiz-rec { background: #222833; }
   html[data-theme="dark"] input { color: #f6f1ea; }
   html[data-theme="dark"] .keep-light input,
@@ -1164,6 +1170,20 @@ tailwind.config = {
     return Promise.resolve(ok ? "copied" : "failed");
   }
 
+  function shareCard(file, caption, url) {
+    var payload = { title: "Poodle Circle", text: caption, url: url };
+    try {
+      if (file && navigator.canShare && navigator.canShare({ files: [file] })) payload.files = [file];
+    } catch (e) {}
+    if (!navigator.share) return Promise.resolve("unsupported");
+    return navigator.share(payload).then(function () {
+      return "shared";
+    }, function (error) {
+      if (error && error.name === "AbortError") return "cancel";
+      return "failed";
+    });
+  }
+
   function postResult(text, url) {
     if (navigator.share) {
       return navigator.share({ title: "Poodle Circle", text: text, url: url }).then(function () {
@@ -1311,7 +1331,7 @@ tailwind.config = {
     var line = addText(sheet, "p", "mt-4 text-[15px] leading-6 font-semibold", caption);
     addText(sheet, "p", "mt-1 text-[13px] leading-5 text-[#5b403c]", pageUrl.replace(/^https:\/\//, ""));
     var actions = document.createElement("div");
-    actions.className = "mt-4 flex flex-col sm:flex-row gap-3";
+    actions.className = "mt-3 flex flex-col sm:flex-row gap-3";
     function quietButton(label) {
       var button = document.createElement("button");
       button.type = "button";
@@ -1319,8 +1339,28 @@ tailwind.config = {
       button.textContent = label;
       return button;
     }
+    var shareBtn = document.createElement("button");
+    shareBtn.type = "button";
+    shareBtn.className = "mt-4 inline-flex w-full items-center justify-center gap-2 min-h-12 px-5 rounded-full bg-primary text-white text-[14px] font-semibold";
+    shareBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]" aria-hidden="true">ios_share</span> Share';
+    var shareNote = document.createElement("p");
+    shareNote.className = "mt-2 text-[12px] leading-5 text-[#5b403c]";
+    shareNote.textContent = "AirDrop, Messages, Mail, and the rest.";
+    if (!navigator.share) {
+      shareBtn.hidden = true;
+      shareNote.hidden = true;
+    }
     var copyBtn = quietButton("Copy the line");
     var saveBtn = quietButton("Save the image");
+    shareBtn.addEventListener("click", function () {
+      shareCard(cardFile, caption, pageUrl).then(function (result) {
+        if (result === "cancel" || result === "unsupported") return;
+        var note = result === "shared" ? "Shared." : "Could not share that.";
+        shareBtn.lastChild.textContent = " " + note;
+        status.textContent = note + " " + caption;
+        window.setTimeout(function () { shareBtn.lastChild.textContent = " Share"; }, 1600);
+      });
+    });
     copyBtn.addEventListener("click", function () {
       copyText(caption + "\n" + pageUrl).then(function (result) {
         var note = result === "copied" ? "Copied." : "Could not copy that.";
@@ -1346,6 +1386,8 @@ tailwind.config = {
     actions.appendChild(copyBtn);
     actions.appendChild(saveBtn);
     sheet.insertBefore(preview, line);
+    sheet.appendChild(shareBtn);
+    sheet.appendChild(shareNote);
     sheet.appendChild(actions);
     clip.appendChild(sheet);
     panel.appendChild(clip);

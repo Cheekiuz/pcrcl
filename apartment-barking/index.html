@@ -32,6 +32,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
 <link rel="stylesheet" href="../assets/guide.css"/>
 <script type="application/ld+json">
 {
@@ -101,12 +102,42 @@ try {
 </script>
 </head>
 <body>
-<header class="bar">
-  <a class="brand" href="../">
-    <img class="site-logo-light" alt="Poodle Circle" src="../assets/logo.png"/>
-    <img class="site-logo-dark" alt="Poodle Circle" src="../assets/logo-dark.png"/>
-  </a>
-  <button class="icon-btn" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">☾</button>
+<header class="site-bar">
+  <div class="site-header">
+    <a class="brand" href="../">
+      <img class="site-logo-light" alt="Poodle Circle" src="../assets/logo.png"/>
+      <img class="site-logo-dark" alt="Poodle Circle" src="../assets/logo-dark.png"/>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a class="is-current" href="../">Home</a>
+      <a href="../#guides">Guides</a>
+      <a href="../#game">Quiz</a>
+      <a href="../#parkour">Parkour</a>
+      <a href="../#dogs">Dogs</a>
+      <a href="../#questions">Questions</a>
+      <a href="../#about">About</a>
+    </nav>
+    <div class="site-tools">
+      <button aria-label="Switch to dark mode" aria-pressed="false" class="icon-btn" id="theme-toggle" type="button">
+        <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+      </button>
+      <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="icon-btn" id="nav-toggle" type="button">
+        <span class="material-symbols-outlined" id="nav-icon">menu</span>
+      </button>
+    </div>
+  </div>
+  <div class="site-menu" id="mobile-nav">
+    <nav aria-label="Mobile">
+      <a href="../">Home</a>
+      <a href="../#guides">Guides</a>
+      <a href="../#game">Quiz</a>
+      <a href="../#parkour">Parkour</a>
+      <a href="../#dogs">Dogs</a>
+      <a href="../#questions">Questions</a>
+      <a href="../#about">About</a>
+      <a class="site-menu-cta" href="../30daysguide/">Read the 30-day guide</a>
+    </nav>
+  </div>
 </header>
 <main>
   <article class="guide">
@@ -175,24 +206,6 @@ try {
     </div>
   </article>
 </main>
-<script>
-(function () {
-  var themeButton = document.getElementById("theme-toggle");
-  function paintTheme(theme) {
-    var dark = theme === "dark";
-    if (dark) document.documentElement.setAttribute("data-theme", "dark");
-    else document.documentElement.removeAttribute("data-theme");
-    themeButton.setAttribute("aria-pressed", dark ? "true" : "false");
-    themeButton.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-    themeButton.textContent = dark ? "☀" : "☾";
-  }
-  paintTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
-  themeButton.addEventListener("click", function () {
-    var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    try { localStorage.setItem("poodlecircle-theme", next); } catch (e) {}
-    paintTheme(next);
-  });
-})();
-</script>
+<script src="../assets/site-header.js"></script>
 </body>
 </html>
