@@ -424,8 +424,8 @@ tailwind.config = {
       Real owner routines for toy poodles. Read the first 30 days, line brushing, apartment barking, and tear stains. Six more guides are still being written.
     </p>
     <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-      <a class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="30daysguide/">Read the 30-Day Guide <span aria-hidden="true">↗</span></a>
-      <a class="keep-light inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/80 backdrop-blur-md text-[#171c23] text-[15px] font-semibold" href="#guides">See the guides</a>
+      <a class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="#guides">Start with this week</a>
+      <a class="keep-light inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white/80 backdrop-blur-md text-[#171c23] text-[15px] font-semibold" href="#guide-list">See all 10</a>
     </div>
   </div>
 </section>
@@ -462,10 +462,38 @@ tailwind.config = {
 
 <section class="w-full py-20 px-6 bg-[#f8f9ff]" id="guides">
   <div class="max-w-[1240px] mx-auto">
+    <div class="max-w-2xl mb-8">
+      <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Start here</span>
+      <h2 class="text-[28px] sm:text-[40px] leading-tight font-bold mt-2">What is happening this week?</h2>
+      <p class="mt-3 text-[16px] leading-7 text-[#5b403c]">Pick one. It opens that guide, and names the next one.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16" id="path">
+      <a class="flex flex-col rounded-[2rem] bg-white p-6 sm:p-7 shadow-sm" href="30daysguide/">
+        <span class="text-[11px] font-bold tracking-widest uppercase text-primary">First week</span>
+        <h3 class="text-[22px] leading-7 font-bold mt-3">The first nights</h3>
+        <p class="text-[15px] leading-6 text-[#5b403c] mt-2 flex-1">One quiet room, a toilet trip, and sleep. The rest of the month can wait.</p>
+        <p class="mt-6 text-[13px] font-semibold">Next: the coat, before a mat hides.</p>
+        <span class="mt-2 text-[13px] font-semibold text-primary">Read the first 30 days</span>
+      </a>
+      <a class="flex flex-col rounded-[2rem] bg-white p-6 sm:p-7 shadow-sm" href="line-brushing/">
+        <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Coat</span>
+        <h3 class="text-[22px] leading-7 font-bold mt-3">Before a full shave</h3>
+        <p class="text-[15px] leading-6 text-[#5b403c] mt-2 flex-1">A few minutes through the ears, armpits, and legs, while the coat can still be saved.</p>
+        <p class="mt-6 text-[13px] font-semibold">Next: the apartment, when the doorbell takes the evening.</p>
+        <span class="mt-2 text-[13px] font-semibold text-primary">Read line brushing</span>
+      </a>
+      <a class="flex flex-col rounded-[2rem] bg-white p-6 sm:p-7 shadow-sm" href="apartment-barking/">
+        <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Apartment</span>
+        <h3 class="text-[22px] leading-7 font-bold mt-3">The doorbell</h3>
+        <p class="text-[15px] leading-6 text-[#5b403c] mt-2 flex-1">A sniff walk and a mat away from the door, when the hallway owns the evening.</p>
+        <p class="mt-6 text-[13px] font-semibold">Next: tear stains, a wipe and a dry face.</p>
+        <span class="mt-2 text-[13px] font-semibold text-primary">Read apartment barking</span>
+      </a>
+    </div>
     <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
       <div>
-        <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Toy poodle library</span>
-        <h2 class="text-[28px] sm:text-[40px] leading-tight font-bold mt-2">Four guides you can read. Six are still being written.</h2>
+        <span class="text-[11px] font-bold tracking-widest uppercase text-primary">The library</span>
+        <h3 class="text-[24px] sm:text-[32px] leading-tight font-bold mt-2">Four guides you can read. Six are still being written.</h3>
       </div>
       <a class="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-semibold text-primary whitespace-nowrap" href="#guide-list">See all 10 guides <span class="material-symbols-outlined text-lg">arrow_forward</span></a>
     </div>

@@ -218,6 +218,23 @@ blockquote {
 .remember h3 { margin: 0 0 6px; }
 .related { margin: 36px 0 8px; display: grid; gap: 8px; }
 .related a { font-weight: 650; }
+.related .kicker { margin-top: 12px; }
+.related a.next {
+  background: var(--soft);
+  color: var(--ink);
+  text-decoration: none;
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+.related a.next span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
 .end {
   margin-top: 48px;
   padding: 36px 28px;
