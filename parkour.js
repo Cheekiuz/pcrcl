@@ -56,6 +56,9 @@
   var last = 0;
   var raf = 0;
   var best = 0;
+  var shareText = "Poodle Power 0.";
+  var shareUrl = "https://poodlecircle.com/#parkour";
+  var shareBtn = document.getElementById("parkour-share");
 
   try { best = Number(sessionStorage.getItem("poodlecircle-parkour-best")) || 0; } catch (e) {}
   bestEl.textContent = String(best);
@@ -158,7 +161,9 @@
       bestEl.textContent = String(best);
       try { sessionStorage.setItem("poodlecircle-parkour-best", String(best)); } catch (e) {}
     }
-    resultEl.textContent = "Your Poodle Power: " + score;
+    shareText = "Poodle Power " + score + ".";
+    if (shareBtn) shareBtn.textContent = "Post this score";
+    resultEl.textContent = shareText;
     timeEl.textContent = "You survived " + seconds + (seconds === 1 ? " second." : " seconds.");
     quipEl.textContent = quips[Math.floor(Math.random() * quips.length)];
     overEl.hidden = false;
@@ -631,6 +636,20 @@
     event.stopPropagation();
     start();
   });
+  if (shareBtn) {
+    shareBtn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      event.preventDefault();
+      var post = window.poodlecirclePost;
+      if (!post) return;
+      post(shareText, shareUrl).then(function (result) {
+        if (result === "cancel") return;
+        shareBtn.textContent = result === "shared" ? "Shared." : result === "copied" ? "Copied." : "Could not copy that.";
+      }).catch(function () {
+        shareBtn.textContent = "Could not copy that.";
+      });
+    });
+  }
   board.addEventListener("pointerdown", function (event) {
     if (event.target.closest("button, a, .parkour-overlay")) return;
     board.focus();

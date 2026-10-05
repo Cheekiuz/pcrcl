@@ -272,7 +272,7 @@ try {
     text-decoration: none;
   }
   #parkour-start-btn, #parkour-again { background: #b22110; color: #fff; }
-  #parkour-join { display: inline-flex; align-items: center; background: #eaeef8; color: #171c23; }
+  #parkour-join, #parkour-share { display: inline-flex; align-items: center; justify-content: center; background: #fff; color: #171c23; }
   @keyframes parkour-pop {
     0% { opacity: 0; transform: translateY(8px) scale(0.96); }
     12% { opacity: 1; transform: none; }
@@ -556,7 +556,7 @@ tailwind.config = {
       <div class="text-center" id="quiz-heading">
         <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">For people who live with a tiny monarch</p>
         <h2 class="mt-3 text-[28px] leading-9 sm:text-[40px] sm:leading-[48px] font-extrabold tracking-tight">How spoiled is your poodle? 🐩</h2>
-        <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">Take the 30-second test. Your poodle already knows the answer.</p>
+        <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">Seven questions. Then a line worth posting, and the guide that fits this week.</p>
       </div>
       <div class="mt-8" id="quiz-progress" hidden>
         <div class="flex items-center justify-between text-[13px] font-semibold text-[#5b403c] mb-2">
@@ -597,11 +597,12 @@ tailwind.config = {
         <p id="parkour-quip"></p>
         <div class="parkour-actions">
           <button id="parkour-again" type="button">🐩 Play again</button>
+          <button id="parkour-share" type="button">Post this score</button>
           <a id="parkour-join" href="30daysguide/">Read the first 30 days</a>
         </div>
       </div>
     </div>
-    <p class="mt-6 text-center text-[16px] text-[#5b403c]">Think your poodle can beat that score?</p>
+    <p class="mt-6 text-center text-[16px] text-[#5b403c]">Post the score, then see if another poodle can beat it.</p>
     <p class="mt-1 text-center text-[18px] font-extrabold">🏆 Best score: <span id="parkour-best">0</span></p>
   </div>
 </section>
@@ -820,19 +821,29 @@ tailwind.config = {
       ["They teleport.", 1],
       ["They were already standing next to me.", 2]
     ]},
-    { text: "Who is actually in charge at home?", mood: "Last one. You already know.", answers: [
+    { text: "Who is actually in charge at home?", mood: "Almost done. You already know.", answers: [
       ["Me.", 0],
       ["It's complicated.", 1],
       ["The poodle. Obviously.", 2]
+    ]},
+    { text: "Which one is actually happening at home?", mood: "This one picks the guide, not the score.", route: true, answers: [
+      ["A new puppy. The first weeks are still loud.", "puppy"],
+      ["Coat chaos. A full shave is getting close.", "coat"],
+      ["The doorbell. It has taken the evening.", "door"]
     ]}
   ];
   var levels = [
-    { max: 25, title: "Responsible Poodle Parent", line: "You still have control of your household. For now.", guide: "Read the first 30 days", href: "30daysguide/" },
-    { max: 50, title: "Slightly Spoiled", line: "Your poodle has privileges. You still have boundaries.", guide: "Read line brushing", href: "line-brushing/" },
-    { max: 75, title: "Premium Poodle Lifestyle", line: "Your poodle has better service than most five-star hotels.", guide: "Read apartment barking", href: "apartment-barking/" },
-    { max: 90, title: "Officially Spoiled", line: "You don't say “no” anymore. You say “maybe later.”", guide: "Read apartment barking", href: "apartment-barking/" },
-    { max: 100, title: "POODLE ROYALTY 👑", line: "Congratulations. You don't own a poodle. Your poodle owns you.", guide: "Read apartment barking", href: "apartment-barking/" }
+    { max: 25, title: "Still in charge", line: "You still have control of your household. For now." },
+    { max: 50, title: "Soft boundaries", line: "Your poodle has privileges. You still have boundaries." },
+    { max: 75, title: "Five-star service", line: "Your poodle has better service than most five-star hotels." },
+    { max: 90, title: "Tiny monarch", line: "You don't say “no” anymore. You say “maybe later.”" },
+    { max: 100, title: "Poodle royalty", line: "You don't own a poodle. Your poodle owns you." }
   ];
+  var guides = {
+    puppy: { label: "Read the first 30 days", href: "30daysguide/", note: "The first weeks get the guide." },
+    coat: { label: "Read line brushing", href: "line-brushing/", note: "The coat gets the guide." },
+    door: { label: "Read apartment barking", href: "apartment-barking/", note: "The doorbell gets the guide." }
+  };
 
   var stage = document.getElementById("quiz-stage");
   var progress = document.getElementById("quiz-progress");
@@ -842,15 +853,51 @@ tailwind.config = {
   var index = 0;
   var points = 0;
   var locked = false;
+  var pickedGuide = "puppy";
 
   function levelFor(score) {
     return levels.find(function (level) { return score <= level.max; });
   }
 
-  function button(label) {
-    var el = document.createElement("a");
-    el.href = "#game";
-    el.className = "inline-flex items-center justify-center min-h-14 px-6 rounded-full bg-[#eaeef8] text-[#171c23] text-[15px] font-semibold";
+  function siteUrl(path) {
+    return new URL(path, "https://poodlecircle.com/").href;
+  }
+
+  function copyText(value) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(value).then(function () { return "copied"; });
+    }
+    var area = document.createElement("textarea");
+    area.value = value;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.left = "-9999px";
+    document.body.appendChild(area);
+    area.select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) {}
+    area.remove();
+    return ok ? Promise.resolve("copied") : Promise.resolve("failed");
+  }
+
+  function postResult(text, url) {
+    if (navigator.share) {
+      return navigator.share({ title: "Poodle Circle", text: text, url: url }).then(function () {
+        return "shared";
+      }, function (error) {
+        if (error && error.name === "AbortError") return "cancel";
+        return copyText(text + "\n" + url);
+      });
+    }
+    return copyText(text + "\n" + url);
+  }
+  window.poodlecirclePost = postResult;
+
+  function pill(label, primary) {
+    var el = document.createElement(primary ? "a" : "button");
+    if (!primary) el.type = "button";
+    el.className = "inline-flex items-center justify-center min-h-14 px-6 rounded-full text-[15px] font-semibold " +
+      (primary ? "bg-primary text-white" : "bg-[#eaeef8] text-[#171c23]");
     el.textContent = label;
     return el;
   }
@@ -882,7 +929,8 @@ tailwind.config = {
   function choose(value, chosen) {
     if (locked) return;
     locked = true;
-    points += value;
+    if (questions[index].route) pickedGuide = value;
+    else points += value;
     chosen.classList.add("is-picked");
     window.setTimeout(function () {
       stage.classList.add("is-leaving");
@@ -896,12 +944,16 @@ tailwind.config = {
   }
 
   function renderResult() {
-    var score = Math.round((points / (questions.length * 2)) * 100);
+    var scored = questions.filter(function (q) { return !q.route; }).length;
+    var score = Math.round((points / (scored * 2)) * 100);
     var level = levelFor(score);
+    var guide = guides[pickedGuide] || guides.puppy;
+    var phrase = score + "% spoiled. " + level.title + ".";
+    var guideUrl = siteUrl(guide.href);
     progress.hidden = false;
     bar.style.width = "100%";
     step.textContent = "Result";
-    mood.textContent = score > 75 ? "The household has spoken." : "Noted, with affection.";
+    mood.textContent = guide.note;
     stage.innerHTML = "";
     stage.classList.remove("is-leaving");
 
@@ -911,28 +963,52 @@ tailwind.config = {
       '<p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">Your poodle spoiled score</p>' +
       '<p class="quiz-score mt-3 text-[72px] leading-none font-extrabold tracking-tight" id="quiz-number">0%</p>' +
       '<h3 class="mt-4 text-[28px] sm:text-[36px] leading-tight font-extrabold" id="quiz-title"></h3>' +
-      '<p class="mt-4 text-[18px] leading-7 text-[#5b403c] max-w-md mx-auto" id="quiz-line"></p>';
+      '<p class="mt-4 text-[18px] leading-7 text-[#5b403c] max-w-md mx-auto" id="quiz-line"></p>' +
+      '<div class="mt-6 mx-auto max-w-md rounded-[1.25rem] bg-[#f0f4fd] px-5 py-4 text-left">' +
+        '<p class="text-[16px] leading-6 font-semibold" id="quiz-post"></p>' +
+        '<p class="mt-1 text-[13px] leading-5 text-[#5b403c]" id="quiz-post-url"></p>' +
+      '</div>' +
+      '<p class="sr-only" id="quiz-share-status" aria-live="polite"></p>';
     stage.appendChild(wrap);
     document.getElementById("quiz-title").textContent = level.title;
     document.getElementById("quiz-line").textContent = level.line;
+    document.getElementById("quiz-post").textContent = phrase;
+    document.getElementById("quiz-post-url").textContent = guideUrl.replace(/^https:\/\//, "");
 
     var actions = document.createElement("div");
     actions.className = "mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3";
-    var again = button("🐩  Play again");
-    again.addEventListener("click", function (event) {
-      event.preventDefault();
+    var post = pill("Post this line", false);
+    var postLabel = "Post this line";
+    post.addEventListener("click", function () {
+      postResult(phrase, guideUrl).then(function (result) {
+        var status = document.getElementById("quiz-share-status");
+        if (result === "cancel") return;
+        var note = result === "shared" ? "Shared." : result === "copied" ? "Copied." : "Could not copy that.";
+        post.textContent = note;
+        if (status) status.textContent = note + " " + phrase;
+        window.setTimeout(function () { post.textContent = postLabel; }, 1600);
+      }).catch(function () {
+        post.textContent = "Could not copy that.";
+        window.setTimeout(function () { post.textContent = postLabel; }, 1600);
+      });
+    });
+    var guideLink = pill(guide.label, true);
+    guideLink.href = guide.href;
+    var again = document.createElement("button");
+    again.type = "button";
+    again.className = "mt-4 text-[15px] font-semibold text-[#5b403c]";
+    again.textContent = "Play again";
+    again.addEventListener("click", function () {
       index = 0;
       points = 0;
       locked = false;
+      pickedGuide = "puppy";
       renderQuestion();
     });
-    var guideLink = document.createElement("a");
-    guideLink.href = level.href;
-    guideLink.className = "inline-flex items-center justify-center min-h-14 px-6 rounded-full bg-primary text-white text-[15px] font-semibold";
-    guideLink.textContent = level.guide;
-    actions.appendChild(again);
+    actions.appendChild(post);
     actions.appendChild(guideLink);
-    stage.appendChild(actions);
+    wrap.appendChild(actions);
+    wrap.appendChild(again);
 
     if (score > 75) {
       ["🐾", "✨", "👑", "🐾", "✨"].forEach(function (mark, i) {
@@ -941,7 +1017,7 @@ tailwind.config = {
         spark.setAttribute("aria-hidden", "true");
         spark.textContent = mark;
         spark.style.left = (12 + i * 18) + "%";
-        spark.style.bottom = "28%";
+        spark.style.top = "72px";
         spark.style.animationDelay = (i * 0.12) + "s";
         wrap.appendChild(spark);
       });
