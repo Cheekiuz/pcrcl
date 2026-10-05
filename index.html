@@ -136,6 +136,24 @@ try {
     100% { transform: scale(1); }
   }
   .quiz-pop { animation: quiz-pop .55s ease; }
+  .quiz-share-card {
+    border-radius: 1.75rem;
+    background: #f6f1ea;
+    padding: 2rem 1.25rem 1.75rem;
+  }
+  .quiz-rec {
+    display: block;
+    margin-top: 12px;
+    padding: 16px 18px;
+    border-radius: 1.25rem;
+    background: #fff;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+  }
+  .quiz-rec:hover { border-color: #b22110; }
+  .quiz-rec:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
   .site-logo-dark { display: none; }
   html[data-theme="dark"] .site-logo-light { display: none; }
   html[data-theme="dark"] .site-logo-dark { display: block; }
@@ -154,6 +172,20 @@ try {
   }
   #top h1, #top .hero-copy {
     text-shadow: 0 2px 16px rgba(20, 16, 14, 0.45);
+  }
+  .lift {
+    transition: transform .22s ease, box-shadow .22s ease;
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px rgba(23, 28, 35, 0.12);
+  }
+  a.lift:focus-visible {
+    outline: 2px solid #b22110;
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lift, .lift:hover { transition: none; transform: none; }
   }
   #guides, #guide-list, #guide-coat, #guide-apartment, #health-notice,
   #game, #parkour, #dogs, #questions, #about, #principles, #read {
@@ -199,6 +231,8 @@ try {
     border-color: #ffb4a7;
   }
   html[data-theme="dark"] .quiz-bar { background: #3a3330; }
+  html[data-theme="dark"] .quiz-share-card { background: #181d26; }
+  html[data-theme="dark"] .quiz-rec { background: #222833; }
   html[data-theme="dark"] input { color: #f6f1ea; }
   html[data-theme="dark"] .keep-light input,
   html[data-theme="dark"] .keep-light input::placeholder { color: #171c23; }
@@ -441,22 +475,22 @@ tailwind.config = {
       “Built by owners for toy poodle parents. Not a clinic. A circle for the first weeks, the coat, and life with a very small dog.”
     </p>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-      <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
+      <div class="lift p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
         <span class="material-symbols-outlined text-primary text-3xl mb-2">auto_stories</span>
         <span class="text-[28px] leading-9 font-bold">10</span>
         <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Guides you can read</span>
       </div>
-      <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
+      <div class="lift p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
         <span class="material-symbols-outlined text-[#00685e] text-3xl mb-2">edit_note</span>
         <span class="text-[28px] leading-9 font-bold">30</span>
         <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Days in the guide you start with</span>
       </div>
-      <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
+      <div class="lift p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
         <span class="material-symbols-outlined text-primary text-3xl mb-2">block</span>
         <span class="text-[28px] leading-9 font-bold">Zero</span>
         <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Puppy sales allowed</span>
       </div>
-      <div class="p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
+      <div class="lift p-6 rounded-[2rem] bg-white flex flex-col items-center text-center shadow-sm">
         <span class="material-symbols-outlined text-[#248277] text-3xl mb-2">pets</span>
         <span class="text-[28px] leading-9 font-bold">4</span>
         <span class="text-[13px] font-semibold text-[#5b403c] mt-1">Example dogs on this page</span>
@@ -473,26 +507,26 @@ tailwind.config = {
       <p class="mt-3 text-[16px] leading-7 text-[#5b403c]">Pick one. It opens that guide, and names the next one.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16" id="path">
-      <a class="flex flex-col rounded-[2rem] bg-white p-6 sm:p-7 shadow-sm" href="30daysguide/">
+      <a class="group lift flex flex-col rounded-[2rem] bg-white p-6 sm:p-7 shadow-sm" href="30daysguide/">
         <span class="text-[11px] font-bold tracking-widest uppercase text-primary">First week</span>
         <h3 class="text-[22px] leading-7 font-bold mt-3">The first nights</h3>
         <p class="text-[15px] leading-6 text-[#5b403c] mt-2 flex-1">One quiet room, a toilet trip, and sleep. The rest of the month can wait.</p>
         <p class="mt-6 text-[13px] font-semibold">Next: the coat, before a mat hides.</p>
-        <span class="mt-2 text-[13px] font-semibold text-primary">Read the first 30 days</span>
+        <span class="mt-2 text-[13px] font-semibold text-primary group-hover:underline">Read the first 30 days</span>
       </a>
-      <a class="flex flex-col rounded-[2rem] bg-white p-6 sm:p-7 shadow-sm" href="line-brushing/">
+      <a class="group lift flex flex-col rounded-[2rem] bg-white p-6 sm:p-7 shadow-sm" href="line-brushing/">
         <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Coat</span>
         <h3 class="text-[22px] leading-7 font-bold mt-3">Before a full shave</h3>
         <p class="text-[15px] leading-6 text-[#5b403c] mt-2 flex-1">A few minutes through the ears, armpits, and legs, while the coat can still be saved.</p>
         <p class="mt-6 text-[13px] font-semibold">Next: the apartment, when the doorbell takes the evening.</p>
-        <span class="mt-2 text-[13px] font-semibold text-primary">Read line brushing</span>
+        <span class="mt-2 text-[13px] font-semibold text-primary group-hover:underline">Read line brushing</span>
       </a>
-      <a class="flex flex-col rounded-[2rem] bg-white p-6 sm:p-7 shadow-sm" href="apartment-barking/">
+      <a class="group lift flex flex-col rounded-[2rem] bg-white p-6 sm:p-7 shadow-sm" href="apartment-barking/">
         <span class="text-[11px] font-bold tracking-widest uppercase text-primary">Apartment</span>
         <h3 class="text-[22px] leading-7 font-bold mt-3">The doorbell</h3>
         <p class="text-[15px] leading-6 text-[#5b403c] mt-2 flex-1">A sniff walk and a mat away from the door, when the hallway owns the evening.</p>
         <p class="mt-6 text-[13px] font-semibold">Next: tear stains, a wipe and a dry face.</p>
-        <span class="mt-2 text-[13px] font-semibold text-primary">Read apartment barking</span>
+        <span class="mt-2 text-[13px] font-semibold text-primary group-hover:underline">Read apartment barking</span>
       </a>
     </div>
     <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
@@ -503,7 +537,7 @@ tailwind.config = {
       <a class="inline-flex shrink-0 items-center gap-1.5 text-[13px] font-semibold text-primary whitespace-nowrap" href="#guide-list">See all 10 guides <span class="material-symbols-outlined text-lg">arrow_forward</span></a>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-      <article class="flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm group" id="guide-first">
+      <a class="group lift flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm" id="guide-first" href="30daysguide/">
         <div class="relative h-60 overflow-hidden bg-[#eaeef8]">
           <img alt="A toy poodle puppy asleep in a plush bed" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2zPodg4DxLy8uUGvGo1FlXaRK0JYMhs1Tji-l-nNZByUHaGI4y8GHOxr6SbFb5MVpCbK46_I6YkzlkMv4Q9TeMQa5fgP6HbqMcERwWPwNDCJ_eRV_3KIiXjLf9y96k44jP1ozvvZz9VEvUEg-QmUCjaXXEdsc5ZvB_t5Tj5dszYWT0TOMQoM9p1lUwHVKFPYiHRXu8QRCJ15spbkVWrsQ2W75teo1-clKSZydxyXuVCNWKhFXEMZJ"/>
           <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-primary text-white text-[11px] font-bold">Open to read</span>
@@ -514,11 +548,11 @@ tailwind.config = {
           <p class="text-[15px] leading-6 text-[#5b403c] mt-3 flex-1">Toilet habits, night whining, the 48-hour calm rule, what you actually need to buy, and what can wait.</p>
           <div class="mt-6 flex items-center justify-between">
             <span class="text-[11px] text-[#5b403c]">About 4 min</span>
-            <a class="text-[13px] font-semibold text-primary" href="30daysguide/">Read the guide</a>
+            <span class="text-[13px] font-semibold text-primary group-hover:underline">Read the guide</span>
           </div>
         </div>
-      </article>
-      <article class="flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm group" id="guide-coat">
+      </a>
+      <a class="group lift flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm" id="guide-coat" href="line-brushing/">
         <div class="relative h-60 overflow-hidden bg-[#eaeef8]">
           <img alt="A groomer brushing a caramel toy poodle coat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRZ3Rkl_H6kZQYsL_R_AYnRMCmX4rRcDDeLdWTcneNi1hpvh76_E_yBTVDqRvUBAGsdela5an1DdHbSM5GNKxYPda9mBvRFheHMufGJjJnGmNsk8e5_XgrRaiWzDKHgytU3tRnJDxl_usxSaZvlTyF2sNdnpOXD6u_UTCXkyY5d4z7UuUhnNTbKM-Y25e4b3rkQNMvSSfSFOVVj0K_SKqelLJQLGG7L4frpkZIytIrIUSCMhfa2zA1"/>
           <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-primary text-white text-[11px] font-bold">Open to read</span>
@@ -529,11 +563,11 @@ tailwind.config = {
           <p class="text-[15px] leading-6 text-[#5b403c] mt-3 flex-1">A daily few minutes through the coat, aimed at mats in the ears, armpits, and legs, before a groomer has to take it all off.</p>
           <div class="mt-6 flex items-center justify-between">
             <span class="text-[11px] text-[#5b403c]">About 4 min</span>
-            <a class="text-[13px] font-semibold text-primary" href="line-brushing/">Read the guide</a>
+            <span class="text-[13px] font-semibold text-primary group-hover:underline">Read the guide</span>
           </div>
         </div>
-      </article>
-      <article class="flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm group" id="guide-apartment">
+      </a>
+      <a class="group lift flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm" id="guide-apartment" href="apartment-barking/">
         <div class="relative h-60 overflow-hidden bg-[#eaeef8]">
           <img alt="A toy poodle playing with a puzzle toy on an apartment floor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFSYepoPzwUCDVp4uZiCUtu_27_MgU_nE1scdaT6IWc6RpQB1py0uIjGvTYLqQZxrobhNGZgD3KeYw_ryRHQnl6cZWE0VVOg5nkKg6HVzECLfvEGzofhw44muFeCWa6d0K3wzumHvtyBnF0SBvoSHywaye4x17z6XZKPoebMs5XfTCmQq8YqALv5xww_G9f9T6vsic57Trl6TwHApALqj0tHO8UkbdBjMPZyy7qpwZv9hGshozVMrf"/>
           <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-primary text-white text-[11px] font-bold">Open to read</span>
@@ -544,11 +578,11 @@ tailwind.config = {
           <p class="text-[15px] leading-6 text-[#5b403c] mt-3 flex-1">Mental games that tire a clever poodle faster than another lap of the block, and what to do when the doorbell owns the evening.</p>
           <div class="mt-6 flex items-center justify-between">
             <span class="text-[11px] text-[#5b403c]">About 3 min</span>
-            <a class="text-[13px] font-semibold text-primary" href="apartment-barking/">Read the guide</a>
+            <span class="text-[13px] font-semibold text-primary group-hover:underline">Read the guide</span>
           </div>
         </div>
-      </article>
-      <article class="flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm group" id="guide-tears">
+      </a>
+      <a class="group lift flex flex-col rounded-[2rem] bg-white overflow-hidden shadow-sm" id="guide-tears" href="tear-stains/">
         <div class="relative h-60 overflow-hidden bg-[#eaeef8]">
           <img alt="An apricot toy poodle puppy sitting on a cream blanket in a quiet room" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="assets/guide/guide-home.jpg"/>
           <span class="absolute top-4 left-4 px-3.5 py-1 rounded-full bg-primary text-white text-[11px] font-bold">Open to read</span>
@@ -559,22 +593,22 @@ tailwind.config = {
           <p class="text-[15px] leading-6 text-[#5b403c] mt-3 flex-1">A daily wipe with water, dry fur under the eyes, and the signs that belong with a vet instead of a whitening bottle.</p>
           <div class="mt-6 flex items-center justify-between">
             <span class="text-[11px] text-[#5b403c]">About 3 min</span>
-            <a class="text-[13px] font-semibold text-primary" href="tear-stains/">Read the guide</a>
+            <span class="text-[13px] font-semibold text-primary group-hover:underline">Read the guide</span>
           </div>
         </div>
-      </article>
+      </a>
     </div>
     <ol class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-3" id="guide-list">
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="30daysguide/">1. The first 30 days</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="line-brushing/">2. Line brushing before a full shave</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="tear-stains/">3. Tear stains, without a product pitch</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="teeth/">4. Toy poodle teeth</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="stairs/">5. Stairs, cold, and hawks</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="alone-time/">6. Alone time, including two hours</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="home-brushing/">7. Grooming at home, and the salon</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="apartment-barking/">8. Apartment energy and barking</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="harness/">9. A harness that stays on</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
-      <li class="flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4"><a class="text-[15px] font-semibold" href="night-waking/">10. Night waking after the first month</a><span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary">Read</span></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="30daysguide/">1. The first 30 days<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="line-brushing/">2. Line brushing before a full shave<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="tear-stains/">3. Tear stains, without a product pitch<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="teeth/">4. Toy poodle teeth<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="stairs/">5. Stairs, cold, and hawks<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="alone-time/">6. Alone time, including two hours<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="home-brushing/">7. Grooming at home, and the salon<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="apartment-barking/">8. Apartment energy and barking<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="harness/">9. A harness that stays on<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
+      <li><a class="group lift flex items-center justify-between gap-4 rounded-[1.5rem] bg-white px-5 py-4 text-[#171c23]" href="night-waking/">10. Night waking after the first month<span class="shrink-0 text-[11px] font-bold uppercase tracking-wide text-primary group-hover:underline">Read</span></a></li>
     </ol>
     <div class="mt-10 p-5 rounded-[2rem] bg-[#f0f4fd] flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left" id="health-notice">
       <span class="material-symbols-outlined text-primary text-2xl shrink-0">medical_services</span>
@@ -589,7 +623,8 @@ tailwind.config = {
       <div class="text-center" id="quiz-heading">
         <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">For people who live with a tiny monarch</p>
         <h2 class="mt-3 text-[28px] leading-9 sm:text-[40px] sm:leading-[48px] font-extrabold tracking-tight">How spoiled is your poodle? 🐩</h2>
-        <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">Seven questions. Then a line worth posting, and the guide that fits this week.</p>
+        <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">7 questions. One very important diagnosis.</p>
+        <p class="mt-2 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">Because there are no bad poodles. Only extremely well-served ones.</p>
       </div>
       <div class="mt-8" id="quiz-progress" hidden>
         <div class="flex items-center justify-between text-[13px] font-semibold text-[#5b403c] mb-2">
@@ -648,25 +683,25 @@ tailwind.config = {
       <p class="text-[15px] leading-6 text-[#5b403c] mt-3">Written for this page, so you can picture the dogs these guides are about.</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <article class="rounded-[2rem] bg-white p-5 shadow-sm">
+      <article class="lift rounded-[2rem] bg-white p-5 shadow-sm">
         <div class="h-52 rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img alt="Apricot toy poodle Mochi by a window" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY4uVaPy0F-BmH5g4pQzyWc5NCs6lcU52zNdMVEdbIL0fCYOHVvzDbO161408__5hZwQs0p_Vq8129-7NfJa8bAyG_Gov-sa-5OCftZagyNxlj_vEJ4rQFDkQ930IngcEhJ3tc_i7JQSBp5QWWj7dNnxvFvljRk-DsdIdvjrSBJMOrDvE_b_LnsSRayQj-cH4VXNOiXeL8q3L326svfBHUYDbTC7TYCf6TxL7yk1xIYyPn3OGGtA3P"/></div>
         <div class="flex items-baseline justify-between gap-2"><h3 class="text-[20px] font-semibold">Mochi</h3><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eaeef8]">Example · 1.5 yrs</span></div>
         <p class="text-[13px] text-[#5b403c] mt-1">Brooklyn, NY · Apricot</p>
         <p class="text-[13px] italic text-[#5b403c] mt-3">“Loves plush toys and sleeping in afternoon sunbeams.”</p>
       </article>
-      <article class="rounded-[2rem] bg-white p-5 shadow-sm">
+      <article class="lift rounded-[2rem] bg-white p-5 shadow-sm">
         <div class="h-52 rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img alt="Chocolate toy poodle Coco on a rug" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLtVpRFSwsA1j50zIDIx3SD_9g9y3KYB91YYV50tRr9wlJdxJ0C8jKsSfqeEAlI9cG8beZoKWF6WD3n-9aNZ49JsA9LusvSABDU6EJSEc96ZGwB2flSpHW7naV1Z81Baxh_ke3rHkPpPbXrKh77u2VkBGWLpygdgz11VB-5uzOQZaQpJ2SINj4eMqQZ2JVkS1UeP-6QJU7VJnhNSpn8lI3D7tRt5_cdSckFOwMGtqmukxPiK7AIPmy"/></div>
         <div class="flex items-baseline justify-between gap-2"><h3 class="text-[20px] font-semibold">Coco</h3><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eaeef8]">Example · 8 mos</span></div>
         <p class="text-[13px] text-[#5b403c] mt-1">London, UK · Chocolate</p>
         <p class="text-[13px] italic text-[#5b403c] mt-3">“Master of the high-speed hallway zoomies.”</p>
       </article>
-      <article class="rounded-[2rem] bg-white p-5 shadow-sm">
+      <article class="lift rounded-[2rem] bg-white p-5 shadow-sm">
         <div class="h-52 rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img alt="Cream toy poodle Biscotti on a sofa" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKhVfP3yDpTigKOSjcw39LS5y9FvmNCyiqf7T-2cOZ_A5fxsqmbkqOfmwVTAf5wpmMk38dtZUzXswpW0VpsXPKUgVBIF0w3EEisj9hEcDvhMeivhjUtN_Za2eMzoDVu8AsmxB2rC-QLeO3aVlXTO-xTbahC3ZnToq7pkgHPjiCdtCQlw0kY-Z2TpljCcOlSY3tSRAMnvqJSOG-fnR5E9t52P3KasBRat4bGstQ29aF5VjhbwZ5ecSD"/></div>
         <div class="flex items-baseline justify-between gap-2"><h3 class="text-[20px] font-semibold">Biscotti</h3><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eaeef8]">Example · 3 yrs</span></div>
         <p class="text-[13px] text-[#5b403c] mt-1">San Francisco, CA · Cream</p>
         <p class="text-[13px] italic text-[#5b403c] mt-3">“Agility trainee and dedicated lap expert.”</p>
       </article>
-      <article class="rounded-[2rem] bg-white p-5 shadow-sm">
+      <article class="lift rounded-[2rem] bg-white p-5 shadow-sm">
         <div class="h-52 rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img alt="Red toy poodle Teddy looking up" class="w-full h-full object-cover" src="assets/teddy.jpg"/></div>
         <div class="flex items-baseline justify-between gap-2"><h3 class="text-[20px] font-semibold">Teddy</h3><span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#eaeef8]">Example · 2 yrs</span></div>
         <p class="text-[13px] text-[#5b403c] mt-1">Toronto, Canada · Red</p>
@@ -685,7 +720,7 @@ tailwind.config = {
       <span class="text-[11px] font-bold tracking-widest uppercase text-primary">This week</span>
       <h2 class="text-[28px] sm:text-[40px] font-bold mt-2">One question, answered on Instagram</h2>
       <p class="text-[18px] leading-7 text-[#5b403c] mt-4">There is no forum here yet. Until there is, one question a week lives on <strong class="text-[#171c23]">@poodle.circle</strong>.</p>
-      <div class="mt-6 p-6 rounded-[2rem] bg-white">
+      <div class="lift mt-6 p-6 rounded-[2rem] bg-white">
         <p class="text-[11px] font-bold uppercase tracking-wide text-primary">This week’s question</p>
         <p class="mt-3 text-[20px] leading-7 font-semibold">What do you wish someone had told you on night one with a toy poodle?</p>
         <a class="mt-6 inline-flex items-center justify-center w-full py-3 rounded-full bg-primary text-white text-[13px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank">Answer on Instagram</a>
@@ -694,12 +729,12 @@ tailwind.config = {
     </div>
     <div class="lg:col-span-7 flex flex-col gap-4">
       <p class="text-[13px] font-semibold uppercase tracking-wide text-[#5b403c]">Examples, written for this page</p>
-      <article class="p-6 rounded-[2rem] bg-white shadow-sm">
+      <article class="lift p-6 rounded-[2rem] bg-white shadow-sm">
         <h3 class="text-[20px] font-semibold">How do you handle sudden separation anxiety at 6 months?</h3>
         <p class="text-[15px] leading-6 text-[#5b403c] mt-2">“The pup slept happily in a pen. Now the barking starts the second someone leaves the room. Fear period, or a habit we taught by accident?”</p>
         <p class="text-[13px] text-[#5b403c] mt-4">Sample question. Not from a live feed.</p>
       </article>
-      <article class="p-6 rounded-[2rem] bg-white shadow-sm">
+      <article class="lift p-6 rounded-[2rem] bg-white shadow-sm">
         <h3 class="text-[20px] font-semibold">Best slicker brush that doesn’t scratch delicate skin?</h3>
         <p class="text-[15px] leading-6 text-[#5b403c] mt-2">“Something with bent pins that doesn’t hurt on ear curls and armpits.”</p>
         <p class="text-[13px] text-[#5b403c] mt-4">Sample question. The coat guide is <a class="font-semibold text-primary" href="line-brushing/">line brushing</a>.</p>
@@ -710,7 +745,7 @@ tailwind.config = {
 
 <section class="w-full py-20 px-6 bg-[#f8f9ff]" id="about">
   <div class="max-w-[1240px] mx-auto flex flex-col gap-16">
-    <div class="rounded-[2rem] bg-white p-8 md:p-12 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
+    <div class="lift rounded-[2rem] bg-white p-8 md:p-12 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
       <div class="max-w-xl">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eaeef8] text-[11px] font-bold mb-4"><span class="material-symbols-outlined text-base text-primary">play_circle</span> Instagram</div>
         <h3 class="text-[28px] leading-9 font-bold">Short clips, then the full guide.</h3>
@@ -724,10 +759,10 @@ tailwind.config = {
         <h2 class="text-[28px] font-bold mt-1">Four circle principles</h2>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <article class="p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">01</span><h3 class="text-[20px] font-semibold mt-2">Be kind</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">Every owner was once awake at 3 a.m. with an eight-week-old puppy. No judgment.</p></article>
-        <article class="p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">02</span><h3 class="text-[20px] font-semibold mt-2">No puppy sales</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">No breeding ads, brokers, or classifieds. This is a companionship circle.</p></article>
-        <article class="p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">03</span><h3 class="text-[20px] font-semibold mt-2">Vet first</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">We share habits, not doses. Illness and emergencies belong with a veterinarian.</p></article>
-        <article class="p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">04</span><h3 class="text-[20px] font-semibold mt-2">Real homes</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">Muddy paws, imperfect haircuts, and the actual dog who lives with you.</p></article>
+        <article class="lift p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">01</span><h3 class="text-[20px] font-semibold mt-2">Be kind</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">Every owner was once awake at 3 a.m. with an eight-week-old puppy. No judgment.</p></article>
+        <article class="lift p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">02</span><h3 class="text-[20px] font-semibold mt-2">No puppy sales</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">No breeding ads, brokers, or classifieds. This is a companionship circle.</p></article>
+        <article class="lift p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">03</span><h3 class="text-[20px] font-semibold mt-2">Vet first</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">We share habits, not doses. Illness and emergencies belong with a veterinarian.</p></article>
+        <article class="lift p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">04</span><h3 class="text-[20px] font-semibold mt-2">Real homes</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">Muddy paws, imperfect haircuts, and the actual dog who lives with you.</p></article>
       </div>
     </div>
   </div>
@@ -865,19 +900,72 @@ tailwind.config = {
       ["The doorbell. It has taken the evening.", "door"]
     ]}
   ];
-  var levels = [
-    { max: 25, title: "Still in charge", line: "You still have control of your household. For now." },
-    { max: 50, title: "Soft boundaries", line: "Your poodle has privileges. You still have boundaries." },
-    { max: 75, title: "Five-star service", line: "Your poodle has better service than most five-star hotels." },
-    { max: 90, title: "Tiny monarch", line: "You don't say “no” anymore. You say “maybe later.”" },
-    { max: 100, title: "Poodle royalty", line: "You don't own a poodle. Your poodle owns you." }
+  var types = [
+    {
+      min: 90,
+      name: "The Tiny Royal",
+      emoji: "👑",
+      quote: "You live in their home.",
+      story: "Your poodle doesn't live in your home. You live in theirs. The sofa has been claimed. The best blanket is theirs. And somehow you're the one asking permission to sit down.",
+      typical: "Special sleeping arrangements, premium snacks, dramatic sighs.",
+      mission: "Learning that \"no\" is occasionally a complete sentence."
+    },
+    {
+      min: 70,
+      name: "The Softie",
+      emoji: "🧸",
+      quote: "You said \"just one treat\" approximately 14 minutes ago.",
+      story: "Your poodle gets away with things because they're cute. You noticed. You allowed it. The exception is now the evening.",
+      typical: "One more treat, one more minute on the sofa, one more exception.",
+      mission: "A calm day that does not depend on how cute they look."
+    },
+    {
+      min: 50,
+      name: "The Balanced Parent",
+      emoji: "🐩",
+      quote: "You occasionally remember that you're in charge.",
+      story: "You love your poodle deeply, and the rules still exist. The sofa is a negotiation, not a surrender.",
+      typical: "Good routines, reasonable boundaries, occasional sofa negotiations.",
+      mission: "Keeping them happy, and fine for an hour without you."
+    },
+    {
+      min: 30,
+      name: "The Responsible One",
+      emoji: "🎾",
+      quote: "Your poodle has rules. Your poodle is not particularly impressed.",
+      story: "Training comes first. Cuddles come second. They have opinions about this order.",
+      typical: "Training first, cuddles second.",
+      mission: "Making the routine something they choose, not something they endure."
+    },
+    {
+      min: 0,
+      name: "The Tough Cookie",
+      emoji: "😈",
+      quote: "Your poodle would like to speak to your manager.",
+      story: "You thought you were getting a dog. You accidentally adopted a tiny dictator. The rules are real. The poodle has requested a review.",
+      typical: "Firm rules, and a dog who expected softer management.",
+      mission: "Hearing what the sigh is asking for, before it becomes a campaign."
+    }
   ];
   var guides = {
-    puppy: { label: "Read the first 30 days", href: "30daysguide/", note: "The first weeks get the guide." },
-    coat: { label: "Read line brushing", href: "line-brushing/", note: "The coat gets the guide." },
-    door: { label: "Read apartment barking", href: "apartment-barking/", note: "The doorbell gets the guide." }
+    puppy: {
+      title: "The first 30 days",
+      blurb: "The first nights, a simple routine, and what can wait until the house feels safe.",
+      href: "30daysguide/"
+    },
+    coat: {
+      title: "Line brushing",
+      blurb: "A few calm minutes through the coat, before a mat decides the haircut.",
+      href: "line-brushing/"
+    },
+    door: {
+      title: "Apartment barking",
+      blurb: "The doorbell, the hallway, and a small dog who thinks the evening is theirs.",
+      href: "apartment-barking/"
+    }
   };
 
+  var heading = document.getElementById("quiz-heading");
   var stage = document.getElementById("quiz-stage");
   var progress = document.getElementById("quiz-progress");
   var step = document.getElementById("quiz-step");
@@ -888,8 +976,133 @@ tailwind.config = {
   var locked = false;
   var pickedGuide = "puppy";
 
-  function levelFor(score) {
-    return levels.find(function (level) { return score <= level.max; });
+  function typeFor(score) {
+    return types.find(function (type) { return score >= type.min; });
+  }
+
+  function addText(parent, tag, className, text) {
+    var node = document.createElement(tag);
+    node.className = className;
+    node.textContent = text;
+    parent.appendChild(node);
+    return node;
+  }
+
+  function fillRound(ctx, x, y, w, h, r, color) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  function fitFont(ctx, text, maxWidth, start) {
+    var size = start;
+    while (size > 42) {
+      ctx.font = "800 " + size + "px 'Plus Jakarta Sans', sans-serif";
+      if (ctx.measureText(text).width <= maxWidth) return size;
+      size -= 2;
+    }
+    return size;
+  }
+
+  function wrapCentered(ctx, text, x, y, maxWidth, lineHeight) {
+    var words = text.split(" ");
+    var lines = [];
+    var line = "";
+    words.forEach(function (word) {
+      var next = line ? line + " " + word : word;
+      if (ctx.measureText(next).width > maxWidth && line) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = next;
+      }
+    });
+    if (line) lines.push(line);
+    lines.forEach(function (ln, i) {
+      ctx.fillText(ln, x, y + i * lineHeight);
+    });
+    return lines.length;
+  }
+
+  function drawCard(type, score) {
+    var canvas = document.createElement("canvas");
+    canvas.width = 1080;
+    canvas.height = 1920;
+    var ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#f6f1ea";
+    ctx.fillRect(0, 0, 1080, 1920);
+    fillRound(ctx, 80, 340, 920, 1240, 56, "#ffffff");
+    ctx.beginPath();
+    ctx.arc(540, 520, 88, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffdad4";
+    ctx.fill();
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#171c23";
+    ctx.font = "120px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText(type.emoji, 540, 528);
+    ctx.fillStyle = "#b22110";
+    ctx.font = "700 26px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("YOUR POODLE CIRCLE RESULT", 540, 680);
+    var name = type.name.toUpperCase();
+    var nameSize = fitFont(ctx, name, 760, 76);
+    ctx.fillStyle = "#171c23";
+    ctx.font = "800 " + nameSize + "px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText(name, 540, 790);
+    ctx.fillStyle = "#5b403c";
+    ctx.font = "700 34px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText(score + "% SPOILED", 540, 880);
+    ctx.fillStyle = "#171c23";
+    ctx.font = "italic 600 40px 'Plus Jakarta Sans', sans-serif";
+    wrapCentered(ctx, type.quote, 540, 1020, 740, 56);
+    ctx.fillStyle = "#171c23";
+    ctx.font = "700 28px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("Poodle Circle", 540, 1420);
+    ctx.fillStyle = "#5b403c";
+    ctx.font = "600 24px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("poodlecircle.com", 540, 1470);
+    return new Promise(function (resolve) {
+      canvas.toBlob(function (blob) { resolve(blob); }, "image/png");
+    });
+  }
+
+  function shareCard(file, caption, url) {
+    var canShareFile = false;
+    try {
+      canShareFile = !!(file && navigator.canShare && navigator.canShare({ files: [file] }));
+    } catch (e) {}
+    if (canShareFile) {
+      return navigator.share({ files: [file], title: "Poodle Circle", text: caption }).then(function () {
+        return "shared";
+      }, function (error) {
+        if (error && error.name === "AbortError") return "cancel";
+        return saveCard(file, caption, url);
+      });
+    }
+    if (file) return saveCard(file, caption, url);
+    return postResult(caption, url).then(function (result) { return result; }, function () { return "failed"; });
+  }
+
+  function saveCard(file, caption, url) {
+    var link = document.createElement("a");
+    var objectUrl = URL.createObjectURL(file);
+    link.href = objectUrl;
+    link.download = "poodle-circle-result.png";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1500);
+    return copyText(caption + "\n" + url).then(function (result) {
+      return result === "copied" ? "saved" : "downloaded";
+    }, function () {
+      return "downloaded";
+    });
   }
 
   function siteUrl(path) {
@@ -898,8 +1111,16 @@ tailwind.config = {
 
   function copyText(value) {
     if (navigator.clipboard && window.isSecureContext) {
-      return navigator.clipboard.writeText(value).then(function () { return "copied"; });
+      return navigator.clipboard.writeText(value).then(function () {
+        return "copied";
+      }, function () {
+        return legacyCopy(value);
+      });
     }
+    return legacyCopy(value);
+  }
+
+  function legacyCopy(value) {
     var area = document.createElement("textarea");
     area.value = value;
     area.setAttribute("readonly", "");
@@ -910,7 +1131,7 @@ tailwind.config = {
     var ok = false;
     try { ok = document.execCommand("copy"); } catch (e) {}
     area.remove();
-    return ok ? Promise.resolve("copied") : Promise.resolve("failed");
+    return Promise.resolve(ok ? "copied" : "failed");
   }
 
   function postResult(text, url) {
@@ -937,7 +1158,8 @@ tailwind.config = {
 
   function renderQuestion() {
     var q = questions[index];
-    step.textContent = "Question " + (index + 1) + " of 6";
+    heading.hidden = false;
+    step.textContent = "Question " + (index + 1) + " of " + questions.length;
     mood.textContent = q.mood;
     bar.style.width = Math.round((index / questions.length) * 100) + "%";
     stage.innerHTML = "";
@@ -979,57 +1201,96 @@ tailwind.config = {
   function renderResult() {
     var scored = questions.filter(function (q) { return !q.route; }).length;
     var score = Math.round((points / (scored * 2)) * 100);
-    var level = levelFor(score);
+    var type = typeFor(score);
     var guide = guides[pickedGuide] || guides.puppy;
-    var phrase = score + "% spoiled. " + level.title + ".";
-    var guideUrl = siteUrl(guide.href);
+    var caption = type.name + ". " + score + "% spoiled. " + type.quote;
+    var pageUrl = siteUrl("#game");
+    var cardFile = null;
+    heading.hidden = true;
     progress.hidden = false;
     bar.style.width = "100%";
-    step.textContent = "Result";
-    mood.textContent = guide.note;
+    step.textContent = "Your result";
+    mood.textContent = type.name;
     stage.innerHTML = "";
     stage.classList.remove("is-leaving");
 
     var wrap = document.createElement("div");
-    wrap.className = "text-center relative quiz-pop";
-    wrap.innerHTML =
-      '<p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">Your poodle spoiled score</p>' +
-      '<p class="quiz-score mt-3 text-[72px] leading-none font-extrabold tracking-tight" id="quiz-number">0%</p>' +
-      '<h3 class="mt-4 text-[28px] sm:text-[36px] leading-tight font-extrabold" id="quiz-title"></h3>' +
-      '<p class="mt-4 text-[18px] leading-7 text-[#5b403c] max-w-md mx-auto" id="quiz-line"></p>' +
-      '<div class="mt-6 mx-auto max-w-md rounded-[1.25rem] bg-[#f0f4fd] px-5 py-4 text-left">' +
-        '<p class="text-[16px] leading-6 font-semibold" id="quiz-post"></p>' +
-        '<p class="mt-1 text-[13px] leading-5 text-[#5b403c]" id="quiz-post-url"></p>' +
-      '</div>' +
-      '<p class="sr-only" id="quiz-share-status" aria-live="polite"></p>';
-    stage.appendChild(wrap);
-    document.getElementById("quiz-title").textContent = level.title;
-    document.getElementById("quiz-line").textContent = level.line;
-    document.getElementById("quiz-post").textContent = phrase;
-    document.getElementById("quiz-post-url").textContent = guideUrl.replace(/^https:\/\//, "");
+    wrap.className = "relative quiz-pop";
+    var card = document.createElement("div");
+    card.className = "quiz-share-card text-center";
+    addText(card, "p", "text-[11px] font-bold tracking-[0.16em] uppercase text-primary", "Your Poodle Circle result");
+    addText(card, "p", "mt-4 text-[56px] leading-none", type.emoji).setAttribute("aria-hidden", "true");
+    addText(card, "h3", "mt-4 text-[32px] sm:text-[40px] leading-tight font-extrabold tracking-tight", type.name);
+    var percent = document.createElement("p");
+    percent.className = "quiz-score mt-3 text-[15px] font-bold tracking-[0.14em] uppercase text-[#5b403c]";
+    var number = document.createElement("span");
+    number.id = "quiz-number";
+    number.textContent = "0";
+    percent.appendChild(number);
+    percent.appendChild(document.createTextNode("% spoiled"));
+    card.appendChild(percent);
+    addText(card, "p", "mt-5 text-[20px] sm:text-[22px] leading-8 italic font-semibold max-w-md mx-auto", type.quote);
+    wrap.appendChild(card);
 
-    var actions = document.createElement("div");
-    actions.className = "mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3";
-    var post = pill("Post this line", false);
-    var postLabel = "Post this line";
+    addText(wrap, "p", "mt-6 text-[18px] leading-7 text-[#5b403c]", type.story);
+    var typical = document.createElement("div");
+    typical.className = "mt-6";
+    addText(typical, "p", "text-[11px] font-bold tracking-[0.14em] uppercase text-primary", "Typical behaviour");
+    addText(typical, "p", "mt-2 text-[16px] leading-6", type.typical);
+    wrap.appendChild(typical);
+    var mission = document.createElement("div");
+    mission.className = "mt-5";
+    addText(mission, "p", "text-[11px] font-bold tracking-[0.14em] uppercase text-primary", "Your poodle's current mission");
+    addText(mission, "p", "mt-2 text-[16px] leading-6", type.mission);
+    wrap.appendChild(mission);
+
+    var rec = document.createElement("div");
+    rec.className = "mt-6 rounded-[1.5rem] bg-[#f0f4fd] p-5";
+    addText(rec, "p", "text-[11px] font-bold tracking-[0.14em] uppercase text-primary", "Your Poodle Circle recommendation");
+    addText(rec, "p", "mt-2 text-[15px] leading-6 text-[#5b403c]", "Based on your answers, you might want to read:");
+    var guideLink = document.createElement("a");
+    guideLink.className = "quiz-rec";
+    guideLink.href = guide.href;
+    addText(guideLink, "p", "text-[18px] font-bold", guide.title);
+    addText(guideLink, "p", "mt-1 text-[15px] leading-6 text-[#5b403c]", guide.blurb);
+    addText(guideLink, "span", "mt-3 inline-block text-[13px] font-semibold text-primary", "Read the guide →");
+    rec.appendChild(guideLink);
+    wrap.appendChild(rec);
+
+    var status = document.createElement("p");
+    status.className = "sr-only";
+    status.id = "quiz-share-status";
+    status.setAttribute("aria-live", "polite");
+    wrap.appendChild(status);
+
+    var post = document.createElement("button");
+    post.type = "button";
+    post.className = "mt-6 mx-auto flex w-full sm:w-auto items-center justify-center min-h-14 px-6 rounded-full bg-primary text-white text-[15px] font-semibold";
+    post.textContent = "Share your result";
+    var postLabel = "Share your result";
     post.addEventListener("click", function () {
-      postResult(phrase, guideUrl).then(function (result) {
-        var status = document.getElementById("quiz-share-status");
+      var ready = cardFile ? Promise.resolve(cardFile) : drawCard(type, score).then(function (blob) {
+        if (blob) cardFile = new File([blob], "poodle-circle-result.png", { type: "image/png" });
+        return cardFile;
+      });
+      ready.then(function (file) {
+        return shareCard(file, caption, pageUrl);
+      }).then(function (result) {
         if (result === "cancel") return;
-        var note = result === "shared" ? "Shared." : result === "copied" ? "Copied." : "Could not copy that.";
+        var note = result === "shared" ? "Shared." : result === "saved" ? "Image saved. Caption copied." : result === "downloaded" ? "Image saved." : result === "copied" ? "Copied." : "Could not share that.";
         post.textContent = note;
-        if (status) status.textContent = note + " " + phrase;
-        window.setTimeout(function () { post.textContent = postLabel; }, 1600);
+        status.textContent = note + " " + caption;
+        window.setTimeout(function () { post.textContent = postLabel; }, 1800);
       }).catch(function () {
-        post.textContent = "Could not copy that.";
-        window.setTimeout(function () { post.textContent = postLabel; }, 1600);
+        post.textContent = "Could not share that.";
+        window.setTimeout(function () { post.textContent = postLabel; }, 1800);
       });
     });
-    var guideLink = pill(guide.label, true);
-    guideLink.href = guide.href;
+    wrap.appendChild(post);
+
     var again = document.createElement("button");
     again.type = "button";
-    again.className = "mt-4 text-[15px] font-semibold text-[#5b403c]";
+    again.className = "mt-4 block mx-auto text-[15px] font-semibold text-[#5b403c]";
     again.textContent = "Play again";
     again.addEventListener("click", function () {
       index = 0;
@@ -1038,31 +1299,34 @@ tailwind.config = {
       pickedGuide = "puppy";
       renderQuestion();
     });
-    actions.appendChild(post);
-    actions.appendChild(guideLink);
-    wrap.appendChild(actions);
     wrap.appendChild(again);
+    stage.appendChild(wrap);
 
-    if (score > 75) {
+    if (score >= 90) {
       ["🐾", "✨", "👑", "🐾", "✨"].forEach(function (mark, i) {
         var spark = document.createElement("span");
         spark.className = "quiz-float";
         spark.setAttribute("aria-hidden", "true");
         spark.textContent = mark;
         spark.style.left = (12 + i * 18) + "%";
-        spark.style.top = "72px";
+        spark.style.top = "28px";
         spark.style.animationDelay = (i * 0.12) + "s";
-        wrap.appendChild(spark);
+        card.appendChild(spark);
       });
     }
 
-    var number = document.getElementById("quiz-number");
+    document.fonts.ready.then(function () {
+      return drawCard(type, score);
+    }).then(function (blob) {
+      if (blob) cardFile = new File([blob], "poodle-circle-result.png", { type: "image/png" });
+    }).catch(function () {});
+
     var start = performance.now();
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     function tick(now) {
       var t = reduce ? 1 : Math.min(1, (now - start) / 900);
       var eased = 1 - Math.pow(1 - t, 3);
-      number.textContent = Math.round(score * eased) + "%";
+      number.textContent = String(Math.round(score * eased));
       if (t < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);

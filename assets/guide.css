@@ -32,6 +32,7 @@ body {
 a { color: var(--accent); }
 img { max-width: 100%; display: block; }
 .wrap { width: min(760px, calc(100% - 40px)); margin: 0 auto; }
+.guide .wide > .wrap:first-child { padding-top: 36px; }
 .wide { width: min(920px, calc(100% - 40px)); margin: 0 auto; }
 header.bar {
   position: sticky;
@@ -72,14 +73,14 @@ html[data-theme="dark"] .site-logo-dark { display: block; }
   text-transform: uppercase;
 }
 h1 {
-  margin: 10px 0 0;
-  font-family: Newsreader, serif;
-  font-weight: 650;
+  margin: 10px 0 28px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
   font-size: clamp(40px, 6vw, 64px);
   line-height: 1.05;
   letter-spacing: -0.03em;
 }
-.dek { margin: 16px 0 0; color: var(--muted); font-size: 18px; }
+.dek { margin: 0; color: var(--muted); font-size: 18px; }
 .byline { margin: 14px 0 0; color: var(--muted); font-size: 13px; font-weight: 600; }
 .crumbs { margin: 28px 0 0; font-size: 13px; color: var(--muted); }
 .crumbs a { color: var(--muted); font-weight: 600; text-decoration: none; }
@@ -135,18 +136,23 @@ button.primary, a.primary {
   font-size: 13px;
   font-weight: 650;
   box-shadow: var(--shadow);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.focuses li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(23, 28, 35, 0.1);
 }
 .focuses span {
   display: block;
   margin-bottom: 4px;
   color: var(--accent);
-  font-family: Newsreader, serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 22px;
 }
 .guide h2 {
   margin: 56px 0 12px;
-  font-family: Newsreader, serif;
-  font-weight: 650;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
   font-size: clamp(30px, 4vw, 40px);
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -162,8 +168,9 @@ blockquote {
   margin: 22px 0;
   padding: 4px 0 4px 18px;
   border-left: 3px solid var(--accent);
-  font-family: Newsreader, serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-style: italic;
+  font-weight: 600;
   font-size: 26px;
   line-height: 1.35;
 }
@@ -183,6 +190,11 @@ blockquote {
   border-radius: 22px;
   padding: 18px 20px;
   box-shadow: var(--shadow);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.week:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(23, 28, 35, 0.1);
 }
 .week p { margin: 0; }
 .week .when {
@@ -214,6 +226,11 @@ blockquote {
   border-radius: 22px;
   padding: 18px 20px;
   box-shadow: var(--shadow);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.remember article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(23, 28, 35, 0.1);
 }
 .remember h3 { margin: 0 0 6px; }
 .related { margin: 36px 0 8px; display: grid; gap: 8px; }
@@ -225,6 +242,11 @@ blockquote {
   text-decoration: none;
   border-radius: 18px;
   padding: 14px 16px;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.related a.next:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(23, 28, 35, 0.1);
 }
 .related a.next span {
   display: block;
@@ -247,6 +269,13 @@ html[data-theme="dark"] .end { background: #2a3140; border: 1px solid var(--line
 .end h2 { color: white; margin-top: 0; }
 .end p { color: #dee2ec; }
 .end a.primary { margin-top: 8px; }
+@media (prefers-reduced-motion: reduce) {
+  .week, .focuses li, .remember article, .related a.next,
+  .week:hover, .focuses li:hover, .remember article:hover, .related a.next:hover {
+    transition: none;
+    transform: none;
+  }
+}
 @media (max-width: 700px) {
   .wrap, .wide { width: min(760px, calc(100% - 32px)); }
   h1 { font-size: 34px; }
