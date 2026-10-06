@@ -146,6 +146,7 @@
   function start() {
     resetRun();
     mode = "play";
+    if (window.poodlecircleTrack) window.poodlecircleTrack("parkour_start");
     startEl.hidden = true;
     overEl.hidden = true;
     board.focus();
@@ -162,6 +163,7 @@
       try { sessionStorage.setItem("poodlecircle-parkour-best", String(best)); } catch (e) {}
     }
     shareText = "Poodle Power " + score + ".";
+    if (window.poodlecircleTrack) window.poodlecircleTrack("parkour_score", { score: score, seconds: seconds });
     if (shareBtn) shareBtn.textContent = "Post this score";
     resultEl.textContent = shareText;
     timeEl.textContent = "You survived " + seconds + (seconds === 1 ? " second." : " seconds.");
@@ -613,6 +615,7 @@
   function frame(now) {
     var dt = Math.min(0.032, (now - last) / 1000 || 0);
     last = now;
+    if (mode === "ready" && !reduced) clock += dt;
     if (mode === "play" && !hit) update(dt);
     else if (mode === "play" && hit) {
       hit += dt;
@@ -642,6 +645,7 @@
       event.preventDefault();
       var post = window.poodlecirclePost;
       if (!post) return;
+      if (window.poodlecircleTrack) window.poodlecircleTrack("parkour_share");
       post(shareText, shareUrl).then(function (result) {
         if (result === "cancel") return;
         shareBtn.textContent = result === "shared" ? "Shared." : result === "copied" ? "Copied." : "Could not copy that.";
