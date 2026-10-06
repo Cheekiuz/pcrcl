@@ -11,21 +11,15 @@
   var powerEl = document.getElementById("parkour-power");
   var treatsEl = document.getElementById("parkour-treats");
   var bestEl = document.getElementById("parkour-best");
+  var bestLiveEl = document.getElementById("parkour-best-live");
+  var liveEl = document.getElementById("parkour-live");
   var resultEl = document.getElementById("parkour-result");
   var timeEl = document.getElementById("parkour-time");
   var quipEl = document.getElementById("parkour-quip");
 
-  var quips = [
-    "Your poodle would like to speak to your lawyer.",
-    "The vacuum cleaner wins this round.",
-    "Your poodle demands compensation in treats.",
-    "Honestly, that was the sofa's fault.",
-    "Your poodle has requested a snack break.",
-    "Still faster than most humans.",
-    "Tiny legs. Massive ambition."
-  ];
-  var lowTypes = ["poop", "toy", "sofa", "basket"];
-  var allTypes = ["vacuum", "toy", "broccoli", "sofa", "poop", "cat", "dog", "basket"];
+  var lowTypes = ["slipper", "roll", "brush", "bowl"];
+  var allTypes = ["slipper", "roll", "brush", "cushion", "bowl", "vacuum", "basket"];
+  var marks = [10, 25, 50, 100];
 
   var viewW = 800;
   var viewH = 360;
@@ -45,6 +39,10 @@
   var bushes = [];
   var flowers = [];
   var pops = [];
+  var puffs = [];
+  var jumpFx = 0;
+  var landFx = 0;
+  var told = 0;
   var spawnIn = 1.35;
   var treatIn = 0.8;
   var eventIn = 16;
@@ -62,6 +60,15 @@
 
   try { best = Number(sessionStorage.getItem("poodlecircle-parkour-best")) || 0; } catch (e) {}
   bestEl.textContent = String(best);
+  if (bestLiveEl) bestLiveEl.textContent = String(best);
+
+  function scoreLine(score) {
+    if (score < 10) return "Still warming up.";
+    if (score < 25) return "Good poodle.";
+    if (score < 50) return "Okay, show-off.";
+    if (score < 100) return "Very athletic for someone who owns three beds.";
+    return "The tiny athlete has escaped.";
+  }
 
   function groundY() { return viewH - 52; }
   function poodleX() { return Math.max(78, Math.min(128, viewW * 0.2)); }
@@ -101,6 +108,10 @@
     obstacles = [];
     pickups = [];
     pops = [];
+    puffs = [];
+    jumpFx = 0;
+    landFx = 0;
+    told = 0;
     spawnIn = 1.35;
     treatIn = 0.7;
     eventIn = 16;
@@ -113,8 +124,12 @@
   }
 
   function paintHud() {
-    powerEl.textContent = String(Math.floor(power));
+    var score = Math.floor(power);
+    var shownBest = Math.max(best, score);
+    powerEl.textContent = String(score);
     treatsEl.textContent = String(treats);
+    if (bestLiveEl) bestLiveEl.textContent = String(shownBest);
+    if (mode === "play") bestEl.textContent = String(shownBest);
   }
 
   function banner(text) {
@@ -134,12 +149,27 @@
     window.setTimeout(function () { el.remove(); }, 750);
   }
 
+  function puff() {
+    var i;
+    for (i = 0; i < 5; i++) {
+      puffs.push({
+        x: poodleX() + (i - 2) * 7,
+        y: groundY() - 2,
+        vx: (i - 2) * 36,
+        vy: -18 - i * 6,
+        life: 0.32
+      });
+    }
+  }
+
   function jump() {
     if (mode !== "play" || hit) return;
     if (onGround || coyote > 0) {
       poodleVy = 690;
       onGround = false;
       coyote = 0;
+      jumpFx = 0.16;
+      puff();
     }
   }
 
@@ -156,30 +186,34 @@
   function finish() {
     mode = "over";
     var score = Math.floor(power);
-    var seconds = Math.max(1, Math.round(elapsed));
-    if (score > best) {
+    var line = scoreLine(score);
+    var fresh = score > best;
+    if (fresh) {
       best = score;
-      bestEl.textContent = String(best);
       try { sessionStorage.setItem("poodlecircle-parkour-best", String(best)); } catch (e) {}
     }
-    shareText = "Poodle Power " + score + ".";
-    if (window.poodlecircleTrack) window.poodlecircleTrack("parkour_score", { score: score, seconds: seconds });
-    if (shareBtn) shareBtn.textContent = "Post this score";
-    resultEl.textContent = shareText;
-    timeEl.textContent = "You survived " + seconds + (seconds === 1 ? " second." : " seconds.");
-    quipEl.textContent = quips[Math.floor(Math.random() * quips.length)];
+    bestEl.textContent = String(best);
+    if (bestLiveEl) bestLiveEl.textContent = String(best);
+    shareText = "Score " + score + ". " + line;
+    if (window.poodlecircleTrack) window.poodlecircleTrack("parkour_score", { score: score, seconds: Math.max(1, Math.round(elapsed)) });
+    if (shareBtn) shareBtn.textContent = "Share this score";
+    resultEl.textContent = "Score " + score + ". Treats " + treats + ".";
+    timeEl.textContent = fresh ? "New best: " + best + "." : "Best " + best + ".";
+    quipEl.textContent = line;
+    if (liveEl) liveEl.textContent = "That's the run. " + shareText + " Treats " + treats + ". " + timeEl.textContent;
     overEl.hidden = false;
+    var again = document.getElementById("parkour-again");
+    if (again) again.focus();
   }
 
   function addObstacle(type) {
     var size = {
+      slipper: [52, 28],
+      roll: [40, 36],
+      brush: [54, 32],
+      cushion: [74, 34],
+      bowl: [48, 30],
       vacuum: [58, 50],
-      toy: [42, 44],
-      broccoli: [38, 56],
-      sofa: [78, 38],
-      poop: [36, 28],
-      cat: [50, 42],
-      dog: [72, 58],
       basket: [50, 46]
     }[type];
     obstacles.push({ type: type, x: viewW + 30, w: size[0], h: size[1] });
@@ -200,17 +234,17 @@
     var roll = Math.random();
     if (roll < 0.28) {
       zoomies = 3;
-      banner("ZOOMIES!!! 💨🐩");
+      banner("Zoomies. The legs have decided.");
     } else if (roll < 0.55) {
       frenzyLeft = 7;
-      banner("TREAT ATTACK! 🦴🦴🦴");
+      banner("Treats. This is how it starts.");
     } else if (roll < 0.8) {
       addTreat("ball", viewW + 40, groundY() - 96);
-      banner("THE BALL! 🎾");
+      banner("The ball. Nothing else matters.");
     } else {
       royal = 4;
       power += 40;
-      banner("ROYAL POODLE 👑");
+      banner("A crown. Obviously.");
     }
   }
 
@@ -224,16 +258,27 @@
 
     if (onGround) coyote = 0.12;
     else coyote -= dt;
+    var wasAir = !onGround;
     poodleY += poodleVy * dt;
     poodleVy -= 2050 * dt;
     if (poodleY <= 0) {
+      if (wasAir) landFx = 0.12;
       poodleY = 0;
       poodleVy = 0;
       onGround = true;
     } else onGround = false;
+    if (jumpFx > 0) jumpFx -= dt;
+    if (landFx > 0) landFx -= dt;
+    puffs.forEach(function (p) {
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.life -= dt;
+    });
+    puffs = puffs.filter(function (p) { return p.life > 0; });
 
     power += 14 * dt * (royal > 0 ? 1.5 : 1);
     paintHud();
+    maybeTell();
 
     sceneryStep(clouds, run * 0.22, dt);
     sceneryStep(houses, run * 0.38, dt);
@@ -311,6 +356,17 @@
     }
   }
 
+  function maybeTell() {
+    var score = Math.floor(power);
+    var next = 0;
+    while (next < marks.length && score >= marks[next]) next += 1;
+    if (next <= told) return;
+    told = next;
+    var line = scoreLine(score);
+    banner(line);
+    if (liveEl) liveEl.textContent = "Score " + score + ". " + line;
+  }
+
   function sceneryStep(list, pxPerSec, dt) {
     list.forEach(function (item) {
       item.x -= pxPerSec * dt;
@@ -338,6 +394,8 @@
     var bob = onGround && !hit && !reduced ? Math.abs(Math.sin(clock * 12)) * 3.5 : 0;
     ctx.save();
     ctx.translate(x, y - bob);
+    if (jumpFx > 0 && !hit) ctx.scale(0.88, 1.14);
+    else if (landFx > 0 && !hit) ctx.scale(1.14, 0.86);
     if (!onGround && !hit) ctx.rotate(-0.38);
     if (hit) ctx.rotate(0.55);
     ctx.strokeStyle = "#c9896a";
@@ -407,8 +465,78 @@
   function drawObstacle(o) {
     var x = o.x;
     var y = groundY() - o.h;
+    var i;
     ctx.save();
-    if (o.type === "vacuum") {
+    if (o.type === "slipper") {
+      ctx.fillStyle = "#e7b7c6";
+      roundRect(x + 2, y + 12, 46, 14, 8); ctx.fill();
+      ctx.strokeStyle = "#8d1a0c";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = "#f6e4ea";
+      roundRect(x + 6, y + 4, 22, 16, 8); ctx.fill();
+      ctx.strokeStyle = "#c9896a";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x + 30, y + 18);
+      ctx.lineTo(x + 44, y + 18);
+      ctx.stroke();
+    } else if (o.type === "roll") {
+      ctx.fillStyle = "#f7f4ef";
+      roundRect(x + 6, y + 2, 24, 30, 8); ctx.fill();
+      ctx.strokeStyle = "#c4b2ab";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = "#e7d3c0";
+      ctx.beginPath();
+      ctx.ellipse(x + 18, y + 17, 7, 9, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#f7f4ef";
+      ctx.beginPath();
+      ctx.ellipse(x + 18, y + 17, 2.4, 3.2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#f7f4ef";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(x + 28, y + 24);
+      ctx.quadraticCurveTo(x + 40, y + 32, x + 32, y + 38);
+      ctx.stroke();
+    } else if (o.type === "brush") {
+      ctx.fillStyle = "#c9896a";
+      roundRect(x + 2, y + 12, 30, 8, 4); ctx.fill();
+      ctx.fillStyle = "#5c616e";
+      roundRect(x + 28, y + 8, 8, 16, 2); ctx.fill();
+      ctx.strokeStyle = "#8d6a52";
+      ctx.lineWidth = 1.6;
+      for (i = 0; i < 5; i++) {
+        ctx.beginPath();
+        ctx.moveTo(x + 36, y + 9 + i * 3.2);
+        ctx.lineTo(x + 50, y + 7 + i * 3.2);
+        ctx.stroke();
+      }
+    } else if (o.type === "cushion") {
+      ctx.fillStyle = "#e7d3ea";
+      roundRect(x, y + 8, 70, 22, 10); ctx.fill();
+      ctx.strokeStyle = "#8d6a86";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + 35, y + 10);
+      ctx.lineTo(x + 35, y + 28);
+      ctx.stroke();
+    } else if (o.type === "bowl") {
+      ctx.fillStyle = "#d9dee8";
+      ctx.beginPath();
+      ctx.ellipse(x + 22, y + 18, 20, 9, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#5c616e";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.fillStyle = "#9ec4e6";
+      ctx.beginPath();
+      ctx.ellipse(x + 22, y + 16, 13, 5, 0, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (o.type === "vacuum") {
       ctx.fillStyle = "#d9dee8";
       roundRect(x, y + 10, 46, 28, 10); ctx.fill();
       ctx.fillStyle = "#b22110";
@@ -422,76 +550,6 @@
       ctx.fillStyle = "#5c616e";
       blob(x + 12, y + 40, 6);
       blob(x + 34, y + 40, 6);
-    } else if (o.type === "toy") {
-      ctx.fillStyle = "#f2d36b";
-      blob(x + 20, y + 24, 18);
-      ctx.fillStyle = "#2c241f";
-      blob(x + 14, y + 20, 2);
-      blob(x + 26, y + 20, 2);
-      ctx.strokeStyle = "#2c241f";
-      ctx.beginPath();
-      ctx.arc(x + 20, y + 26, 6, 0.2, Math.PI - 0.2);
-      ctx.stroke();
-    } else if (o.type === "broccoli") {
-      ctx.strokeStyle = "#7d9a62";
-      ctx.lineWidth = 6;
-      ctx.beginPath();
-      ctx.moveTo(x + 18, y + 54);
-      ctx.lineTo(x + 18, y + 24);
-      ctx.stroke();
-      ctx.fillStyle = "#8fb56a";
-      blob(x + 10, y + 18, 12);
-      blob(x + 26, y + 16, 13);
-      blob(x + 18, y + 8, 11);
-    } else if (o.type === "sofa") {
-      ctx.fillStyle = "#e7d3ea";
-      roundRect(x, y + 12, 74, 24, 10); ctx.fill();
-      ctx.fillStyle = "#f7e7f4";
-      roundRect(x + 6, y + 6, 28, 16, 8); ctx.fill();
-      roundRect(x + 40, y + 6, 28, 16, 8); ctx.fill();
-      ctx.fillStyle = "#c7b0c4";
-      blob(x + 10, y + 38, 4);
-      blob(x + 64, y + 38, 4);
-    } else if (o.type === "poop") {
-      ctx.fillStyle = "#8b5a3c";
-      blob(x + 18, y + 20, 12);
-      blob(x + 12, y + 12, 8);
-      blob(x + 24, y + 10, 7);
-      ctx.fillStyle = "rgba(255,255,255,0.35)";
-      blob(x + 14, y + 10, 2);
-    } else if (o.type === "cat") {
-      ctx.fillStyle = "#f0b089";
-      blob(x + 24, y + 26, 16);
-      blob(x + 24, y + 10, 11);
-      ctx.beginPath();
-      ctx.moveTo(x + 14, y + 8);
-      ctx.lineTo(x + 18, y - 4);
-      ctx.lineTo(x + 22, y + 8);
-      ctx.moveTo(x + 26, y + 8);
-      ctx.lineTo(x + 30, y - 4);
-      ctx.lineTo(x + 34, y + 8);
-      ctx.fill();
-      ctx.fillStyle = "#2c241f";
-      blob(x + 20, y + 10, 1.5);
-      blob(x + 28, y + 10, 1.5);
-      ctx.strokeStyle = "#f0b089";
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(x + 8, y + 24);
-      ctx.quadraticCurveTo(x - 4, y + 8, x + 10, y + 14);
-      ctx.stroke();
-    } else if (o.type === "dog") {
-      ctx.fillStyle = "#d8b48a";
-      roundRect(x + 8, y + 18, 52, 28, 14); ctx.fill();
-      blob(x + 54, y + 16, 14);
-      ctx.fillStyle = "#c49a72";
-      blob(x + 44, y + 8, 8);
-      blob(x + 64, y + 10, 8);
-      ctx.fillStyle = "#2c241f";
-      blob(x + 58, y + 14, 1.6);
-      ctx.fillStyle = "#2c241f";
-      ctx.fillRect(x + 16, y + 42, 4, 12);
-      ctx.fillRect(x + 46, y + 42, 4, 12);
     } else {
       ctx.fillStyle = "#e6d2b8";
       ctx.beginPath();
@@ -609,6 +667,12 @@
 
     pickups.forEach(drawTreat);
     obstacles.forEach(drawObstacle);
+    puffs.forEach(function (p) {
+      ctx.globalAlpha = Math.max(0, p.life / 0.32);
+      ctx.fillStyle = "#c4b2ab";
+      blob(p.x, p.y, 3.2);
+    });
+    ctx.globalAlpha = 1;
     drawPoodle();
   }
 
