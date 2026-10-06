@@ -268,6 +268,76 @@ try {
   #top h1, #top .hero-copy {
     text-shadow: 0 2px 16px rgba(20, 16, 14, 0.45);
   }
+  .kit-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    background: #fff;
+    border: 1px solid rgba(231, 213, 207, 0.7);
+    border-radius: 2rem;
+    box-shadow: 0 20px 50px rgba(23, 28, 35, 0.12);
+    overflow: hidden;
+  }
+  .kit-card__main,
+  .kit-card__includes {
+    padding: 1.5rem 1.35rem 1.35rem;
+  }
+  .kit-card__includes {
+    background: #f3f6fd;
+    border-top: 1px solid rgba(231, 213, 207, 0.7);
+  }
+  .kit-card__list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .kit-card__list li {
+    display: grid;
+    grid-template-columns: 1.15rem minmax(0, 1fr);
+    column-gap: 0.6rem;
+    align-items: start;
+    color: #171c23;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .kit-card__list li span:first-child {
+    color: #b22110;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+  @media (min-width: 640px) {
+    .kit-card__main,
+    .kit-card__includes { padding: 1.75rem; }
+    .kit-card__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 960px) {
+    .kit-card { grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); }
+    .kit-card__main,
+    .kit-card__includes { padding: 2.25rem 2.15rem; }
+    .kit-card__includes {
+      border-top: 0;
+      border-left: 1px solid rgba(231, 213, 207, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .kit-card__list { grid-template-columns: minmax(0, 1fr); }
+  }
+  html[data-theme="dark"] .kit-card {
+    background: #222833;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+  }
+  html[data-theme="dark"] .kit-card__includes {
+    background: #2a3140;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  html[data-theme="dark"] .kit-card__list li { color: #f6f1ea; }
+  html[data-theme="dark"] .kit-card__list li span:first-child { color: #ffb4a7; }
   .lift {
     transition: transform .22s ease, box-shadow .22s ease;
   }
@@ -614,32 +684,32 @@ tailwind.config = {
   </div>
 </section>
 
-<section class="w-full px-6 -mt-6 sm:-mt-10 relative z-20 pb-2" id="kit">
-  <div class="max-w-[900px] mx-auto">
-    <div class="lift rounded-[2rem] bg-white shadow-[0_20px_50px_rgba(23,28,35,0.12)] border border-[#e7d5cf]/70 overflow-hidden grid md:grid-cols-[1.05fr_0.95fr] md:items-stretch">
-      <div class="p-7 sm:p-9 flex flex-col">
+<section class="w-full px-4 sm:px-6 mt-2 sm:-mt-8 relative z-20 pb-6" id="kit">
+  <div class="max-w-[920px] mx-auto">
+    <div class="kit-card lift">
+      <div class="kit-card__main">
         <div class="flex flex-wrap items-center gap-3 mb-4">
           <span class="inline-flex px-3 py-1 rounded-full bg-[#f0f4fd] text-primary text-[11px] font-bold tracking-widest uppercase">Free</span>
         </div>
-        <h2 class="text-[26px] sm:text-[32px] leading-tight font-extrabold tracking-tight text-[#171c23]">The Toy Poodle First 30 Days Kit</h2>
-        <p class="mt-3 text-[15px] leading-6 text-[#5b403c] flex-1">Print the checklists for your fridge or phone notes. The same download includes the full 30 - day guide. No email wall.</p>
-        <div class="mt-7 flex flex-wrap items-center gap-3">
-          <a class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="assets/first-30-days-kit.pdf" download="poodle-circle-first-30-days-kit.pdf">
+        <h2 class="text-[26px] sm:text-[32px] leading-tight font-extrabold tracking-tight text-[#171c23] text-balance">The Toy Poodle First 30 Days Kit</h2>
+        <p class="mt-3 text-[15px] leading-6 text-[#5b403c]">Print the checklists for your fridge or phone notes. The same download includes the full 30 - day guide. No email wall.</p>
+        <div class="mt-6 sm:mt-7 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3">
+          <a class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="assets/first-30-days-kit.pdf" download="poodle-circle-first-30-days-kit.pdf">
             <span class="material-symbols-outlined text-[20px]" aria-hidden="true">download</span>
             Download PDF
           </a>
-          <a class="text-[14px] font-semibold text-[#5b403c] hover:text-primary hover:underline" href="30daysguide/">Read online</a>
+          <a class="inline-flex items-center justify-center sm:justify-start text-[14px] font-semibold text-[#5b403c] hover:text-primary hover:underline" href="30daysguide/">Read online</a>
         </div>
       </div>
-      <div class="p-7 sm:p-9 bg-[#f8f9ff] border-t md:border-t-0 md:border-l border-[#e7d5cf]/70 min-h-full">
+      <div class="kit-card__includes">
         <p class="text-[11px] font-bold tracking-widest uppercase text-primary mb-4">Includes</p>
-        <ul class="grid gap-2.5 text-[15px] font-semibold text-[#171c23]">
-          <li class="grid grid-cols-[1.25rem_1fr] gap-x-2.5 items-start"><span class="text-primary font-extrabold" aria-hidden="true">✓</span><span>30 - day guide</span></li>
-          <li class="grid grid-cols-[1.25rem_1fr] gap-x-2.5 items-start"><span class="text-primary font-extrabold" aria-hidden="true">✓</span><span>First - week checklist</span></li>
-          <li class="grid grid-cols-[1.25rem_1fr] gap-x-2.5 items-start"><span class="text-primary font-extrabold" aria-hidden="true">✓</span><span>Shopping checklist</span></li>
-          <li class="grid grid-cols-[1.25rem_1fr] gap-x-2.5 items-start"><span class="text-primary font-extrabold" aria-hidden="true">✓</span><span>Night routine</span></li>
-          <li class="grid grid-cols-[1.25rem_1fr] gap-x-2.5 items-start"><span class="text-primary font-extrabold" aria-hidden="true">✓</span><span>Grooming starter routine</span></li>
-          <li class="grid grid-cols-[1.25rem_1fr] gap-x-2.5 items-start"><span class="text-primary font-extrabold" aria-hidden="true">✓</span><span>Vet - visit checklist</span></li>
+        <ul class="kit-card__list">
+          <li><span aria-hidden="true">✓</span><span>30 - day guide</span></li>
+          <li><span aria-hidden="true">✓</span><span>First - week checklist</span></li>
+          <li><span aria-hidden="true">✓</span><span>Shopping checklist</span></li>
+          <li><span aria-hidden="true">✓</span><span>Night routine</span></li>
+          <li><span aria-hidden="true">✓</span><span>Grooming starter routine</span></li>
+          <li><span aria-hidden="true">✓</span><span>Vet - visit checklist</span></li>
         </ul>
       </div>
     </div>
