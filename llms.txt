@@ -24,6 +24,8 @@ Every care guide ends with: Start your First 30 Days → https://poodlecircle.co
 - What to buy before bringing home a toy poodle: food, bowls, a bed, a crate or pen, a harness, an ID tag, and an enzyme cleaner. Shampoo and extra toys can wait. https://poodlecircle.com/30daysguide/#before
 - Toy poodle puppy schedule: toilet, a meal or a short play, then a nap, in the same order. https://poodlecircle.com/30daysguide/#routine
 - Toy poodle puppy sleeping in the first month: they sleep a lot. If they go wild, try a rest, not another game. https://poodlecircle.com/30daysguide/#sleep
+- Toy poodle puppy outside: day 1 is one toilet trip, then back inside. Longer walks wait until a harness stays on. Once you are out, carry steep stairs, coat them early, and keep them close in open country. https://poodlecircle.com/stairs/
+- Toy poodle puppy questions: the long guide answers the first-month questions, then each problem has its own page. https://poodlecircle.com/30daysguide/#faq
 - Toy poodle puppy crying at night after they had settled: a last toilet, one calm check, then stop answering. https://poodlecircle.com/night-waking/
 
 ## Behaviour
@@ -61,5 +63,5 @@ Full answer: https://poodlecircle.com/alone-time/#cries
 
 ## Not care guides
 
-- The spoiled quiz on the homepage is a named break from puppy homework. The result is a nickname and one next challenge. It is not a diagnosis. https://poodlecircle.com/#game
+- The spoiled quiz on the homepage is a named break from puppy homework. The result is a nickname, a spoilage score, and something to share. It is not a diagnosis. https://poodlecircle.com/#game
 - Poodle Parkour is a tiny jump game, not a care guide. https://poodlecircle.com/games/poodle-parkour/
