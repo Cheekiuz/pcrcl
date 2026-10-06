@@ -86,7 +86,7 @@
       weakness: "A late dinner",
       privilege: "A proper walk, on their clock",
       status: "Management, under review",
-      closer: "The rules stand. The side-eye has been filed."
+      closer: "The rules stand. The side - eye has been filed."
     }
   ];
   var quizTotal = questions.length;

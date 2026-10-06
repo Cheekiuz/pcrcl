@@ -408,6 +408,22 @@ blockquote {
   border-radius: 20px;
   background: var(--soft);
 }
+.week-question {
+  margin: 28px 0 8px;
+  padding: 18px 20px 16px;
+  border-radius: 20px;
+  background: var(--soft);
+  scroll-margin-top: 6.5rem;
+}
+.week-question h3 { margin: 8px 0; }
+.week-question__invite {
+  margin: 4px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+.week-question__invite a { font-weight: 600; }
 .weeks {
   display: grid;
   gap: 12px;

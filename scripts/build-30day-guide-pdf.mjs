@@ -10,7 +10,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const port = 8765;
 const kitUrl = `http://127.0.0.1:${port}/30daysguide/kit-pdf.html`;
 const guideUrl = `http://127.0.0.1:${port}/30daysguide/`;
-const kitOutPath = join(root, "assets", "first-30-days-kit.pdf");
+const kitOutPath = join(root, "assets", "first-30-days-guide.pdf");
 const guideOnlyPath = join(root, "assets", "30daysguide.pdf");
 
 const pdfOptions = {
