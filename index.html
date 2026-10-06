@@ -92,7 +92,7 @@
       "significantLink": [
         "https://poodlecircle.com/first-30-days/",
         "https://poodlecircle.com/assets/first-30-days-guide.pdf",
-        "https://poodlecircle.com/alone-time/#cries"
+        "https://poodlecircle.com/#faq"
       ]
     },
     {
@@ -125,6 +125,54 @@
         { "@type": "ListItem", "position": 8, "name": "Tear stains", "url": "https://poodlecircle.com/tear-stains/" },
         { "@type": "ListItem", "position": 9, "name": "Stairs and outdoors", "url": "https://poodlecircle.com/stairs/" },
         { "@type": "ListItem", "position": 10, "name": "Biting", "url": "https://poodlecircle.com/biting/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://poodlecircle.com/#faq",
+      "url": "https://poodlecircle.com/#faq",
+      "isPartOf": { "@id": "https://poodlecircle.com/#webpage" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What should I prepare before bringing a toy poodle home?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Food, bowls, a bed, a crate or pen, a harness, an ID tag, and an enzyme cleaner are what you will use this week. Shampoo, a nail grinder, and extra toys can wait. Hide cables and small objects, and block stairs a tiny puppy could fall down." }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I do during my toy poodle's first night?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Keep them in one quiet room where they can hear you. Take them out to toilet, then let them sleep. Skip visitors and a tour of the house. If they will not settle, they need sleep, not another game." }
+        },
+        {
+          "@type": "Question",
+          "name": "How often does a toy poodle need grooming?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Comb to the skin at home between salon visits. Many pet trims are every four to six weeks. A longer coat can wait only while a comb still reaches the skin. A bath is for dirt, not for day 1 or every week." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can toy poodles be left alone?",
+          "acceptedAnswer": { "@type": "Answer", "text": "They can learn it, starting with seconds, not a workday. Two hours is a later step, after shorter absences are calm. A young puppy still needs toilet trips and should not be left for a workday." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I start toilet training a toy poodle puppy?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Begin on day 1. Take them to the same spot after waking, eating, and playing, and when they sniff or circle. Praise the finish. Clean an accident with an enzyme cleaner, and do not punish it. A young toy poodle cannot hold on the way an adult can." }
+        },
+        {
+          "@type": "Question",
+          "name": "When can a toy poodle puppy go outside?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The first time outside is a toilet trip on day 1, then back to a quiet room. Longer walks wait until a harness stays on. Carry them on a steep flight until they are steady." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I help my toy poodle settle into a new home?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The first week is a sleeping area, meals at steady times, and a plan for the first vet visit. The first day itself should be one room and a nap. Week 2 adds a minute alone, then a short brush and the harness indoors." }
+        },
+        {
+          "@type": "Question",
+          "name": "When should I contact a vet about my toy poodle?",
+          "acceptedAnswer": { "@type": "Answer", "text": "This site shares habits, not doses. A puppy who is weak, collapsing, or refusing food should see a veterinarian. So should a limp after a fall, panic that keeps getting worse when you leave, or skin that is red, smelly, or broken." }
+        }
       ]
     }
   ]
@@ -688,6 +736,47 @@ try {
   }
   html[data-theme="dark"] .circle-submit:hover { background: #313846; }
   html[data-theme="dark"] .circle-send li::before { background: #ffb4a7; }
+  .faq-list { margin-top: 2.5rem; border-top: 1px solid rgba(227, 190, 184, 0.7); }
+  .faq-item { border-bottom: 1px solid rgba(227, 190, 184, 0.7); }
+  .faq-item h3 { margin: 0; font-size: inherit; line-height: inherit; font-weight: inherit; }
+  .faq-q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.5rem;
+    padding: 0.95rem 0;
+    border: 0;
+    background: transparent;
+    color: #171c23;
+    text-align: left;
+    font: 700 16px/1.4 "Plus Jakarta Sans", sans-serif;
+    cursor: pointer;
+  }
+  .faq-q:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
+  .faq-q .material-symbols-outlined { color: #b22110; flex-shrink: 0; transition: transform .2s ease; }
+  .faq-q[aria-expanded="true"] .material-symbols-outlined { transform: rotate(180deg); }
+  .faq-a { padding: 0 0 1.15rem; max-width: 40rem; }
+  .faq-a p { margin: 0; font-size: 15px; line-height: 1.6; color: #5b403c; }
+  .faq-a a {
+    margin-top: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 700;
+    color: #171c23;
+    text-decoration: none;
+  }
+  .faq-a a:hover { color: #b22110; }
+  .faq-a a:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
+  html[data-theme="dark"] .faq-list,
+  html[data-theme="dark"] .faq-item { border-color: rgba(255, 255, 255, 0.12); }
+  html[data-theme="dark"] .faq-q,
+  html[data-theme="dark"] .faq-a a { color: #f6f1ea; }
+  html[data-theme="dark"] .faq-a p { color: #c9beb6; }
+  html[data-theme="dark"] .faq-q .material-symbols-outlined,
+  html[data-theme="dark"] .faq-a a:hover { color: #ffb4a7; }
   .lift {
     transition: transform .22s ease, box-shadow .22s ease;
   }
@@ -704,7 +793,7 @@ try {
     .site-bar, .site-header, #theme-toggle, #nav-toggle, #mobile-nav { transition: none; }
   }
   #guides, #guide-list, #guide-coat, #guide-apartment, #health-notice,
-  #game, #parkour, #dogs, #questions, #about, #principles, #read {
+  #game, #parkour, #dogs, #faq, #questions, #about, #principles, #read {
     scroll-margin-top: 6rem;
   }
   html[data-theme="dark"] { color-scheme: dark; }
@@ -818,7 +907,7 @@ try {
   html[data-theme="dark"] .keep-light input::placeholder { color: #171c23; }
   html[data-theme="dark"] input::placeholder { color: #a89890; }
   @media (prefers-reduced-motion: reduce) {
-    .quiz-answer, .quiz-card, .quiz-bar > span, .quiz-share-panel { transition: none; }
+    .quiz-answer, .quiz-card, .quiz-bar > span, .quiz-share-panel, .faq-q .material-symbols-outlined { transition: none; }
     .quiz-float, .quiz-pop { animation: none; }
   }
 </style>
@@ -1137,6 +1226,71 @@ tailwind.config = {
     </div>
   </div>
 </section>
+
+<section class="w-full py-20 px-6 bg-white" id="faq">
+  <div class="max-w-[760px] mx-auto">
+    <h2 class="text-[28px] sm:text-[40px] font-bold text-center">Frequently Asked Questions</h2>
+    <p class="text-[15px] leading-6 text-[#5b403c] mt-3 text-center">Quick answers to some of the questions toy poodle owners ask most often.</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3><button class="faq-q" type="button" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1"><span>What should I prepare before bringing a toy poodle home?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button></h3>
+        <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1" hidden>
+          <p>Food, bowls, a bed, a crate or pen, a harness, an ID tag, and an enzyme cleaner are what you will use this week. Shampoo, a nail grinder, and extra toys can wait. Hide cables and small objects, and block stairs a tiny puppy could fall down.</p>
+          <a href="30daysguide/#before">Before day 1 <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" type="button" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2"><span>What should I do during my toy poodle's first night?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button></h3>
+        <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2" hidden>
+          <p>Keep them in one quiet room where they can hear you. Take them out to toilet, then let them sleep. Skip visitors and a tour of the house. If they will not settle, they need sleep, not another game.</p>
+          <a href="30daysguide/#day-1">Your first night <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" type="button" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3"><span>How often does a toy poodle need grooming?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button></h3>
+        <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3" hidden>
+          <p>Comb to the skin at home between salon visits. Many pet trims are every four to six weeks. A longer coat can wait only while a comb still reaches the skin. A bath is for dirt, not for day 1 or every week.</p>
+          <a href="home-brushing/">Grooming at home <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" type="button" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4"><span>Can toy poodles be left alone?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button></h3>
+        <div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4" hidden>
+          <p>They can learn it, starting with seconds, not a workday. Two hours is a later step, after shorter absences are calm. A young puppy still needs toilet trips and should not be left for a workday.</p>
+          <a href="alone-time/">Alone time <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" type="button" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5"><span>How do I start toilet training a toy poodle puppy?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button></h3>
+        <div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5" hidden>
+          <p>Begin on day 1. Take them to the same spot after waking, eating, and playing, and when they sniff or circle. Praise the finish. Clean an accident with an enzyme cleaner, and do not punish it. A young toy poodle cannot hold on the way an adult can.</p>
+          <a href="30daysguide/#house">House training <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" type="button" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6"><span>When can a toy poodle puppy go outside?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button></h3>
+        <div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6" hidden>
+          <p>The first time outside is a toilet trip on day 1, then back to a quiet room. Longer walks wait until a harness stays on. Carry them on a steep flight until they are steady.</p>
+          <a href="stairs/">Stairs, cold, and hawks <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" type="button" id="faq-q-7" aria-expanded="false" aria-controls="faq-a-7"><span>How do I help my toy poodle settle into a new home?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button></h3>
+        <div class="faq-a" id="faq-a-7" role="region" aria-labelledby="faq-q-7" hidden>
+          <p>The first week is a sleeping area, meals at steady times, and a plan for the first vet visit. The first day itself should be one room and a nap. Week 2 adds a minute alone, then a short brush and the harness indoors.</p>
+          <a href="first-30-days/">The first 30 days <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" type="button" id="faq-q-8" aria-expanded="false" aria-controls="faq-a-8"><span>When should I contact a vet about my toy poodle?</span><span class="material-symbols-outlined" aria-hidden="true">expand_more</span></button></h3>
+        <div class="faq-a" id="faq-a-8" role="region" aria-labelledby="faq-q-8" hidden>
+          <p>This site shares habits, not doses. A puppy who is weak, collapsing, or refusing food should see a veterinarian. So should a limp after a fall, panic that keeps getting worse when you leave, or skin that is red, smelly, or broken.</p>
+          <a href="#principles">Our principles <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </div>
 </main>
 
@@ -1216,6 +1370,16 @@ tailwind.config = {
   });
 
 })();
+</script>
+<script>
+document.querySelectorAll(".faq-q").forEach(function (button) {
+  button.addEventListener("click", function () {
+    var open = button.getAttribute("aria-expanded") === "true";
+    var panel = document.getElementById(button.getAttribute("aria-controls"));
+    button.setAttribute("aria-expanded", open ? "false" : "true");
+    if (panel) panel.hidden = open;
+  });
+});
 </script>
 <script src="assets/quiz.js"></script>
 </body>
