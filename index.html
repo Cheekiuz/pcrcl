@@ -447,7 +447,8 @@ try {
   .quiz-rec:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
   .site-logo-light, .site-logo-dark { height: 56px; width: auto; }
   header .site-logo-light, header .site-logo-dark { height: 40px; }
-  footer .site-logo-light, footer .site-logo-dark { height: 36px; }
+  footer .site-logo-light, footer .site-logo-dark { height: 28px; }
+  footer a:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; border-radius: 4px; }
   .site-logo-dark { display: none; }
   html[data-theme="dark"] .site-logo-light { display: none; }
   html[data-theme="dark"] .site-logo-dark { display: block; }
@@ -458,11 +459,7 @@ try {
     object-position: 70% center;
   }
   @media (min-width: 640px) {
-    header .site-logo-light, header .site-logo-dark,
-    footer .site-logo-light, footer .site-logo-dark { height: 56px; }
-  }
-  @media (min-width: 1024px) {
-    footer .site-logo-light, footer .site-logo-dark { height: 36px; }
+    header .site-logo-light, header .site-logo-dark { height: 56px; }
   }
   .hero-fade {
     background:
@@ -1104,43 +1101,33 @@ tailwind.config = {
 </div>
 </main>
 
-<footer class="w-full bg-[#f0f4fd]">
-  <div class="max-w-[1240px] mx-auto px-6 py-8 sm:py-16 lg:py-6">
-    <div class="grid grid-cols-2 gap-x-5 gap-y-5 pb-5 sm:grid-cols-3 sm:gap-10 sm:pb-14 lg:grid-cols-[minmax(340px,2.1fr)_repeat(3,minmax(128px,0.7fr))] lg:items-start lg:gap-x-6 lg:gap-y-0 lg:pb-0">
-      <div class="col-span-2 sm:col-span-3 lg:col-span-1">
-        <div class="flex items-center gap-3">
-          <img width="480" height="120" alt="Poodle Circle" class="site-logo-light h-9 w-auto object-contain sm:h-14 lg:h-9" src="assets/logo.png"/>
-          <img width="480" height="120" alt="Poodle Circle" class="site-logo-dark h-9 w-auto object-contain sm:h-14 lg:h-9" src="assets/logo-dark.png"/>
-        </div>
-        <p class="text-[13px] leading-5 text-[#5b403c] max-w-md mt-3 sm:mt-4 sm:text-[15px] sm:leading-6 lg:mt-2 lg:max-w-none lg:text-[13px] lg:leading-5">A community journal for toy poodle companions. Mindful care, honest routines, and the joy of a very small dog with a very large opinion.</p>
-        <p class="mt-3 text-[12px] leading-4 text-[#5b403c] max-w-md sm:mt-4 sm:text-[13px] sm:leading-5 lg:mt-2 lg:max-w-none lg:text-[12px] lg:leading-4"><strong class="text-[#171c23]">Community note:</strong> Stories here come from owners, not veterinarians. Be kind. No selling puppies. The <a class="text-[#171c23] underline" href="#principles">principles</a> are the editorial line.</p>
-        <a class="footer-instagram mt-3 inline-flex items-center justify-center rounded-full bg-white p-2 text-[#171c23] shadow-sm hover:shadow-md transition-shadow sm:mt-5 sm:p-3 lg:mt-2 lg:p-2" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank" aria-label="Instagram @poodle.circle" data-track="instagram_click">
-          <svg aria-hidden="true" class="h-4 w-4 shrink-0 sm:h-5 sm:w-5 lg:h-4 lg:w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
-        </a>
-      </div>
-      <div class="flex flex-col gap-1.5 text-[13px] sm:gap-2.5 sm:text-[15px] lg:gap-1 lg:text-[13px] lg:leading-5">
-        <span class="text-[11px] font-semibold uppercase tracking-wide sm:text-[13px] lg:text-[11px]">Explore</span>
-        <a class="text-[#5b403c]" href="#top">Home</a>
-        <a class="text-[#5b403c]" href="#guides">Guides</a>
-        <a class="text-[#5b403c]" href="first-30-days/">First 30 days</a>
-        <a class="text-[#5b403c]" href="#game">Spoiled test</a>
-        <a class="text-[#5b403c]" href="games/poodle-parkour/">Parkour</a>
-        <a class="text-[#5b403c]" href="#dogs">The Circle</a>
-      </div>
-      <div class="flex flex-col gap-1.5 text-[13px] sm:gap-2.5 sm:text-[15px] lg:gap-1 lg:text-[13px] lg:leading-5">
-        <span class="text-[11px] font-semibold uppercase tracking-wide sm:text-[13px] lg:text-[11px]">Community</span>
-        <a class="text-[#5b403c]" href="alone-time/#cries">This week’s question</a>
-        <a class="text-[#5b403c]" href="line-brushing/">Line brushing</a>
-        <a class="text-[#5b403c]" href="apartment-barking/">Apartment barking</a>
-        <a class="text-[#5b403c]" href="tear-stains/">Tear stains</a>
-        <a class="text-[#5b403c]" href="#principles">About</a>
-      </div>
-      <div class="col-span-2 flex flex-col gap-1.5 text-[13px] sm:col-span-1 sm:gap-2.5 sm:text-[15px] lg:gap-1 lg:text-[13px] lg:leading-5">
-        <span class="text-[11px] font-semibold uppercase tracking-wide sm:text-[13px] lg:text-[11px]">Trust</span>
-        <a class="text-[#5b403c]" href="#principles">Our principles</a>
-      </div>
+<footer class="w-full border-t border-[#e3beb8]/50 bg-[#f0f4fd]">
+  <div class="max-w-[1240px] mx-auto px-6 py-5">
+    <div class="flex items-center justify-between gap-4">
+      <a class="inline-flex shrink-0" href="#top">
+        <img width="480" height="120" alt="Poodle Circle" class="site-logo-light h-7 w-auto object-contain" src="assets/logo.png"/>
+        <img width="480" height="120" alt="Poodle Circle" class="site-logo-dark h-7 w-auto object-contain" src="assets/logo-dark.png"/>
+      </a>
+      <a class="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#171c23] hover:underline underline-offset-2" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank" data-track="instagram_click">
+        <svg aria-hidden="true" class="h-4 w-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+        Instagram
+      </a>
     </div>
-    <p class="text-[12px] text-[#5b403c] pt-4 mt-2 sm:pt-10 sm:mt-8 sm:text-[13px] lg:mt-4 lg:pt-3 lg:text-[12px]">© 2026 Poodle Circle. Made for tiny companions.</p>
+    <p class="mt-2 text-[12px] leading-4 text-[#5b403c]">Owner stories, not veterinary care. No puppy sales.</p>
+    <nav class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[13px] leading-5" aria-label="Footer">
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="#top">Home</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="#guides">Guides</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="first-30-days/">First 30 days</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="#game">Spoiled test</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="games/poodle-parkour/">Parkour</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="#dogs">The Circle</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="alone-time/#cries">This week’s question</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="line-brushing/">Line brushing</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="apartment-barking/">Apartment barking</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="tear-stains/">Tear stains</a>
+      <a class="text-[#5b403c] hover:text-[#171c23] hover:underline underline-offset-2" href="#principles">Principles</a>
+    </nav>
+    <p class="mt-3 text-[12px] leading-4 text-[#5b403c]">© 2026 Poodle Circle</p>
   </div>
 </footer>
 
