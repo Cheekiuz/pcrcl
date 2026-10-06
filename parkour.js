@@ -57,7 +57,7 @@
   var raf = 0;
   var best = 0;
   var shareText = "Poodle Power 0.";
-  var shareUrl = "https://poodlecircle.com/#parkour";
+  var shareUrl = "https://poodlecircle.com/games/poodle-parkour/";
   var shareBtn = document.getElementById("parkour-share");
 
   try { best = Number(sessionStorage.getItem("poodlecircle-parkour-best")) || 0; } catch (e) {}
