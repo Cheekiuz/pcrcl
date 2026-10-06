@@ -84,6 +84,20 @@
         { "@type": "ListItem", "position": 10, "name": "Toy poodle stairs, cold, and hawks", "url": "https://poodlecircle.com/stairs/" },
         { "@type": "ListItem", "position": 11, "name": "Toy poodle won't sleep: night waking after the first month", "url": "https://poodlecircle.com/night-waking/" }
       ]
+    },
+    {
+      "@type": "QAPage",
+      "@id": "https://poodlecircle.com/#questions",
+      "url": "https://poodlecircle.com/#questions",
+      "mainEntity": {
+        "@type": "Question",
+        "name": "My toy poodle cries every time I leave the room. What worked for you?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Leave for less time than they can already manage. Toilet first, a safe chew, a calm goodbye, and come back before the noise turns into panic. If the crying gets worse as you stay away longer, shorten the practice and ask a vet or a qualified trainer.",
+          "url": "https://poodlecircle.com/alone-time/"
+        }
+      }
     }
   ]
 }
@@ -762,7 +776,7 @@ tailwind.config = {
     <div class="mt-12 max-w-xl mx-auto">
       <div class="lift rounded-[2rem] bg-white p-7 sm:p-8 shadow-sm text-center border border-[#e7d5cf]/60">
         <h3 class="text-[22px] sm:text-[26px] font-bold tracking-tight text-[#171c23]">Want your poodle in the Circle?</h3>
-        <p class="mt-3 text-[15px] leading-6 text-[#5b403c]">Send a photo to <strong class="text-[#171c23]">@poodle.circle</strong> on Instagram with your dog’s name, age, colour, and city. We feature new Circle dogs there first.</p>
+        <p class="mt-3 text-[15px] leading-6 text-[#5b403c]">Send a photo to <strong class="text-[#171c23]">@poodle.circle</strong> with your dog’s name, age, colour, and city. New Circle dogs are featured on this page.</p>
         <a class="mt-6 inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-7 py-3 rounded-full bg-primary text-white text-[15px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank">
           <span class="material-symbols-outlined text-[20px]" aria-hidden="true">photo_camera</span>
           Submit on Instagram
@@ -773,32 +787,13 @@ tailwind.config = {
   </div>
 </section>
 
-<section class="w-full py-20 px-6 bg-[#f0f4fd]" id="questions">
-  <div class="max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
-    <div class="lg:col-span-5">
-      <span class="text-[11px] font-bold tracking-widest uppercase text-primary">This week</span>
-      <h2 class="text-[28px] sm:text-[40px] font-bold mt-2">One question, answered on Instagram</h2>
-      <p class="text-[18px] leading-7 text-[#5b403c] mt-4">There is no forum here yet. Until there is, one question a week lives on <strong class="text-[#171c23]">@poodle.circle</strong>.</p>
-      <div class="lift mt-6 p-6 rounded-[2rem] bg-white">
-        <p class="text-[11px] font-bold uppercase tracking-wide text-primary">This week’s question</p>
-        <p class="mt-3 text-[20px] leading-7 font-semibold">What do you wish someone had told you on night one with a toy poodle?</p>
-        <a class="mt-6 inline-flex items-center justify-center w-full py-3 rounded-full bg-primary text-white text-[13px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank">Answer on Instagram</a>
-        <p class="mt-3 text-center text-[13px] text-[#5b403c]">Replies stay on Instagram. This page does not post them.</p>
-      </div>
-    </div>
-    <div class="lg:col-span-7 flex flex-col gap-4">
-      <p class="text-[13px] font-semibold uppercase tracking-wide text-[#5b403c]">Examples, written for this page</p>
-      <article class="lift p-6 rounded-[2rem] bg-white shadow-sm">
-        <h3 class="text-[20px] font-semibold">How do you handle sudden separation anxiety at 6 months?</h3>
-        <p class="text-[15px] leading-6 text-[#5b403c] mt-2">“The pup slept happily in a pen. Now the barking starts the second someone leaves the room. Fear period, or a habit we taught by accident?”</p>
-        <p class="text-[13px] text-[#5b403c] mt-4">Sample question. Not from a live feed.</p>
-      </article>
-      <article class="lift p-6 rounded-[2rem] bg-white shadow-sm">
-        <h3 class="text-[20px] font-semibold">Best slicker brush that doesn’t scratch delicate skin?</h3>
-        <p class="text-[15px] leading-6 text-[#5b403c] mt-2">“Something with bent pins that doesn’t hurt on ear curls and armpits.”</p>
-        <p class="text-[13px] text-[#5b403c] mt-4">Sample question. The coat guide is <a class="font-semibold text-primary" href="line-brushing/">line brushing</a>.</p>
-      </article>
-    </div>
+<section class="w-full py-16 px-6 bg-[#f0f4fd]" id="questions">
+  <div class="max-w-[720px] mx-auto">
+    <p class="text-[11px] font-bold tracking-widest uppercase text-primary">This week’s question</p>
+    <h2 class="mt-3 text-[28px] leading-9 sm:text-[36px] sm:leading-[44px] font-bold">My toy poodle cries every time I leave the room. What worked for you?</h2>
+    <p class="mt-5 text-[17px] leading-7 text-[#171c23]">Leave for less time than they can already manage. Toilet first, a safe chew, a calm goodbye, and come back before the noise turns into panic. If the crying gets worse as you stay away longer, shorten the practice and ask a vet or a qualified trainer.</p>
+    <a class="mt-6 inline-block w-full sm:w-auto text-center min-h-12 px-6 py-3 rounded-full bg-primary text-white text-[15px] leading-6 font-semibold" href="alone-time/">Read what other poodle parents tried <span class="material-symbols-outlined align-middle text-[18px]" aria-hidden="true">arrow_forward</span></a>
+    <p class="mt-4 text-[13px] leading-5 text-[#5b403c]">The same question goes out on Instagram. The answers stay here.</p>
   </div>
 </section>
 
@@ -807,10 +802,10 @@ tailwind.config = {
     <div class="lift rounded-[2rem] bg-white p-8 md:p-12 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
       <div class="max-w-xl">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eaeef8] text-[11px] font-bold mb-4"><span class="material-symbols-outlined text-base text-primary">play_circle</span> Instagram</div>
-        <h3 class="text-[28px] leading-9 font-bold">Short clips, then the full guide.</h3>
-        <p class="text-[15px] leading-6 text-[#5b403c] mt-2">Follow <strong class="text-[#171c23]">@poodle.circle</strong>. The guides you can read today are <a class="font-semibold text-primary" href="30daysguide/">the first 30 days</a>, <a class="font-semibold text-primary" href="line-brushing/">line brushing</a>, <a class="font-semibold text-primary" href="apartment-barking/">apartment barking</a>, and <a class="font-semibold text-primary" href="tear-stains/">tear stains</a>.</p>
+        <h3 class="text-[28px] leading-9 font-bold">The clip points back here.</h3>
+        <p class="text-[15px] leading-6 text-[#5b403c] mt-2">Instagram carries a question or a short clip. The guide it belongs to stays on Poodle Circle: <a class="font-semibold text-primary" href="30daysguide/">the first 30 days</a>, <a class="font-semibold text-primary" href="line-brushing/">line brushing</a>, <a class="font-semibold text-primary" href="apartment-barking/">apartment barking</a>, and <a class="font-semibold text-primary" href="tear-stains/">tear stains</a>.</p>
       </div>
-      <a class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#e1e3e5] text-[#191c1e] text-[13px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank">Follow @poodle.circle <span class="material-symbols-outlined text-lg">open_in_new</span></a>
+      <a class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#e1e3e5] text-[#191c1e] text-[13px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank" data-track="instagram_click">See it on Instagram <span class="material-symbols-outlined text-lg">open_in_new</span></a>
     </div>
     <div id="principles">
       <div class="text-center max-w-xl mx-auto mb-10">
