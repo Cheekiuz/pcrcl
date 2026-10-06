@@ -234,11 +234,108 @@ try {
     border: 1px solid rgba(227, 190, 184, 0.55);
   }
   .quiz-result-type {
-    margin-top: 0.75rem;
-    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    margin-top: 0.55rem;
+    font-size: clamp(1.7rem, 5vw, 2.35rem);
     line-height: 1.15;
     font-weight: 800;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+    color: #171c23;
+  }
+  .quiz-score-num {
+    margin-top: 0.85rem;
+    font-size: clamp(2.7rem, 9vw, 3.75rem);
+    line-height: 0.95;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    color: #b22110;
+  }
+  .quiz-score-label {
+    margin-top: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #b22110;
+  }
+  .quiz-result-story {
+    margin: 1rem auto 0;
+    max-width: 28rem;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    font-weight: 600;
+    color: #171c23;
+  }
+  .quiz-stats {
+    margin-top: 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    text-align: left;
+  }
+  .quiz-stat {
+    background: #fff;
+    border: 1px solid rgba(227, 190, 184, 0.75);
+    border-radius: 1rem;
+    padding: 0.75rem 0.9rem;
+  }
+  .quiz-stat__label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #b22110;
+  }
+  .quiz-stat__value {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.98rem;
+    line-height: 1.35;
+    font-weight: 700;
+    color: #171c23;
+  }
+  .quiz-closer {
+    margin: 1.15rem auto 0;
+    max-width: 26rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    font-weight: 600;
+    font-style: italic;
+    color: #5b403c;
+  }
+  .quiz-actions {
+    margin-top: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .quiz-share-fallback {
+    margin-top: 0.9rem;
+    text-align: left;
+  }
+  .quiz-share-fallback p {
+    margin: 0 0 0.55rem;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #5b403c;
+  }
+  .quiz-share-copy {
+    width: 100%;
+    min-height: 11rem;
+    margin: 0;
+    padding: 0.9rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(227, 190, 184, 0.75);
+    background: #fff;
+    color: #171c23;
+    font: 600 14px/1.45 "Plus Jakarta Sans", sans-serif;
+    resize: none;
+  }
+  @media (min-width: 640px) {
+    .quiz-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .quiz-actions { flex-direction: row; justify-content: center; }
   }
   .quiz-challenge {
     margin-top: 1.75rem;
@@ -616,9 +713,24 @@ try {
   }
   html[data-theme="dark"] .quiz-rec { background: #222833; }
   html[data-theme="dark"] .quiz-result-card {
-    background: linear-gradient(165deg, #222833 0%, #181d26 100%);
-    border-color: rgba(92, 101, 115, 0.55);
+    background: linear-gradient(165deg, #fff6f3 0%, #f6f1ea 55%, #f0f4fd 100%);
+    border-color: rgba(227, 190, 184, 0.55);
+    color: #171c23;
   }
+  html[data-theme="dark"] .quiz-result-type,
+  html[data-theme="dark"] .quiz-result-story,
+  html[data-theme="dark"] .quiz-stat__value { color: #171c23; }
+  html[data-theme="dark"] .quiz-score-num,
+  html[data-theme="dark"] .quiz-score-label,
+  html[data-theme="dark"] .quiz-stat__label { color: #b22110; }
+  html[data-theme="dark"] .quiz-stat,
+  html[data-theme="dark"] .quiz-share-copy {
+    background: #fff;
+    color: #171c23;
+    border-color: rgba(227, 190, 184, 0.75);
+  }
+  html[data-theme="dark"] .quiz-closer,
+  html[data-theme="dark"] .quiz-share-fallback p { color: #5b403c; }
   html[data-theme="dark"] .quiz-result-tagline,
   html[data-theme="dark"] .quiz-challenge__title { color: #f6f1ea; }
   html[data-theme="dark"] .quiz-result-link {
@@ -1053,6 +1165,11 @@ tailwind.config = {
       ["They teleport.", 1],
       ["They were already standing next to me.", 2]
     ]},
+    { text: "Dinner is three minutes late.", mood: "Three minutes is a scandal.", answers: [
+      ["They wait.", 0],
+      ["They stare, personally wounded.", 1],
+      ["I have already apologised.", 2]
+    ]},
     { text: "Who is actually in charge at home?", mood: "Almost done. You already know.", answers: [
       ["Me.", 0],
       ["It's complicated.", 1],
@@ -1062,58 +1179,53 @@ tailwind.config = {
   var types = [
     {
       min: 90,
-      name: "The Tiny Royal",
-      emoji: "🛋️",
-      quote: "You live in their home.",
-      tagline: "Your poodle doesn't live in your home. You live in theirs.",
-      story: "The sofa has been claimed. The best blanket is theirs. And somehow you're the one asking permission to sit down.",
-      typical: "Special sleeping arrangements, premium snacks, dramatic sighs.",
-      challenge: "Teach your tiny monarch to settle.",
-      href: "apartment-barking/"
+      name: "The Tiny Emperor",
+      emoji: "👑",
+      story: "The sofa has a throne. The good blanket has been annexed. You live here on a visitor pass.",
+      weakness: "A sigh from across the room",
+      privilege: "The entire sofa",
+      status: "Furniture with thumbs",
+      closer: "There are no bad poodles. Only extremely well - served ones."
     },
     {
       min: 70,
-      name: "The Softie",
-      emoji: "🧸",
-      quote: "You said \"just one treat\" approximately 14 minutes ago.",
-      tagline: "You said \"just one treat\" approximately 14 minutes ago.",
-      story: "Your poodle gets away with things because they're cute. You noticed. You allowed it. The exception is now the evening.",
-      typical: "One more treat, one more minute on the sofa, one more exception.",
-      challenge: "Leave the room for one quiet minute.",
-      href: "alone-time/"
+      name: "The Velvet Dictator",
+      emoji: "🛋️",
+      story: "The rules exist. Your poodle has granted a few exceptions, and then kept them.",
+      weakness: "Eye contact during a treat",
+      privilege: "The evening lap",
+      status: "Staff, with benefits",
+      closer: "The dictatorship is soft. The terms are not."
     },
     {
       min: 50,
-      name: "The Balanced Parent",
-      emoji: "🐩",
-      quote: "You occasionally remember that you're in charge.",
-      tagline: "You love your poodle deeply, and the rules still exist. The sofa is a negotiation, not a surrender.",
-      story: "Boundaries exist. So do negotiations.",
-      typical: "Good routines, reasonable boundaries, occasional sofa negotiations.",
-      challenge: "Keep the coat from deciding the haircut.",
-      href: "line-brushing/"
+      name: "The Treat Negotiator",
+      emoji: "🦴",
+      story: "One more treat is a meeting. You bring the cheese. They bring the terms.",
+      weakness: "A crinkly packet",
+      privilege: "The last bite, always",
+      status: "Chief negotiator, losing",
+      closer: "You said just one. They heard the opening offer."
     },
     {
       min: 30,
-      name: "The Responsible One",
-      emoji: "🎾",
-      quote: "Your poodle has rules. Your poodle is not particularly impressed.",
-      tagline: "Training comes first. Cuddles come second. They have opinions about this order.",
-      story: "The routine is real. The side-eye is also real.",
-      typical: "Training first, cuddles second.",
-      challenge: "Add teeth to the routine they already know.",
-      href: "teeth/"
+      name: "The Perfectly Innocent One",
+      emoji: "😇",
+      story: "The routine is real. So is the face that did not touch the sandwich.",
+      weakness: "Looking adorable near food",
+      privilege: "The spot by your feet",
+      status: "Still technically in charge",
+      closer: "Innocent until the wrapper opens. Then the case reopens."
     },
     {
       min: 0,
-      name: "The Tough Cookie",
-      emoji: "😈",
-      quote: "Your poodle would like to speak to your manager.",
-      tagline: "You thought you were getting a dog. You accidentally adopted a tiny dictator.",
-      story: "The rules are real. The poodle has requested a review.",
-      typical: "Firm rules, and a dog who expected softer management.",
-      challenge: "Make the harness a normal way to leave.",
-      href: "harness/"
+      name: "The Tiny Auditor",
+      emoji: "📋",
+      story: "The schedule is real. Your poodle has reviewed it and requested several amendments.",
+      weakness: "A late dinner",
+      privilege: "A proper walk, on their clock",
+      status: "Management, under review",
+      closer: "The rules stand. The side-eye has been filed."
     }
   ];
   var quizTotal = questions.length;
@@ -1185,39 +1297,69 @@ tailwind.config = {
     return lines.length;
   }
 
-  function drawCard(type) {
+  function shareLines(type, score) {
+    return [
+      type.name + " " + type.emoji,
+      "Spoilage: " + score + "%",
+      "",
+      type.story,
+      "",
+      "Main weakness: " + type.weakness,
+      "Favourite privilege: " + type.privilege,
+      "Human status: " + type.status,
+      "",
+      type.closer
+    ].join("\n");
+  }
+
+  function drawCard(type, score) {
     var canvas = document.createElement("canvas");
     canvas.width = 1080;
-    canvas.height = 1920;
+    canvas.height = 1350;
     var ctx = canvas.getContext("2d");
     ctx.fillStyle = "#f6f1ea";
-    ctx.fillRect(0, 0, 1080, 1920);
-    fillRound(ctx, 80, 340, 920, 1240, 56, "#ffffff");
-    ctx.beginPath();
-    ctx.arc(540, 520, 88, 0, Math.PI * 2);
-    ctx.fillStyle = "#ffdad4";
-    ctx.fill();
+    ctx.fillRect(0, 0, 1080, 1350);
+    fillRound(ctx, 64, 64, 952, 1222, 48, "#ffffff");
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillStyle = "#171c23";
-    ctx.font = "120px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText(type.emoji, 540, 528);
+    ctx.font = "92px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
+    ctx.fillText(type.emoji, 540, 176);
     ctx.fillStyle = "#b22110";
-    ctx.font = "700 26px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText("YOUR POODLE CIRCLE RESULT", 540, 680);
-    var nameSize = fitFont(ctx, type.name, 760, 72);
+    ctx.font = "800 26px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("SPOILAGE", 540, 268);
+    ctx.font = "800 88px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText(score + "%", 540, 352);
+    var nameSize = fitFont(ctx, type.name, 820, 58);
     ctx.fillStyle = "#171c23";
     ctx.font = "800 " + nameSize + "px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText(type.name, 540, 820);
-    ctx.fillStyle = "#171c23";
-    ctx.font = "italic 600 40px 'Plus Jakarta Sans', sans-serif";
-    wrapCentered(ctx, type.tagline || type.quote, 540, 980, 740, 56);
-    ctx.fillStyle = "#171c23";
-    ctx.font = "700 28px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText("Poodle Circle", 540, 1420);
+    ctx.fillText(type.name, 540, 460);
     ctx.fillStyle = "#5b403c";
-    ctx.font = "600 24px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText("poodlecircle.com", 540, 1470);
+    ctx.font = "600 30px 'Plus Jakarta Sans', sans-serif";
+    var storyLines = wrapCentered(ctx, type.story, 540, 540, 780, 42);
+    var y = 540 + storyLines * 42 + 28;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "top";
+    [
+      ["MAIN WEAKNESS", type.weakness],
+      ["FAVOURITE PRIVILEGE", type.privilege],
+      ["HUMAN STATUS", type.status]
+    ].forEach(function (row) {
+      fillRound(ctx, 128, y, 824, 92, 20, "#fff6f3");
+      ctx.fillStyle = "#b22110";
+      ctx.font = "800 18px 'Plus Jakarta Sans', sans-serif";
+      ctx.fillText(row[0], 156, y + 16);
+      ctx.fillStyle = "#171c23";
+      ctx.font = "700 26px 'Plus Jakarta Sans', sans-serif";
+      ctx.fillText(row[1], 156, y + 44);
+      y += 108;
+    });
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#5b403c";
+    ctx.font = "italic 600 28px 'Plus Jakarta Sans', sans-serif";
+    wrapCentered(ctx, type.closer, 540, y + 36, 780, 40);
+    ctx.fillStyle = "#b22110";
+    ctx.font = "700 22px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("poodlecircle.com", 540, 1220);
     return new Promise(function (resolve) {
       canvas.toBlob(function (blob) { resolve(blob); }, "image/png");
     });
@@ -1337,8 +1479,7 @@ tailwind.config = {
   function renderResult() {
     var score = Math.round((points / scoredMaxPoints) * 100);
     var type = typeFor(score);
-    var tagline = type.tagline || type.quote;
-    var caption = type.name + ". " + tagline;
+    var caption = shareLines(type, score);
     var pageUrl = siteUrl("#game");
     var cardFile = null;
     heading.hidden = true;
@@ -1358,19 +1499,25 @@ tailwind.config = {
     card.className = "quiz-result-card";
     addText(card, "p", "text-[56px] leading-none", type.emoji).setAttribute("aria-hidden", "true");
     addText(card, "h3", "quiz-result-type", type.name);
-    addText(card, "p", "quiz-result-tagline", tagline);
+    addText(card, "p", "quiz-score-num", score + "%");
+    addText(card, "p", "quiz-score-label", "Spoilage");
+    addText(card, "p", "quiz-result-story", type.story);
+    var stats = document.createElement("div");
+    stats.className = "quiz-stats";
+    [
+      ["Main weakness", type.weakness],
+      ["Favourite privilege", type.privilege],
+      ["Human status", type.status]
+    ].forEach(function (row) {
+      var stat = document.createElement("div");
+      stat.className = "quiz-stat";
+      addText(stat, "span", "quiz-stat__label", row[0]);
+      addText(stat, "span", "quiz-stat__value", row[1]);
+      stats.appendChild(stat);
+    });
+    card.appendChild(stats);
+    addText(card, "p", "quiz-closer", type.closer);
     wrap.appendChild(card);
-
-    var challenge = document.createElement("div");
-    challenge.className = "quiz-challenge";
-    addText(challenge, "p", "quiz-challenge__label", "Your next challenge");
-    addText(challenge, "p", "quiz-challenge__title", type.challenge);
-    var go = document.createElement("a");
-    go.className = "quiz-challenge__go";
-    go.href = type.href;
-    go.innerHTML = 'Try the challenge <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>';
-    challenge.appendChild(go);
-    wrap.appendChild(challenge);
 
     var status = document.createElement("p");
     status.className = "sr-only";
@@ -1378,133 +1525,83 @@ tailwind.config = {
     status.setAttribute("aria-live", "polite");
     wrap.appendChild(status);
 
-    var post = document.createElement("button");
-    post.type = "button";
-    post.className = "mt-6 mx-auto flex w-full sm:w-auto items-center justify-center min-h-12 px-6 rounded-full bg-[#eaeef8] text-[#171c23] text-[15px] font-semibold";
-    post.setAttribute("aria-expanded", "false");
-    post.textContent = "Share your result";
-    var panel = document.createElement("div");
-    panel.className = "quiz-share-panel";
-    panel.setAttribute("aria-hidden", "true");
-    var clip = document.createElement("div");
-    clip.className = "quiz-share-clip";
-    var sheet = document.createElement("div");
-    sheet.className = "quiz-share-sheet";
-    var preview = document.createElement("img");
-    preview.className = "quiz-share-preview";
-    preview.alt = type.name + ", your Poodle Circle result";
-    var line = addText(sheet, "p", "mt-4 text-[15px] leading-6 font-semibold", caption);
-    addText(sheet, "p", "mt-1 text-[13px] leading-5 text-[#5b403c]", pageUrl.replace(/^https:\/\//, ""));
     var actions = document.createElement("div");
-    actions.className = "mt-3 flex flex-col sm:flex-row gap-3";
-    function quietButton(label) {
-      var button = document.createElement("button");
-      button.type = "button";
-      button.className = "inline-flex flex-1 items-center justify-center min-h-12 px-5 rounded-full bg-[#eaeef8] text-[#171c23] text-[14px] font-semibold";
-      button.textContent = label;
-      return button;
-    }
+    actions.className = "quiz-actions";
     var shareBtn = document.createElement("button");
     shareBtn.type = "button";
-    shareBtn.className = "mt-4 inline-flex w-full items-center justify-center gap-2 min-h-12 px-5 rounded-full bg-primary text-white text-[14px] font-semibold";
-    shareBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]" aria-hidden="true">ios_share</span> Share';
-    var shareNote = document.createElement("p");
-    shareNote.className = "mt-2 text-[12px] leading-5 text-[#5b403c]";
-    shareNote.textContent = "AirDrop, Messages, Mail, and the rest.";
-    if (!navigator.share) {
-      shareBtn.hidden = true;
-      shareNote.hidden = true;
-    }
-    var copyBtn = quietButton("Copy the line");
-    var saveBtn = quietButton("Save the image");
-    shareBtn.addEventListener("click", function () {
-      shareCard(cardFile, caption, pageUrl).then(function (result) {
-        if (result === "cancel" || result === "unsupported") return;
-        var note = result === "shared" ? "Shared." : "Could not share that.";
-        shareBtn.lastChild.textContent = " " + note;
-        status.textContent = note + " " + caption;
-        window.setTimeout(function () { shareBtn.lastChild.textContent = " Share"; }, 1600);
-      });
-    });
-    copyBtn.addEventListener("click", function () {
-      copyText(caption + "\n" + pageUrl).then(function (result) {
-        var note = result === "copied" ? "Copied." : "Could not copy that.";
-        copyBtn.textContent = note;
-        status.textContent = note + " " + caption;
-        window.setTimeout(function () { copyBtn.textContent = "Copy the line"; }, 1600);
-      });
-    });
-    saveBtn.addEventListener("click", function () {
-      if (!cardFile) return;
-      var link = document.createElement("a");
-      var objectUrl = URL.createObjectURL(cardFile);
-      link.href = objectUrl;
-      link.download = "poodle-circle-result.png";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1500);
-      saveBtn.textContent = "Saved.";
-      status.textContent = "Saved. " + caption;
-      window.setTimeout(function () { saveBtn.textContent = "Save the image"; }, 1600);
-    });
-    actions.appendChild(copyBtn);
-    actions.appendChild(saveBtn);
-    sheet.insertBefore(preview, line);
-    sheet.appendChild(shareBtn);
-    sheet.appendChild(shareNote);
-    sheet.appendChild(actions);
-    clip.appendChild(sheet);
-    panel.appendChild(clip);
-    post.addEventListener("click", function () {
-      if (panel.classList.contains("is-open")) {
-        panel.classList.remove("is-open");
-        panel.setAttribute("aria-hidden", "true");
-        post.setAttribute("aria-expanded", "false");
-        return;
-      }
-      post.disabled = true;
-      post.textContent = "Preparing your card";
-      var ready = cardFile ? Promise.resolve(cardFile) : drawCard(type).then(function (blob) {
-        if (blob) cardFile = new File([blob], "poodle-circle-result.png", { type: "image/png" });
-        return cardFile;
-      });
-      ready.then(function (file) {
-        post.disabled = false;
-        post.textContent = "Share your result";
-        if (!file) {
-          status.textContent = "Could not prepare that card.";
-          return;
-        }
-        if (!preview.getAttribute("src")) preview.src = URL.createObjectURL(file);
-        panel.classList.add("is-open");
-        panel.setAttribute("aria-hidden", "false");
-        post.setAttribute("aria-expanded", "true");
-        window.setTimeout(function () {
-          panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
-        }, 80);
-      }).catch(function () {
-        post.disabled = false;
-        post.textContent = "Share your result";
-        status.textContent = "Could not prepare that card.";
-      });
-    });
-    wrap.appendChild(post);
-    wrap.appendChild(panel);
-
+    shareBtn.className = "inline-flex flex-1 items-center justify-center min-h-12 px-6 rounded-full bg-primary text-white text-[15px] font-semibold";
+    shareBtn.textContent = "Share my result";
     var again = document.createElement("button");
     again.type = "button";
-    again.className = "mt-4 block mx-auto text-[15px] font-semibold text-[#5b403c]";
-    again.textContent = "Play again";
+    again.className = "inline-flex flex-1 items-center justify-center min-h-12 px-6 rounded-full bg-[#eaeef8] text-[#171c23] text-[15px] font-semibold";
+    again.textContent = "Take it again";
+    actions.appendChild(shareBtn);
+    actions.appendChild(again);
+    wrap.appendChild(actions);
+
+    var fallback = document.createElement("div");
+    fallback.className = "quiz-share-fallback";
+    fallback.hidden = true;
+    var fallbackNote = document.createElement("p");
+    fallbackNote.textContent = "Copied. Paste it wherever you like.";
+    var fallbackCopy = document.createElement("textarea");
+    fallbackCopy.className = "quiz-share-copy";
+    fallbackCopy.readOnly = true;
+    fallbackCopy.value = caption + "\n\n" + pageUrl;
+    fallback.appendChild(fallbackNote);
+    fallback.appendChild(fallbackCopy);
+    wrap.appendChild(fallback);
+
+    function showFallback(copied) {
+      fallback.hidden = false;
+      fallbackNote.textContent = copied
+        ? "Copied. Paste it wherever you like."
+        : "Select the lines below, then paste them wherever you like.";
+      fallbackCopy.scrollTop = 0;
+      if (copied) return;
+      fallbackCopy.focus();
+      fallbackCopy.select();
+      window.requestAnimationFrame(function () { fallbackCopy.scrollTop = 0; });
+    }
+
+    function nativeShare() {
+      var coarse = window.matchMedia("(pointer: coarse)").matches;
+      var narrow = window.matchMedia("(max-width: 760px)").matches;
+      if (!navigator.share || !(coarse || narrow)) return Promise.resolve("desktop");
+      var payload = { title: type.name, text: caption, url: pageUrl };
+      try {
+        if (cardFile && navigator.canShare && navigator.canShare({ files: [cardFile] })) payload.files = [cardFile];
+      } catch (e) {}
+      return navigator.share(payload).then(function () {
+        return "shared";
+      }, function (error) {
+        if (error && error.name === "AbortError") return "cancel";
+        return "failed";
+      });
+    }
+
+    shareBtn.addEventListener("click", function () {
+      nativeShare().then(function (result) {
+        if (result === "shared" || result === "cancel") {
+          status.textContent = result === "shared" ? "Shared." : "";
+          return;
+        }
+        copyText(caption + "\n\n" + pageUrl).then(function (copied) {
+          showFallback(copied === "copied");
+          status.textContent = copied === "copied"
+            ? "Copied. Paste it wherever you like."
+            : "Select the result and copy it.";
+        });
+      });
+    });
+
     again.addEventListener("click", function () {
       index = 0;
       points = 0;
       locked = false;
-      heading.hidden = false;
-      progress.hidden = true;
-      stage.innerHTML = "";
+      renderQuestion();
     });
-    wrap.appendChild(again);
+
     stage.appendChild(wrap);
     window.setTimeout(function () {
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1512,20 +1609,20 @@ tailwind.config = {
     }, 40);
 
     if (score >= 90) {
-      ["🐾", "✨", "👑", "🐾", "✨"].forEach(function (mark, i) {
+      ["👑", "✨", "🐾", "✨", "👑"].forEach(function (mark, i) {
         var spark = document.createElement("span");
         spark.className = "quiz-float";
         spark.setAttribute("aria-hidden", "true");
         spark.textContent = mark;
         spark.style.left = (12 + i * 18) + "%";
-        spark.style.top = "28px";
+        spark.style.top = "18px";
         spark.style.animationDelay = (i * 0.12) + "s";
         card.appendChild(spark);
       });
     }
 
     document.fonts.ready.then(function () {
-      return drawCard(type);
+      return drawCard(type, score);
     }).then(function (blob) {
       if (blob) cardFile = new File([blob], "poodle-circle-result.png", { type: "image/png" });
     }).catch(function () {});
