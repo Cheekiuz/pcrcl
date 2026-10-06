@@ -25,6 +25,12 @@ jobs:
       - name: Check out the site
         uses: actions/checkout@v7
 
+      - name: Build the 30-day guide PDF
+        run: |
+          npm install playwright@^1.61.1
+          npx playwright install --with-deps chromium
+          node scripts/build-30day-guide-pdf.mjs
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 

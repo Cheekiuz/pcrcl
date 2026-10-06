@@ -2,6 +2,10 @@
   "name": "pcrcl",
   "private": true,
   "scripts": {
-    "dev": "echo 'Open http://localhost:5173' && python3 -m http.server 5173"
+    "dev": "echo 'Open http://localhost:5173' && python3 -m http.server 5173",
+    "build:30day-pdf": "node scripts/build-30day-guide-pdf.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
   }
 }
