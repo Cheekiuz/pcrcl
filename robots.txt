@@ -31,4 +31,9 @@ User-agent: Google-Extended
 Allow: /
 Disallow: /30daysguide/kit-pdf.html
 
+# Bing and Microsoft Copilot
+User-agent: Bingbot
+Allow: /
+Disallow: /30daysguide/kit-pdf.html
+
 Sitemap: https://poodlecircle.com/sitemap.xml
