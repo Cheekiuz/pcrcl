@@ -163,13 +163,11 @@
 
   function shareBlurb(type, score) {
     return [
-      "My poodle is apparently " + score + "% spoiled and officially qualifies as " + type.name + " " + type.emoji,
-      "",
+      "My poodle is " + score + "% spoiled and officially " + type.name + " " + type.emoji,
       type.story,
       "Apparently, I'm " + type.status.toLowerCase() + ".",
       "",
-      "What's yours?",
-      "",
+      "What's yours? 🐩",
       QUIZ_URL
     ].join("\n");
   }
@@ -177,28 +175,32 @@
   function drawCard(type, score) {
     var canvas = document.createElement("canvas");
     canvas.width = 1080;
-    canvas.height = 1920;
+    canvas.height = 1350;
     var ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#f6f1ea";
-    ctx.fillRect(0, 0, 1080, 1920);
-    fillRound(ctx, 64, 80, 952, 1760, 56, "#ffffff");
+    var wash = ctx.createLinearGradient(0, 0, 180, 1350);
+    wash.addColorStop(0, "#fff6f3");
+    wash.addColorStop(0.55, "#f6f1ea");
+    wash.addColorStop(1, "#f0f4fd");
+    ctx.fillStyle = wash;
+    ctx.fillRect(0, 0, 1080, 1350);
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillStyle = "#b22110";
-    ctx.font = "800 28px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText("POODLE CIRCLE", 540, 280);
-    ctx.font = "120px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
-    ctx.fillText(type.emoji, 540, 440);
-    ctx.font = "800 36px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText(score + "% spoiled", 540, 590);
-    var nameSize = fitFont(ctx, type.name, 820, 68);
+    ctx.font = "800 26px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("POODLE CIRCLE", 540, 118);
+    ctx.font = "104px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
+    ctx.fillText(type.emoji, 540, 250);
+    ctx.fillStyle = "#b22110";
+    ctx.font = "800 54px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText(score + "% SPOILED", 540, 390);
+    var nameSize = fitFont(ctx, type.name, 900, 64);
     ctx.fillStyle = "#171c23";
     ctx.font = "800 " + nameSize + "px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText(type.name, 540, 710);
+    ctx.fillText(type.name, 540, 490);
     ctx.fillStyle = "#5b403c";
-    ctx.font = "600 34px 'Plus Jakarta Sans', sans-serif";
-    var storyLines = wrapCentered(ctx, type.story, 540, 840, 800, 48);
-    var y = 840 + storyLines * 48 + 40;
+    ctx.font = "600 32px 'Plus Jakarta Sans', sans-serif";
+    var storyLines = wrapCentered(ctx, type.story, 540, 590, 860, 44);
+    var y = 590 + storyLines * 44 + 28;
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
     [
@@ -206,25 +208,25 @@
       ["FAVOURITE PRIVILEGE", type.privilege],
       ["HUMAN STATUS", type.status]
     ].forEach(function (row) {
-      fillRound(ctx, 128, y, 824, 108, 24, "#fff6f3");
+      fillRound(ctx, 110, y, 860, 96, 22, "#ffffff");
       ctx.fillStyle = "#b22110";
-      ctx.font = "800 20px 'Plus Jakarta Sans', sans-serif";
-      ctx.fillText(row[0], 160, y + 18);
+      ctx.font = "800 18px 'Plus Jakarta Sans', sans-serif";
+      ctx.fillText(row[0], 140, y + 16);
       ctx.fillStyle = "#171c23";
-      ctx.font = "700 30px 'Plus Jakarta Sans', sans-serif";
-      ctx.fillText(row[1], 160, y + 52);
-      y += 124;
+      ctx.font = "700 28px 'Plus Jakarta Sans', sans-serif";
+      ctx.fillText(row[1], 140, y + 46);
+      y += 112;
     });
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillStyle = "#5b403c";
-    ctx.font = "italic 600 32px 'Plus Jakarta Sans', sans-serif";
-    var closerLines = wrapCentered(ctx, type.closer, 540, y + 80, 800, 46);
+    ctx.font = "italic 600 30px 'Plus Jakarta Sans', sans-serif";
+    var closerLines = wrapCentered(ctx, type.closer.replace(/ - /g, "\u00A0-\u00A0"), 540, y + 56, 860, 42);
     ctx.fillStyle = "#b22110";
-    ctx.font = "700 28px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText("poodlecircle.com/quiz", 540, Math.min(y + 80 + closerLines * 46 + 90, 1680));
+    ctx.font = "700 26px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText("poodlecircle.com/quiz", 540, Math.min(y + 56 + closerLines * 42 + 64, 1270));
     return new Promise(function (resolve) {
-      canvas.toBlob(function (blob) { resolve(blob); }, "image/png");
+      canvas.toBlob(function (blob) { resolve(blob); }, "image/jpeg", 0.88);
     });
   }
 
@@ -355,6 +357,7 @@
 
     var card = document.createElement("div");
     card.className = "quiz-result-card";
+    addText(card, "p", "quiz-brand", "Poodle Circle");
     addText(card, "p", "quiz-emoji", type.emoji).setAttribute("aria-hidden", "true");
     addText(card, "h3", "quiz-result-type", type.name);
     addText(card, "p", "quiz-score-num", score + "%");
@@ -375,12 +378,13 @@
     });
     card.appendChild(stats);
     addText(card, "p", "quiz-closer", type.closer);
+    addText(card, "p", "quiz-card-url", "poodlecircle.com/quiz");
     wrap.appendChild(card);
 
     var share = document.createElement("section");
     share.className = "quiz-share";
-    share.setAttribute("aria-label", "Share the result");
-    addText(share, "h3", "quiz-share-title", "Share the result 🐩");
+    share.setAttribute("aria-label", "Share your result");
+    addText(share, "h3", "quiz-share-title", "Share your result 🐩");
     var note = document.createElement("p");
     note.className = "quiz-share-note";
     note.setAttribute("aria-live", "polite");
@@ -424,7 +428,7 @@
     items.email.classList.add("share-email");
     items.facebook = link("Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(QUIZ_URL));
     items.facebook.classList.add("share-facebook");
-    var xText = "My poodle is apparently " + score + "% spoiled and officially qualifies as " + type.name + " " + type.emoji + "\n\nWhat's yours?";
+    var xText = "My poodle is " + score + "% spoiled and officially " + type.name + " " + type.emoji + "\nApparently, I'm " + type.status.toLowerCase() + ".\n\nWhat's yours? 🐩";
     items.x = link("X", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(xText) + "&url=" + encodeURIComponent(QUIZ_URL));
     items.x.classList.add("share-x");
     items.image = button("Save result image");
@@ -435,7 +439,6 @@
       : ["native", "whatsapp", "copy", "image", "email", "facebook", "x"];
     order.forEach(function (key) {
       if (!items[key]) return;
-      if (!grid.firstChild) items[key].classList.add("is-primary");
       grid.appendChild(items[key]);
     });
     share.appendChild(grid);
@@ -482,7 +485,7 @@
       items.native.addEventListener("click", function () {
         var payload = {
           title: type.name + " " + type.emoji,
-          text: "My poodle is apparently " + score + "% spoiled.\n\n" + type.story + "\n\nWhat's yours?",
+          text: "My poodle is " + score + "% spoiled and officially " + type.name + " " + type.emoji + "\n\n" + type.story + "\n\nWhat's yours? 🐩",
           url: QUIZ_URL
         };
         try {
@@ -505,7 +508,7 @@
         ? Promise.resolve(cardFile)
         : document.fonts.ready.then(function () { return drawCard(type, score); }).then(function (blob) {
             if (!blob) return null;
-            cardFile = new File([blob], "poodle-circle-spoiled.png", { type: "image/png" });
+            cardFile = new File([blob], "poodle-circle-spoiled.jpg", { type: "image/jpeg" });
             return cardFile;
           });
       ready.then(function (file) {
@@ -516,7 +519,7 @@
         var objectUrl = URL.createObjectURL(file);
         var a = document.createElement("a");
         a.href = objectUrl;
-        a.download = "poodle-circle-spoiled.png";
+        a.download = "poodle-circle-spoiled.jpg";
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -556,7 +559,7 @@
     document.fonts.ready.then(function () {
       return drawCard(type, score);
     }).then(function (blob) {
-      if (blob) cardFile = new File([blob], "poodle-circle-spoiled.png", { type: "image/png" });
+      if (blob) cardFile = new File([blob], "poodle-circle-spoiled.jpg", { type: "image/jpeg" });
     }).catch(function () {});
   }
 
