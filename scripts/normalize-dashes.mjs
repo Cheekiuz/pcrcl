@@ -7,7 +7,8 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const dash = /[\u2010-\u2015\u2212\uFE58\uFE63\uFF0D]/g;
+const longDash = /[\u2010-\u2015\u2212\uFE58\uFE63\uFF0D]/g;
+const dotSeparator = / \u00b7 /g;
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -21,7 +22,7 @@ async function walk(dir) {
 
 async function normalize(path) {
   const text = await readFile(path, "utf8");
-  const next = text.replace(dash, "-");
+  const next = text.replace(longDash, "-").replace(dotSeparator, " - ");
   if (next !== text) {
     await writeFile(path, next);
     console.log("Normalized", path);

@@ -428,11 +428,10 @@ blockquote {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.checks { list-style: none; padding: 0; }
+.checks { list-style: none; padding: 0; display: grid; gap: 10px; }
 .checks li {
   position: relative;
   padding: 8px 0 8px 32px;
-  border-bottom: 1px solid var(--line);
 }
 .checks li::before {
   content: "";

@@ -23,11 +23,10 @@
 .kit-doc h2 {
   font-size: 14pt;
   font-weight: 700;
-  margin-top: 22px;
-  padding-top: 4px;
-  border-top: 2px solid var(--soft);
+  margin-top: 26px;
+  padding-top: 0;
 }
-.kit-doc h2:first-of-type { border-top: 0; margin-top: 0; }
+.kit-doc h2:first-of-type { margin-top: 0; }
 .kit-doc p { margin: 0 0 10px; color: var(--muted); }
 .kit-doc .kit-note {
   margin-top: 14px;
@@ -96,11 +95,12 @@
   list-style: none;
   padding: 0;
   margin: 8px 0 0;
+  display: grid;
+  gap: 8px;
 }
 .kit-checks li {
   position: relative;
   padding: 7px 0 7px 26px;
-  border-bottom: 1px solid var(--line);
   font-size: 10.5pt;
 }
 .kit-checks li::before {
