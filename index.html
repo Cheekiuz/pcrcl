@@ -613,6 +613,34 @@ try {
   .stage-link { transition: transform .18s ease, border-color .18s ease; }
   .stage-link:hover { transform: translateY(-1px); border-color: #b22110; }
   .stage-link:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
+  .circle-send li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+  .circle-send li::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    margin-top: 0.4rem;
+    border-radius: 999px;
+    background: #b22110;
+    flex-shrink: 0;
+  }
+  .circle-submit {
+    background: #fff6f3;
+    color: #171c23;
+    border: 1px solid #e3beb8;
+  }
+  .circle-submit:hover { background: #ffdad4; }
+  .circle-submit:focus-visible { outline: 3px solid #b22110; outline-offset: 3px; }
+  html[data-theme="dark"] .circle-submit {
+    background: #2c3340;
+    color: #f6f1ea;
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+  html[data-theme="dark"] .circle-submit:hover { background: #313846; }
+  html[data-theme="dark"] .circle-send li::before { background: #ffb4a7; }
   .lift {
     transition: transform .22s ease, box-shadow .22s ease;
   }
@@ -981,7 +1009,8 @@ tailwind.config = {
     <div class="text-center max-w-2xl mx-auto mb-14">
       <span class="text-[11px] font-bold tracking-widest uppercase text-primary">The Circle</span>
       <h2 class="text-[28px] sm:text-[40px] font-bold mt-2">Meet the Circle</h2>
-      <p class="text-[15px] leading-6 text-[#5b403c] mt-3">Real dogs submitted by real owners. The routines in the guides are for lives like these.</p>
+      <p class="text-[15px] leading-6 text-[#5b403c] mt-3">Real toy poodles. Real owners. Real little personalities.</p>
+      <p class="text-[15px] leading-6 text-[#5b403c] mt-2">A small, friendly place for people who live with toy poodles.</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <article class="lift rounded-[2rem] bg-white p-5 shadow-sm">
@@ -1010,14 +1039,23 @@ tailwind.config = {
       </article>
     </div>
     <div class="mt-12 max-w-xl mx-auto">
-      <div class="lift rounded-[2rem] bg-white p-7 sm:p-8 shadow-sm text-center border border-[#e7d5cf]/60">
-        <h3 class="text-[22px] sm:text-[26px] font-bold tracking-tight text-[#171c23]">Want your poodle in the Circle?</h3>
-        <p class="mt-3 text-[15px] leading-6 text-[#5b403c]">Send a photo to <strong class="text-[#171c23]">@poodle.circle</strong> with your dog’s name, age, colour, and city. New Circle dogs are featured on this page.</p>
-        <a class="mt-6 inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-7 py-3 rounded-full bg-primary text-white text-[15px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank">
+      <div class="rounded-[2rem] bg-white p-7 sm:p-8 shadow-sm text-center border border-[#e7d5cf]/60">
+        <h3 class="text-[22px] sm:text-[26px] font-bold tracking-tight text-[#171c23]">Put your poodle in the Circle</h3>
+        <p class="mt-3 text-[15px] leading-6 text-[#5b403c]">Send <strong class="text-[#171c23]">@poodle.circle</strong> a photo and a few plain facts. That is the whole submission.</p>
+        <ul class="circle-send mt-5 mx-auto w-fit max-w-full grid gap-y-2 text-left text-[14px] font-semibold text-[#171c23]" aria-label="What to send">
+          <li>A photo</li>
+          <li>Your dog's name</li>
+          <li>Age</li>
+          <li>Colour</li>
+          <li>City</li>
+          <li>One short sentence about their personality</li>
+        </ul>
+        <a class="circle-submit mt-6 inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-7 py-3 rounded-full text-[15px] font-semibold" href="https://www.instagram.com/poodle.circle/" rel="noopener noreferrer" target="_blank">
           <span class="material-symbols-outlined text-[20px]" aria-hidden="true">photo_camera</span>
           Submit on Instagram
         </a>
-        <p class="mt-3 text-[13px] text-[#5b403c]">No puppy sales. Just toy poodle parents sharing real life.</p>
+        <p class="mt-4 text-[13px] leading-5 text-[#5b403c]">New Circle dogs are featured here as they arrive.</p>
+        <p class="mt-1 text-[13px] leading-5 text-[#5b403c]">No puppy sales, breeding ads, or classifieds.</p>
       </div>
     </div>
   </div>
