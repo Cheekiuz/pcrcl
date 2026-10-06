@@ -13,18 +13,19 @@
 </script>
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>Poodle Circle: your first month with a toy poodle</title>
-<meta content="Just brought home a toy poodle? Start with a simple path through the first 30 days, then the free kit and the guides for sleep, coat, barking, and the rest. Not a clinic. No puppy sales." name="description"/>
+<meta content="Just brought home a toy poodle? Follow the first 30 days, then a free kit and guides for sleep, coat, and barking. Not a clinic. No puppy sales." name="description"/>
 <link rel="canonical" href="https://poodlecircle.com/"/>
+<meta property="og:locale" content="en_US"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Poodle Circle"/>
 <meta property="og:title" content="Poodle Circle: your first month with a toy poodle"/>
-<meta property="og:description" content="Just brought home a toy poodle? Start with the first 30 days, then the free kit and the guides you need next."/>
+<meta property="og:description" content="Just brought home a toy poodle? Follow the first 30 days, then a free kit and the guides you need next."/>
 <meta property="og:url" content="https://poodlecircle.com/"/>
 <meta property="og:image" content="https://poodlecircle.com/assets/hero.png"/>
 <meta property="og:image:alt" content="A curly red toy poodle sitting on a cream blanket in a warm evening room"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Poodle Circle: your first month with a toy poodle"/>
-<meta name="twitter:description" content="Just brought home a toy poodle? Start with the first 30 days, then the free kit and the guides you need next."/>
+<meta name="twitter:description" content="Just brought home a toy poodle? Follow the first 30 days, then a free kit and the guides you need next."/>
 <meta name="twitter:image" content="https://poodlecircle.com/assets/hero.png"/>
 <script type="application/ld+json">
 {
@@ -32,39 +33,56 @@
   "@graph": [
     {
       "@type": "Organization",
+      "@id": "https://poodlecircle.com/#organization",
       "name": "Poodle Circle",
       "url": "https://poodlecircle.com/",
-      "logo": "https://poodlecircle.com/assets/logo.png",
-      "description": "Free owner guides for toy poodles: the first 30 days, line brushing, apartment barking, and tear stains. Not a clinic. No puppy sales.",
-      "sameAs": ["https://www.instagram.com/poodle.circle/"]
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://poodlecircle.com/assets/logo.png"
+      },
+      "description": "Free owner guides for people who just brought home a toy poodle. The first 30 days, grooming, barking, sleep, and tiny-dog routines. Not a clinic. No puppy sales.",
+      "sameAs": ["https://www.instagram.com/poodle.circle/"],
+      "knowsAbout": ["Toy poodle first 30 days", "Toy poodle grooming", "Toy poodle barking and apartment life"]
     },
     {
       "@type": "WebSite",
+      "@id": "https://poodlecircle.com/#website",
       "name": "Poodle Circle",
       "url": "https://poodlecircle.com/",
       "inLanguage": "en",
-      "publisher": { "@type": "Organization", "name": "Poodle Circle", "url": "https://poodlecircle.com/" }
+      "description": "A community journal for toy poodle companions. Start with the first 30 days.",
+      "publisher": { "@id": "https://poodlecircle.com/#organization" }
     },
     {
       "@type": "WebPage",
-      "name": "Your first 30 days with a toy poodle",
-      "url": "https://poodlecircle.com/first-30-days/",
-      "description": "A simple path from the first night to day 30 for a new toy poodle owner."
+      "@id": "https://poodlecircle.com/#webpage",
+      "url": "https://poodlecircle.com/",
+      "name": "Poodle Circle: your first month with a toy poodle",
+      "description": "Just brought home a toy poodle? Follow the first 30 days, then a free kit and guides for sleep, coat, and barking.",
+      "isPartOf": { "@id": "https://poodlecircle.com/#website" },
+      "about": { "@id": "https://poodlecircle.com/#organization" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://poodlecircle.com/assets/hero.png"
+      }
     },
     {
       "@type": "ItemList",
       "name": "Toy poodle guides",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "numberOfItems": 11,
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "The first 30 days with your toy poodle", "url": "https://poodlecircle.com/30daysguide/" },
-        { "@type": "ListItem", "position": 2, "name": "Line brushing a toy poodle before a full shave", "url": "https://poodlecircle.com/line-brushing/" },
-        { "@type": "ListItem", "position": 3, "name": "Tear stains on a toy poodle, without a product pitch", "url": "https://poodlecircle.com/tear-stains/" },
-        { "@type": "ListItem", "position": 4, "name": "Toy poodle teeth: start before the tartar does", "url": "https://poodlecircle.com/teeth/" },
-        { "@type": "ListItem", "position": 5, "name": "Toy poodle stairs, cold, and hawks", "url": "https://poodlecircle.com/stairs/" },
-        { "@type": "ListItem", "position": 6, "name": "Toy poodle alone time, including two hours", "url": "https://poodlecircle.com/alone-time/" },
-        { "@type": "ListItem", "position": 7, "name": "Toy poodle grooming at home, and when the salon still wins", "url": "https://poodlecircle.com/home-brushing/" },
-        { "@type": "ListItem", "position": 8, "name": "Toy poodle barking and energy in an apartment", "url": "https://poodlecircle.com/apartment-barking/" },
-        { "@type": "ListItem", "position": 9, "name": "A toy poodle harness that stays on", "url": "https://poodlecircle.com/harness/" },
-        { "@type": "ListItem", "position": 10, "name": "Toy poodle won't sleep: night waking after the first month", "url": "https://poodlecircle.com/night-waking/" }
+        { "@type": "ListItem", "position": 1, "name": "Your first 30 days with a toy poodle", "url": "https://poodlecircle.com/first-30-days/" },
+        { "@type": "ListItem", "position": 2, "name": "The first 30 days with your toy poodle", "url": "https://poodlecircle.com/30daysguide/" },
+        { "@type": "ListItem", "position": 3, "name": "Line brushing a toy poodle before a full shave", "url": "https://poodlecircle.com/line-brushing/" },
+        { "@type": "ListItem", "position": 4, "name": "Toy poodle barking and energy in an apartment", "url": "https://poodlecircle.com/apartment-barking/" },
+        { "@type": "ListItem", "position": 5, "name": "Toy poodle alone time, including two hours", "url": "https://poodlecircle.com/alone-time/" },
+        { "@type": "ListItem", "position": 6, "name": "A toy poodle harness that stays on", "url": "https://poodlecircle.com/harness/" },
+        { "@type": "ListItem", "position": 7, "name": "Toy poodle teeth: start before the tartar does", "url": "https://poodlecircle.com/teeth/" },
+        { "@type": "ListItem", "position": 8, "name": "Toy poodle grooming at home, and when the salon still wins", "url": "https://poodlecircle.com/home-brushing/" },
+        { "@type": "ListItem", "position": 9, "name": "Tear stains on a toy poodle, without a product pitch", "url": "https://poodlecircle.com/tear-stains/" },
+        { "@type": "ListItem", "position": 10, "name": "Toy poodle stairs, cold, and hawks", "url": "https://poodlecircle.com/stairs/" },
+        { "@type": "ListItem", "position": 11, "name": "Toy poodle won't sleep: night waking after the first month", "url": "https://poodlecircle.com/night-waking/" }
       ]
     }
   ]

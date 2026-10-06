@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /30daysguide/kit-pdf.html
+
+# Answer engines may read https://poodlecircle.com/llms.txt
 
 Sitemap: https://poodlecircle.com/sitemap.xml
