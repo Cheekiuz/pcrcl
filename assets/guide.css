@@ -57,27 +57,27 @@ header.site-bar .site-header {
   margin: 0 auto;
   padding: 0 16px;
   border-radius: 0;
-  background-color: rgba(248, 249, 255, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  background-color: rgba(248, 249, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 10px 30px rgba(23, 28, 35, 0.06);
   backdrop-filter: blur(20px);
   transition: background-color .45s ease, border-color .45s ease, box-shadow .45s ease, backdrop-filter .45s ease, border-radius .45s ease, max-width .45s ease;
 }
 header.site-bar.is-scrolled .site-header {
   border-radius: 9999px;
-  background-color: rgba(248, 249, 255, 0.24);
-  border-color: rgba(255, 255, 255, 0.28);
+  background-color: rgba(248, 249, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.10);
   box-shadow: 0 12px 32px rgba(23, 28, 35, 0.06);
   backdrop-filter: blur(24px);
 }
 html[data-theme="dark"] header.site-bar .site-header {
-  background-color: rgba(18, 22, 28, 0.58);
+  background-color: rgba(18, 22, 28, 0.18);
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
 }
 html[data-theme="dark"] header.site-bar.is-scrolled .site-header {
-  background-color: rgba(18, 22, 28, 0.22);
-  border-color: rgba(255, 255, 255, 0.06);
+  background-color: rgba(18, 22, 28, 0.06);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 .brand { display: flex; align-items: center; flex-shrink: 0; text-decoration: none; }
 .brand img { height: 40px; width: auto; transition: transform .2s ease; }
