@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "echo 'Open http://localhost:5173' && python3 -m http.server 5173",
-    "build:30day-pdf": "node scripts/build-30day-guide-pdf.mjs"
+    "build:30day-pdf": "node scripts/build-30day-guide-pdf.mjs",
+    "normalize-dashes": "node scripts/normalize-dashes.mjs"
   },
   "devDependencies": {
     "pdf-lib": "^1.17.1",
