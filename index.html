@@ -159,7 +159,7 @@ try {
     55% { transform: scale(1.04); }
     100% { transform: scale(1); }
   }
-  .quiz-pop { animation: quiz-pop .55s ease; }
+  .quiz-pop { animation: quiz-pop .55s ease; scroll-margin-top: 7rem; }
   .quiz-share-card {
     border-radius: 1.75rem;
     background: #f6f1ea;
@@ -198,12 +198,47 @@ try {
   }
   .quiz-result-type {
     margin-top: 0.75rem;
-    font-size: clamp(1.65rem, 5vw, 2.35rem);
-    line-height: 1.08;
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    line-height: 1.15;
     font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    letter-spacing: -0.02em;
   }
+  .quiz-challenge {
+    margin-top: 1.75rem;
+    text-align: center;
+  }
+  .quiz-challenge__label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #b22110;
+  }
+  .quiz-challenge__title {
+    margin: 0.45rem auto 0;
+    max-width: 22rem;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #171c23;
+  }
+  .quiz-challenge__go {
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    min-height: 3rem;
+    padding: 0 1.35rem;
+    border-radius: 999px;
+    background: #b22110;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .quiz-challenge__go:hover { background: #d63b27; }
+  .quiz-challenge__go:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
   .quiz-result-tagline {
     margin-top: 1.15rem;
     font-size: 1.12rem;
@@ -465,7 +500,8 @@ try {
     background: linear-gradient(165deg, #222833 0%, #181d26 100%);
     border-color: rgba(92, 101, 115, 0.55);
   }
-  html[data-theme="dark"] .quiz-result-tagline { color: #f6f1ea; }
+  html[data-theme="dark"] .quiz-result-tagline,
+  html[data-theme="dark"] .quiz-challenge__title { color: #f6f1ea; }
   html[data-theme="dark"] .quiz-result-link {
     background: #222833;
     border-color: #5c6573;
@@ -768,14 +804,14 @@ tailwind.config = {
   </div>
 </section>
 
-<section class="w-full py-20 px-6 bg-[#f8f9ff]" id="game">
+<section class="w-full py-14 px-6 bg-[#f8f9ff]" id="game">
   <div class="max-w-[760px] mx-auto">
     <div class="rounded-[2rem] bg-white shadow-sm px-5 py-8 sm:px-10 sm:py-12 relative overflow-hidden" id="quiz">
       <div class="text-center" id="quiz-heading">
-        <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">For people who live with a tiny monarch</p>
-        <h2 class="mt-3 text-[28px] leading-9 sm:text-[40px] sm:leading-[48px] font-extrabold tracking-tight">How spoiled is your poodle? 🐩</h2>
-        <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]" id="quiz-count">7 questions. One very important diagnosis.</p>
-        <p class="mt-2 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">Because there are no bad poodles. Only extremely well - served ones.</p>
+        <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">A little break from puppy homework</p>
+        <h2 class="mt-3 text-[26px] leading-8 sm:text-[32px] sm:leading-10 font-extrabold tracking-tight">How spoiled is your poodle? 🐩</h2>
+        <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">Because there are no bad poodles. Only extremely well - served ones.</p>
+        <button class="mt-8 inline-flex items-center justify-center min-h-12 px-6 rounded-full bg-[#eaeef8] text-[#171c23] text-[15px] font-semibold" id="quiz-start" type="button">Start the questions</button>
       </div>
       <div class="mt-8" id="quiz-progress" hidden>
         <div class="flex items-center justify-between text-[13px] font-semibold text-[#5b403c] mb-2">
@@ -1069,23 +1105,19 @@ tailwind.config = {
       ["Me.", 0],
       ["It's complicated.", 1],
       ["The poodle. Obviously.", 2]
-    ]},
-    { text: "Which one is actually happening at home?", mood: "This one picks the guide, not the score.", route: true, answers: [
-      ["A new puppy. The first weeks are still loud.", "puppy"],
-      ["Coat chaos. A full shave is getting close.", "coat"],
-      ["The doorbell. It has taken the evening.", "door"]
     ]}
   ];
   var types = [
     {
       min: 90,
       name: "The Tiny Royal",
-      emoji: "👑",
+      emoji: "🛋️",
       quote: "You live in their home.",
       tagline: "Your poodle doesn't live in your home. You live in theirs.",
       story: "The sofa has been claimed. The best blanket is theirs. And somehow you're the one asking permission to sit down.",
       typical: "Special sleeping arrangements, premium snacks, dramatic sighs.",
-      mission: "Learning that \"no\" is occasionally a complete sentence."
+      challenge: "Teach your tiny monarch to settle.",
+      href: "apartment-barking/"
     },
     {
       min: 70,
@@ -1095,7 +1127,8 @@ tailwind.config = {
       tagline: "You said \"just one treat\" approximately 14 minutes ago.",
       story: "Your poodle gets away with things because they're cute. You noticed. You allowed it. The exception is now the evening.",
       typical: "One more treat, one more minute on the sofa, one more exception.",
-      mission: "A calm day that does not depend on how cute they look."
+      challenge: "Leave the room for one quiet minute.",
+      href: "alone-time/"
     },
     {
       min: 50,
@@ -1105,7 +1138,8 @@ tailwind.config = {
       tagline: "You love your poodle deeply, and the rules still exist. The sofa is a negotiation, not a surrender.",
       story: "Boundaries exist. So do negotiations.",
       typical: "Good routines, reasonable boundaries, occasional sofa negotiations.",
-      mission: "Keeping them happy, and fine for an hour without you."
+      challenge: "Keep the coat from deciding the haircut.",
+      href: "line-brushing/"
     },
     {
       min: 30,
@@ -1115,7 +1149,8 @@ tailwind.config = {
       tagline: "Training comes first. Cuddles come second. They have opinions about this order.",
       story: "The routine is real. The side-eye is also real.",
       typical: "Training first, cuddles second.",
-      mission: "Making the routine something they choose, not something they endure."
+      challenge: "Add teeth to the routine they already know.",
+      href: "teeth/"
     },
     {
       min: 0,
@@ -1125,26 +1160,10 @@ tailwind.config = {
       tagline: "You thought you were getting a dog. You accidentally adopted a tiny dictator.",
       story: "The rules are real. The poodle has requested a review.",
       typical: "Firm rules, and a dog who expected softer management.",
-      mission: "Hearing what the sigh is asking for, before it becomes a campaign."
+      challenge: "Make the harness a normal way to leave.",
+      href: "harness/"
     }
   ];
-  var guides = {
-    puppy: {
-      title: "The first 30 days",
-      match: "The first 30 days",
-      href: "30daysguide/"
-    },
-    coat: {
-      title: "Line brushing",
-      match: "The coat: line brushing",
-      href: "line-brushing/"
-    },
-    door: {
-      title: "Apartment barking",
-      match: "Apartment Energy & Barking",
-      href: "apartment-barking/"
-    }
-  };
   var quizTotal = questions.length;
   var scoredTotal = questions.filter(function (q) { return !q.route; }).length;
   var scoredMaxPoints = scoredTotal * 2;
@@ -1155,10 +1174,10 @@ tailwind.config = {
   var step = document.getElementById("quiz-step");
   var mood = document.getElementById("quiz-mood");
   var bar = document.getElementById("quiz-bar");
+  var startBtn = document.getElementById("quiz-start");
   var index = 0;
   var points = 0;
   var locked = false;
-  var pickedGuide = "puppy";
 
   function typeFor(score) {
     return types.find(function (type) { return score >= type.min; });
@@ -1214,7 +1233,7 @@ tailwind.config = {
     return lines.length;
   }
 
-  function drawCard(type, score) {
+  function drawCard(type) {
     var canvas = document.createElement("canvas");
     canvas.width = 1080;
     canvas.height = 1920;
@@ -1234,17 +1253,13 @@ tailwind.config = {
     ctx.fillStyle = "#b22110";
     ctx.font = "700 26px 'Plus Jakarta Sans', sans-serif";
     ctx.fillText("YOUR POODLE CIRCLE RESULT", 540, 680);
-    var name = type.name.toUpperCase();
-    var nameSize = fitFont(ctx, name, 760, 76);
+    var nameSize = fitFont(ctx, type.name, 760, 72);
     ctx.fillStyle = "#171c23";
     ctx.font = "800 " + nameSize + "px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText(name, 540, 790);
-    ctx.fillStyle = "#5b403c";
-    ctx.font = "700 34px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText("SPOILAGE LEVEL: " + score + "%", 540, 880);
+    ctx.fillText(type.name, 540, 820);
     ctx.fillStyle = "#171c23";
     ctx.font = "italic 600 40px 'Plus Jakarta Sans', sans-serif";
-    wrapCentered(ctx, type.tagline || type.quote, 540, 1020, 740, 56);
+    wrapCentered(ctx, type.tagline || type.quote, 540, 980, 740, 56);
     ctx.fillStyle = "#171c23";
     ctx.font = "700 28px 'Plus Jakarta Sans', sans-serif";
     ctx.fillText("Poodle Circle", 540, 1420);
@@ -1325,19 +1340,6 @@ tailwind.config = {
     if (window.poodlecircleTrack) window.poodlecircleTrack(name, params);
   }
 
-  function missionFor(type) {
-    if (pickedGuide === "coat") return { href: "line-brushing/", title: "Line brushing", line: "The coat is the thing that will not wait." };
-    if (pickedGuide === "door") return { href: "apartment-barking/", title: "Apartment barking", line: "The doorbell has taken the evening." };
-    var byType = {
-      "The Tiny Royal": { href: "apartment-barking/", title: "Apartment barking", line: "Your poodle has successfully trained you." },
-      "The Softie": { href: "alone-time/", title: "Alone time", line: "Cute is currently writing the schedule." },
-      "The Balanced Parent": { href: "line-brushing/", title: "Line brushing", line: "The routines are real. The coat still needs a comb." },
-      "The Responsible One": { href: "teeth/", title: "Teeth", line: "Training first. The mouth is next." },
-      "The Tough Cookie": { href: "harness/", title: "Harness", line: "The tiny dictator would like the walk on their terms." }
-    };
-    return byType[type.name] || { href: "first-30-days/", title: "First 30 days", line: "Start with the month, not the whole library." };
-  }
-
   function renderQuestion() {
     var q = questions[index];
     if (index === 0) trackQuiz("quiz_start");
@@ -1367,8 +1369,7 @@ tailwind.config = {
   function choose(value, chosen) {
     if (locked) return;
     locked = true;
-    if (questions[index].route) pickedGuide = value;
-    else points += value;
+    points += value;
     chosen.classList.add("is-picked");
     window.setTimeout(function () {
       stage.classList.add("is-leaving");
@@ -1384,16 +1385,15 @@ tailwind.config = {
   function renderResult() {
     var score = Math.round((points / scoredMaxPoints) * 100);
     var type = typeFor(score);
-    var mission = missionFor(type);
     var tagline = type.tagline || type.quote;
-    var caption = type.name + ". Spoilage level " + score + "%. " + tagline;
+    var caption = type.name + ". " + tagline;
     var pageUrl = siteUrl("#game");
     var cardFile = null;
     heading.hidden = true;
     progress.hidden = false;
     bar.style.width = "100%";
     step.textContent = "Your result";
-    mood.textContent = "Diagnosis complete";
+    mood.textContent = "Your poodle has a title.";
     stage.innerHTML = "";
     stage.classList.remove("is-leaving");
 
@@ -1406,37 +1406,19 @@ tailwind.config = {
     card.className = "quiz-result-card";
     addText(card, "p", "text-[56px] leading-none", type.emoji).setAttribute("aria-hidden", "true");
     addText(card, "h3", "quiz-result-type", type.name);
-    var percent = document.createElement("p");
-    percent.className = "quiz-score mt-4 text-[14px] font-bold tracking-[0.08em] uppercase text-[#5b403c]";
-    percent.appendChild(document.createTextNode("Spoilage level: "));
-    var number = document.createElement("span");
-    number.id = "quiz-number";
-    number.textContent = "0";
-    percent.appendChild(number);
-    percent.appendChild(document.createTextNode("%"));
-    card.appendChild(percent);
     addText(card, "p", "quiz-result-tagline", tagline);
     wrap.appendChild(card);
 
-    var links = document.createElement("div");
-    links.className = "quiz-result-links";
-    var guideLink = document.createElement("a");
-    guideLink.className = "quiz-result-link";
-    guideLink.href = mission.href;
-    guideLink.innerHTML =
-      '<span class="quiz-result-link__arrow" aria-hidden="true">-</span>' +
-      '<span><span class="quiz-result-link__label">Your next PoodleCircle mission</span>' +
-      '<span class="quiz-result-link__title">' + mission.title + "</span></span>";
-    var parkourLink = document.createElement("a");
-    parkourLink.className = "quiz-result-link";
-    parkourLink.href = "#parkour";
-    parkourLink.innerHTML =
-      '<span class="quiz-result-link__arrow" aria-hidden="true">-</span>' +
-      '<span><span class="quiz-result-link__label">Want to see if your poodle can survive Parkour?</span>' +
-      '<span class="quiz-result-link__title">Poodle Parkour</span></span>';
-    links.appendChild(guideLink);
-    links.appendChild(parkourLink);
-    wrap.appendChild(links);
+    var challenge = document.createElement("div");
+    challenge.className = "quiz-challenge";
+    addText(challenge, "p", "quiz-challenge__label", "Your next challenge");
+    addText(challenge, "p", "quiz-challenge__title", type.challenge);
+    var go = document.createElement("a");
+    go.className = "quiz-challenge__go";
+    go.href = type.href;
+    go.innerHTML = 'Try the challenge <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>';
+    challenge.appendChild(go);
+    wrap.appendChild(challenge);
 
     var status = document.createElement("p");
     status.className = "sr-only";
@@ -1446,7 +1428,7 @@ tailwind.config = {
 
     var post = document.createElement("button");
     post.type = "button";
-    post.className = "mt-6 mx-auto flex w-full sm:w-auto items-center justify-center min-h-14 px-6 rounded-full bg-primary text-white text-[15px] font-semibold";
+    post.className = "mt-6 mx-auto flex w-full sm:w-auto items-center justify-center min-h-12 px-6 rounded-full bg-[#eaeef8] text-[#171c23] text-[15px] font-semibold";
     post.setAttribute("aria-expanded", "false");
     post.textContent = "Share your result";
     var panel = document.createElement("div");
@@ -1531,7 +1513,7 @@ tailwind.config = {
       }
       post.disabled = true;
       post.textContent = "Preparing your card";
-      var ready = cardFile ? Promise.resolve(cardFile) : drawCard(type, score).then(function (blob) {
+      var ready = cardFile ? Promise.resolve(cardFile) : drawCard(type).then(function (blob) {
         if (blob) cardFile = new File([blob], "poodle-circle-result.png", { type: "image/png" });
         return cardFile;
       });
@@ -1566,12 +1548,16 @@ tailwind.config = {
       index = 0;
       points = 0;
       locked = false;
-      pickedGuide = "puppy";
       heading.hidden = false;
-      renderQuestion();
+      progress.hidden = true;
+      stage.innerHTML = "";
     });
     wrap.appendChild(again);
     stage.appendChild(wrap);
+    window.setTimeout(function () {
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      wrap.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }, 40);
 
     if (score >= 90) {
       ["🐾", "✨", "👑", "🐾", "✨"].forEach(function (mark, i) {
@@ -1587,24 +1573,17 @@ tailwind.config = {
     }
 
     document.fonts.ready.then(function () {
-      return drawCard(type, score);
+      return drawCard(type);
     }).then(function (blob) {
       if (blob) cardFile = new File([blob], "poodle-circle-result.png", { type: "image/png" });
     }).catch(function () {});
-
-    var start = performance.now();
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    function tick(now) {
-      var t = reduce ? 1 : Math.min(1, (now - start) / 900);
-      var eased = 1 - Math.pow(1 - t, 3);
-      number.textContent = String(Math.round(score * eased));
-      if (t < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
   }
 
-  progress.hidden = false;
-  renderQuestion();
+  startBtn.addEventListener("click", function () {
+    heading.hidden = true;
+    progress.hidden = false;
+    renderQuestion();
+  });
 })();
 </script>
 <script src="parkour.js"></script>
