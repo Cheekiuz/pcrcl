@@ -2,6 +2,33 @@ User-agent: *
 Allow: /
 Disallow: /30daysguide/kit-pdf.html
 
-# Answer engines may read https://poodlecircle.com/llms.txt
+# Answer engines are welcome. Start at https://poodlecircle.com/llms.txt
+User-agent: GPTBot
+Allow: /
+Disallow: /30daysguide/kit-pdf.html
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /30daysguide/kit-pdf.html
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /30daysguide/kit-pdf.html
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /30daysguide/kit-pdf.html
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /30daysguide/kit-pdf.html
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /30daysguide/kit-pdf.html
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /30daysguide/kit-pdf.html
 
 Sitemap: https://poodlecircle.com/sitemap.xml
