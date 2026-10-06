@@ -39,54 +39,84 @@
   ];
   var types = [
     {
+      id: "sofa_sovereign",
       min: 90,
-      name: "The Tiny Emperor",
-      emoji: "👑",
-      story: "The sofa has a throne. The good blanket has been annexed. You live here on a visitor pass.",
-      weakness: "A sigh from across the room",
-      privilege: "The entire sofa",
-      status: "Furniture with thumbs",
-      closer: "There are no bad poodles. Only extremely well - served ones."
-    },
-    {
-      min: 70,
-      name: "The Velvet Dictator",
+      name: "The Sofa Sovereign",
       emoji: "🛋️",
-      story: "The rules exist. Your poodle has granted a few exceptions, and then kept them.",
-      weakness: "Eye contact during a treat",
-      privilege: "The evening lap",
-      status: "Staff, with benefits",
-      closer: "The dictatorship is soft. The terms are not."
+      story: "The good cushion has a flag. You may sit, if you ask nicely and bring cheese.",
+      traits: ["The good cushion", "Blanket annexation", "Furniture with thumbs"],
+      weakness: "A blink that feels like a summons",
+      challenge: "Leave the cushion empty for one evening",
+      closer: "The household runs on eye contact.",
+      ctaId: "circle",
+      ctaPath: "#dogs",
+      ctaLabel: "The Circle",
+      ctaNote: "A photo, a name, and one true sentence. The court can take it from there.",
+      ctaText: "Submit your poodle to Circle"
     },
     {
+      id: "cheese_parliament",
+      min: 70,
+      name: "The Cheese Parliament",
+      emoji: "🧀",
+      story: "A wrapper is a summons. You were already walking to the meeting.",
+      traits: ["Wrapper summons", "Unanimous snacks", "Dinner amendments"],
+      weakness: "Any crinkle in the house",
+      challenge: "Put the cheese away before the meeting is called",
+      closer: "The vote is yes. The vote is cheese.",
+      ctaId: "circle",
+      ctaPath: "#dogs",
+      ctaLabel: "The Circle",
+      ctaNote: "The committee would like an official seat.",
+      ctaText: "Submit your poodle to Circle"
+    },
+    {
+      id: "treat_diplomat",
       min: 50,
-      name: "The Treat Negotiator",
+      name: "The Treat Diplomat",
       emoji: "🦴",
-      story: "One more treat is a meeting. You bring the cheese. They bring the terms.",
-      weakness: "A crinkly packet",
-      privilege: "The last bite, always",
-      status: "Chief negotiator, losing",
-      closer: "You said just one. They heard the opening offer."
+      story: "You said just one. They heard an opening offer and sent a counter.",
+      traits: ["Opening offers", "Patient staring", "Crumbs as signatures"],
+      weakness: "The bite that was never the last",
+      challenge: "Name the last treat out loud, then stop",
+      closer: "You opened the meeting. They closed it.",
+      ctaId: "first_30_days",
+      ctaPath: "first-30-days/",
+      ctaLabel: "The first 30 days",
+      ctaNote: "When the treaty is signed, the month is still waiting.",
+      ctaText: "Start the first 30 days"
     },
     {
+      id: "innocent_bystander",
       min: 30,
-      name: "The Perfectly Innocent One",
+      name: "The Innocent Bystander",
       emoji: "😇",
-      story: "The routine is real. So is the face that did not touch the sandwich.",
-      weakness: "Looking adorable near food",
-      privilege: "The spot by your feet",
-      status: "Still technically in charge",
-      closer: "Innocent until the wrapper opens. Then the case reopens."
+      story: "They were nowhere near the sandwich. The crumbs have retained counsel.",
+      traits: ["Clean conscience", "Perfect timing", "Standing by the plate"],
+      weakness: "Looking adorable at the exact wrong moment",
+      challenge: "Give the compliment after the plate is cleared",
+      closer: "Innocent until the wrapper opens.",
+      ctaId: "first_30_days",
+      ctaPath: "first-30-days/",
+      ctaLabel: "The first 30 days",
+      ctaNote: "When the case rests, the first month is still here.",
+      ctaText: "Start the first 30 days"
     },
     {
+      id: "house_manager",
       min: 0,
-      name: "The Tiny Auditor",
+      name: "The House Manager",
       emoji: "📋",
-      story: "The schedule is real. Your poodle has reviewed it and requested several amendments.",
-      weakness: "A late dinner",
-      privilege: "A proper walk, on their clock",
-      status: "Management, under review",
-      closer: "The rules stand. The side - eye has been filed."
+      story: "The routine is real. Your poodle has reviewed it and filed a few notes.",
+      traits: ["On-time walks", "Filed sighs", "A reviewed schedule"],
+      weakness: "Dinner, three minutes late",
+      challenge: "Keep dinner on the clock you already chose",
+      closer: "The clock is kept. The sigh is just punctuation.",
+      ctaId: "first_30_days",
+      ctaPath: "first-30-days/",
+      ctaLabel: "The first 30 days",
+      ctaNote: "The routine already has a home.",
+      ctaText: "Start the first 30 days"
     }
   ];
   var quizTotal = questions.length;
@@ -103,6 +133,7 @@
   var index = 0;
   var points = 0;
   var locked = false;
+  var RESULT_KEY = "poodlecircle-quiz-result";
 
   function typeFor(score) {
     return types.find(function (type) { return score >= type.min; });
@@ -161,15 +192,47 @@
 
   var QUIZ_URL = "https://poodlecircle.com/quiz/";
 
-  function shareBlurb(type, score) {
-    return [
-      "My poodle is " + score + "% spoiled and officially " + type.name + " " + type.emoji,
-      type.story,
-      "Apparently, I'm " + type.status.toLowerCase() + ".",
-      "",
-      "What's yours? 🐩",
-      QUIZ_URL
-    ].join("\n");
+  function plainName(type) {
+    return type.name.replace(/^The /, "");
+  }
+
+  function shareLine(type) {
+    var name = plainName(type);
+    var article = /^[aeiou]/i.test(name) ? "an" : "a";
+    return "My toy poodle is officially " + article + " " + name + " " + type.emoji;
+  }
+
+  function shareClipboard(type) {
+    return shareLine(type) + "\nWhat's yours?\npoodlecircle.com/quiz";
+  }
+
+  function onQuizPage() {
+    return /\/quiz(\/|\/index\.html)?$/.test(window.location.pathname);
+  }
+
+  function localHref(path) {
+    if (path.charAt(0) === "#") return onQuizPage() ? ".." + path : path;
+    return (onQuizPage() ? "../" : "") + path;
+  }
+
+  function saveResult(value) {
+    try { sessionStorage.setItem(RESULT_KEY, String(value)); } catch (e) {}
+  }
+
+  function readResult() {
+    try {
+      var raw = sessionStorage.getItem(RESULT_KEY);
+      if (raw == null || raw === "") return null;
+      var n = Number(raw);
+      if (!isFinite(n) || n < 0 || n > scoredMaxPoints) return null;
+      return n;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function clearResult() {
+    try { sessionStorage.removeItem(RESULT_KEY); } catch (e) {}
   }
 
   function drawCard(type, score) {
@@ -190,30 +253,35 @@
     ctx.fillText("POODLE CIRCLE", 540, 118);
     ctx.font = "104px 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
     ctx.fillText(type.emoji, 540, 250);
-    ctx.fillStyle = "#b22110";
-    ctx.font = "800 54px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText(score + "% SPOILED", 540, 390);
-    var nameSize = fitFont(ctx, type.name, 900, 64);
+    var nameSize = fitFont(ctx, type.name, 900, 72);
     ctx.fillStyle = "#171c23";
     ctx.font = "800 " + nameSize + "px 'Plus Jakarta Sans', sans-serif";
-    ctx.fillText(type.name, 540, 490);
+    ctx.fillText(type.name, 540, 400);
+    ctx.fillStyle = "#b22110";
+    ctx.font = "800 28px 'Plus Jakarta Sans', sans-serif";
+    ctx.fillText(score + "% SPOILED", 540, 470);
     ctx.fillStyle = "#5b403c";
     ctx.font = "600 32px 'Plus Jakarta Sans', sans-serif";
-    var storyLines = wrapCentered(ctx, type.story, 540, 590, 860, 44);
-    var y = 590 + storyLines * 44 + 28;
+    var storyLines = wrapCentered(ctx, type.story, 540, 540, 860, 44);
+    var y = 540 + storyLines * 44 + 36;
     ctx.textAlign = "left";
     ctx.textBaseline = "top";
     [
-      ["MAIN WEAKNESS", type.weakness],
-      ["FAVOURITE PRIVILEGE", type.privilege],
-      ["HUMAN STATUS", type.status]
+      ["KNOWN FOR", type.traits.join(" · ")],
+      ["WEAKNESS", type.weakness],
+      ["NEXT CHALLENGE", type.challenge]
     ].forEach(function (row) {
       fillRound(ctx, 110, y, 860, 96, 22, "#ffffff");
       ctx.fillStyle = "#b22110";
       ctx.font = "800 18px 'Plus Jakarta Sans', sans-serif";
       ctx.fillText(row[0], 140, y + 16);
       ctx.fillStyle = "#171c23";
-      ctx.font = "700 28px 'Plus Jakarta Sans', sans-serif";
+      var valueSize = 28;
+      ctx.font = "700 " + valueSize + "px 'Plus Jakarta Sans', sans-serif";
+      while (valueSize > 18 && ctx.measureText(row[1]).width > 800) {
+        valueSize -= 1;
+        ctx.font = "700 " + valueSize + "px 'Plus Jakarta Sans', sans-serif";
+      }
       ctx.fillText(row[1], 140, y + 46);
       y += 112;
     });
@@ -255,20 +323,6 @@
     return Promise.resolve(ok ? "copied" : "failed");
   }
 
-  function shareCard(file, caption, url) {
-    var payload = { title: "Poodle Circle", text: caption, url: url };
-    try {
-      if (file && navigator.canShare && navigator.canShare({ files: [file] })) payload.files = [file];
-    } catch (e) {}
-    if (!navigator.share) return Promise.resolve("unsupported");
-    return navigator.share(payload).then(function () {
-      return "shared";
-    }, function (error) {
-      if (error && error.name === "AbortError") return "cancel";
-      return "failed";
-    });
-  }
-
   function postResult(text, url) {
     if (navigator.share) {
       return navigator.share({ title: "Poodle Circle", text: text, url: url }).then(function () {
@@ -281,15 +335,6 @@
     return copyText(text + "\n" + url);
   }
   window.poodlecirclePost = postResult;
-
-  function pill(label, primary) {
-    var el = document.createElement(primary ? "a" : "button");
-    if (!primary) el.type = "button";
-    el.className = "inline-flex items-center justify-center min-h-14 px-6 rounded-full text-[15px] font-semibold " +
-      (primary ? "bg-primary text-white" : "bg-[#eaeef8] text-[#171c23]");
-    el.textContent = label;
-    return el;
-  }
 
   function trackQuiz(name, params) {
     if (window.poodlecircleTrack) window.poodlecircleTrack(name, params);
@@ -337,11 +382,17 @@
     }, 240);
   }
 
-  function renderResult() {
-    var score = Math.round((points / scoredMaxPoints) * 100);
+  function renderResult(options) {
+    var fromStore = options && options.points != null;
+    var scorePoints = fromStore ? options.points : points;
+    var score = Math.round((scorePoints / scoredMaxPoints) * 100);
     var type = typeFor(score);
-    var blurb = shareBlurb(type, score);
+    var blurb = shareClipboard(type);
     var cardFile = null;
+    if (!fromStore) {
+      saveResult(points);
+      trackQuiz("quiz_complete", { result_name: type.id, score: score });
+    }
     heading.hidden = true;
     progress.hidden = false;
     bar.style.width = "100%";
@@ -360,15 +411,19 @@
     addText(card, "p", "quiz-brand", "Poodle Circle");
     addText(card, "p", "quiz-emoji", type.emoji).setAttribute("aria-hidden", "true");
     addText(card, "h3", "quiz-result-type", type.name);
-    addText(card, "p", "quiz-score-num", score + "%");
-    addText(card, "p", "quiz-score-label", "spoiled");
+    addText(card, "p", "quiz-score-num", score + "% spoiled");
     addText(card, "p", "quiz-result-story", type.story);
+    var traits = document.createElement("div");
+    traits.className = "quiz-traits";
+    type.traits.forEach(function (trait) {
+      addText(traits, "span", "quiz-trait", trait);
+    });
+    card.appendChild(traits);
     var stats = document.createElement("div");
     stats.className = "quiz-stats";
     [
-      ["Main weakness", type.weakness],
-      ["Favourite privilege", type.privilege],
-      ["Human status", type.status]
+      ["Weakness", type.weakness],
+      ["Your next challenge", type.challenge]
     ].forEach(function (row) {
       var stat = document.createElement("div");
       stat.className = "quiz-stat";
@@ -384,71 +439,16 @@
     var share = document.createElement("section");
     share.className = "quiz-share";
     share.setAttribute("aria-label", "Share your result");
-    addText(share, "h3", "quiz-share-title", "Share your result 🐩");
+    var shareBtn = document.createElement("button");
+    shareBtn.type = "button";
+    shareBtn.className = "quiz-share-main";
+    shareBtn.textContent = "Share my result";
+    share.appendChild(shareBtn);
     var note = document.createElement("p");
     note.className = "quiz-share-note";
     note.setAttribute("aria-live", "polite");
     share.appendChild(note);
-
-    var grid = document.createElement("div");
-    grid.className = "quiz-share-grid";
-
-    function button(label) {
-      var el = document.createElement("button");
-      el.type = "button";
-      el.className = "quiz-share-btn";
-      el.textContent = label;
-      return el;
-    }
-
-    function link(label, href) {
-      var el = document.createElement("a");
-      el.className = "quiz-share-btn";
-      el.textContent = label;
-      el.href = href;
-      if (href.indexOf("mailto:") !== 0) {
-        el.target = "_blank";
-        el.rel = "noopener noreferrer";
-      }
-      return el;
-    }
-
-    var canNative = typeof navigator.share === "function";
-    var wide = window.matchMedia("(min-width: 760px)").matches;
-    var items = {};
-    items.copy = button("Copy result");
-    items.copy.classList.add("share-copy");
-    if (canNative) {
-      items.native = button("Share");
-      items.native.classList.add("share-native");
-    }
-    items.whatsapp = link("WhatsApp", "https://wa.me/?text=" + encodeURIComponent(blurb));
-    items.whatsapp.classList.add("share-whatsapp");
-    items.email = link("Email", "mailto:?subject=" + encodeURIComponent("My poodle is officially spoiled 🐩") + "&body=" + encodeURIComponent(blurb));
-    items.email.classList.add("share-email");
-    items.facebook = link("Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(QUIZ_URL));
-    items.facebook.classList.add("share-facebook");
-    var xText = "My poodle is " + score + "% spoiled and officially " + type.name + " " + type.emoji + "\nApparently, I'm " + type.status.toLowerCase() + ".\n\nWhat's yours? 🐩";
-    items.x = link("X", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(xText) + "&url=" + encodeURIComponent(QUIZ_URL));
-    items.x.classList.add("share-x");
-    items.image = button("Save result image");
-    items.image.classList.add("share-image");
-
-    var order = wide
-      ? ["copy", "email", "facebook", "x", "image", "native", "whatsapp"]
-      : ["native", "whatsapp", "copy", "image", "email", "facebook", "x"];
-    order.forEach(function (key) {
-      if (!items[key]) return;
-      grid.appendChild(items[key]);
-    });
-    share.appendChild(grid);
     wrap.appendChild(share);
-
-    var again = document.createElement("button");
-    again.type = "button";
-    again.className = "quiz-again";
-    again.textContent = "Take it again";
-    wrap.appendChild(again);
 
     var fallback = document.createElement("div");
     fallback.className = "quiz-share-fallback";
@@ -463,74 +463,67 @@
     fallback.appendChild(fallbackCopy);
     wrap.appendChild(fallback);
 
+    var next = document.createElement("section");
+    next.className = "quiz-challenge";
+    addText(next, "p", "quiz-challenge__label", type.ctaLabel);
+    addText(next, "p", "quiz-challenge__title", type.ctaNote);
+    var go = document.createElement("a");
+    go.className = "quiz-challenge__go";
+    go.href = localHref(type.ctaPath);
+    go.textContent = type.ctaText;
+    go.addEventListener("click", function () {
+      trackQuiz("quiz_cta", { result_name: type.id, cta: type.ctaId });
+    });
+    next.appendChild(go);
+    wrap.appendChild(next);
+
+    var again = document.createElement("button");
+    again.type = "button";
+    again.className = "quiz-again";
+    again.textContent = "Take it again";
+    wrap.appendChild(again);
+
     function showFallback() {
       fallback.hidden = false;
       fallbackCopy.focus();
       fallbackCopy.select();
     }
 
-    items.copy.addEventListener("click", function () {
-      copyText(blurb).then(function (result) {
-        if (result === "copied") {
-          note.textContent = "Copied! 🐩";
-          fallback.hidden = true;
-          return;
-        }
-        note.textContent = "Select the result and copy it.";
-        showFallback();
-      });
-    });
-
-    if (items.native) {
-      items.native.addEventListener("click", function () {
-        var payload = {
-          title: type.name + " " + type.emoji,
-          text: "My poodle is " + score + "% spoiled and officially " + type.name + " " + type.emoji + "\n\n" + type.story + "\n\nWhat's yours? 🐩",
-          url: QUIZ_URL
-        };
-        try {
-          if (cardFile && navigator.canShare && navigator.canShare({ files: [cardFile] })) payload.files = [cardFile];
-        } catch (e) {}
-        navigator.share(payload).then(function () {
-          note.textContent = "Shared! 🐩";
-        }, function (error) {
-          if (error && error.name === "AbortError") return;
-          copyText(blurb).then(function (result) {
-            note.textContent = result === "copied" ? "Copied! 🐩" : "Select the result and copy it.";
-            if (result !== "copied") showFallback();
-          });
-        });
-      });
+    function afterCopy(result) {
+      if (result === "copied") {
+        note.textContent = "Copied.";
+        fallback.hidden = true;
+        trackQuiz("quiz_share", { result_name: type.id, method: "copy" });
+        return;
+      }
+      note.textContent = "Select the result and copy it.";
+      showFallback();
     }
 
-    items.image.addEventListener("click", function () {
-      var ready = cardFile
-        ? Promise.resolve(cardFile)
-        : document.fonts.ready.then(function () { return drawCard(type, score); }).then(function (blob) {
-            if (!blob) return null;
-            cardFile = new File([blob], "poodle-circle-spoiled.jpg", { type: "image/jpeg" });
-            return cardFile;
-          });
-      ready.then(function (file) {
-        if (!file) {
-          note.textContent = "The image is not ready yet. Try again in a moment.";
-          return;
-        }
-        var objectUrl = URL.createObjectURL(file);
-        var a = document.createElement("a");
-        a.href = objectUrl;
-        a.download = "poodle-circle-spoiled.jpg";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 1500);
-        note.textContent = "Saved! 🐩";
-      }).catch(function () {
-        note.textContent = "The image is not ready yet. Try again in a moment.";
-      });
+    shareBtn.addEventListener("click", function () {
+      var payload = {
+        title: "How spoiled is your poodle?",
+        text: shareLine(type) + "\nWhat's yours?",
+        url: QUIZ_URL
+      };
+      try {
+        if (cardFile && navigator.canShare && navigator.canShare({ files: [cardFile] })) payload.files = [cardFile];
+      } catch (e) {}
+      if (typeof navigator.share === "function") {
+        navigator.share(payload).then(function () {
+          note.textContent = "Shared.";
+          trackQuiz("quiz_share", { result_name: type.id, method: "native" });
+        }, function (error) {
+          if (error && error.name === "AbortError") return;
+          copyText(blurb).then(afterCopy);
+        });
+        return;
+      }
+      copyText(blurb).then(afterCopy);
     });
 
     again.addEventListener("click", function () {
+      clearResult();
       index = 0;
       points = 0;
       locked = false;
@@ -538,13 +531,15 @@
     });
 
     stage.appendChild(wrap);
-    window.setTimeout(function () {
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      wrap.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-    }, 40);
+    if (!fromStore || onQuizPage()) {
+      window.setTimeout(function () {
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        wrap.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      }, 40);
+    }
 
     if (score >= 90) {
-      ["👑", "✨", "🐾", "✨", "👑"].forEach(function (mark, i) {
+      ["✨", "🐾", "✨", "🐾", "✨"].forEach(function (mark, i) {
         var spark = document.createElement("span");
         spark.className = "quiz-float";
         spark.setAttribute("aria-hidden", "true");
@@ -563,7 +558,11 @@
     }).catch(function () {});
   }
 
+  var stored = readResult();
+  if (stored != null) renderResult({ points: stored });
+
   startBtn.addEventListener("click", function () {
+    clearResult();
     heading.hidden = true;
     progress.hidden = false;
     renderQuestion();
