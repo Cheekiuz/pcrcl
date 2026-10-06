@@ -1,0 +1,132 @@
+/* Print layout for the First 30 Days Kit (PDF front matter) */
+.kit-doc {
+  --ink: #171c23;
+  --muted: #5b403c;
+  --line: #e7d5cf;
+  --soft: #f0f4fd;
+  --primary: #b22110;
+  margin: 0;
+  background: #fff;
+  color: var(--ink);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  line-height: 1.55;
+  font-size: 11pt;
+}
+.kit-doc * { box-sizing: border-box; }
+.kit-doc h1,
+.kit-doc h2 {
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.kit-doc h1 { font-size: 28pt; font-weight: 800; }
+.kit-doc h2 {
+  font-size: 14pt;
+  font-weight: 700;
+  margin-top: 22px;
+  padding-top: 4px;
+  border-top: 2px solid var(--soft);
+}
+.kit-doc h2:first-of-type { border-top: 0; margin-top: 0; }
+.kit-doc p { margin: 0 0 10px; color: var(--muted); }
+.kit-doc .kit-note {
+  margin-top: 14px;
+  font-size: 9pt;
+  color: var(--muted);
+}
+.kit-cover {
+  min-height: 250mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18mm 0 12mm;
+  page-break-after: always;
+}
+.kit-cover__badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--primary);
+  font-size: 10pt;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.kit-cover__brand {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.kit-cover__tagline {
+  max-width: 42em;
+  font-size: 12pt;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.kit-cover__includes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  max-width: 28em;
+}
+.kit-cover__includes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--ink);
+}
+.kit-cover__includes li::before {
+  content: "✓";
+  color: var(--primary);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.kit-body { padding: 0 0 8mm; }
+.kit-section { page-break-inside: avoid; margin-bottom: 8mm; }
+.kit-checks {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+.kit-checks li {
+  position: relative;
+  padding: 7px 0 7px 26px;
+  border-bottom: 1px solid var(--line);
+  font-size: 10.5pt;
+}
+.kit-checks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--primary);
+  border-radius: 4px;
+}
+.kit-checks--compact li { padding-left: 24px; font-size: 10pt; }
+.kit-lead {
+  font-size: 10pt;
+  color: var(--muted);
+  margin: 0 0 6px;
+}
+.kit-part {
+  page-break-before: always;
+  padding-top: 6mm;
+}
+.kit-part h2 {
+  font-size: 18pt;
+  border: 0;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.kit-part p { font-size: 10pt; }

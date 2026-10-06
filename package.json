@@ -6,6 +6,7 @@
     "build:30day-pdf": "node scripts/build-30day-guide-pdf.mjs"
   },
   "devDependencies": {
+    "pdf-lib": "^1.17.1",
     "playwright": "^1.61.1"
   }
 }

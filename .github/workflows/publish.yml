@@ -27,7 +27,7 @@ jobs:
 
       - name: Build the 30-day guide PDF
         run: |
-          npm install playwright@^1.61.1
+          npm install playwright@^1.61.1 pdf-lib@^1.17.1
           npx playwright install --with-deps chromium
           node scripts/build-30day-guide-pdf.mjs
 
