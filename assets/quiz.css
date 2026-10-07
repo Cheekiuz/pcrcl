@@ -324,7 +324,7 @@
   .quiz-rec:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
 
   html[data-theme="dark"] .quiz-answer {
-    background: #222833;
+    background: #26201c;
     color: #f6f1ea;
     border-color: #4a403c;
   }
@@ -333,13 +333,13 @@
     border-color: #ffb4a7;
   }
   html[data-theme="dark"] .quiz-bar { background: #3a3330; }
-  html[data-theme="dark"] .quiz-share-card { background: #181d26; }
+  html[data-theme="dark"] .quiz-share-card { background: #1e1916; }
   html[data-theme="dark"] .quiz-share-sheet {
-    background: #2a3140;
+    background: #2a231f;
     border-color: rgba(255, 255, 255, 0.08);
     box-shadow: none;
   }
-  html[data-theme="dark"] .quiz-rec { background: #222833; }
+  html[data-theme="dark"] .quiz-rec { background: #26201c; }
   html[data-theme="dark"] .quiz-result-card {
     background: linear-gradient(165deg, #fff6f3 0%, #f6f1ea 55%, #f0f4fd 100%);
     border-color: rgba(227, 190, 184, 0.55);
@@ -363,7 +363,7 @@
   html[data-theme="dark"] .quiz-result-tagline,
   html[data-theme="dark"] .quiz-challenge__title { color: #f6f1ea; }
   html[data-theme="dark"] .quiz-result-link {
-    background: #222833;
+    background: #26201c;
     border-color: #5c6573;
   }
   html[data-theme="dark"] .quiz-result-link__title { color: #f6f1ea; }
@@ -529,16 +529,16 @@
   .share-native { order: 6; }
   .share-whatsapp { order: 7; }
 }
-html[data-theme="dark"] .quiz-shell { background: #222833; }
+html[data-theme="dark"] .quiz-shell { background: #26201c; }
 html[data-theme="dark"] .quiz-title,
 html[data-theme="dark"] .quiz-q,
 html[data-theme="dark"] .quiz-share-title { color: #f6f1ea; }
 html[data-theme="dark"] .quiz-dek,
 html[data-theme="dark"] .quiz-meta { color: #c9beb6; }
 html[data-theme="dark"] .quiz-start,
-html[data-theme="dark"] .quiz-again { background: #2c3340; color: #f6f1ea; }
+html[data-theme="dark"] .quiz-again { background: #312924; color: #f6f1ea; }
 html[data-theme="dark"] .quiz-share-btn {
-  background: #2c3340;
+  background: #312924;
   color: #f6f1ea;
   border-color: #5c6573;
 }
@@ -547,6 +547,6 @@ html[data-theme="dark"] .quiz-share {
   border-top-color: rgba(255, 255, 255, 0.12);
 }
 html[data-theme="dark"] .quiz-share-btn:hover {
-  background: #313846;
+  background: #3a322c;
   border-color: #ffb4a7;
 }

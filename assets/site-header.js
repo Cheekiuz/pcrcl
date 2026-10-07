@@ -27,6 +27,39 @@
     });
   }
 
+  document.querySelectorAll(".accordion").forEach(function (group) {
+    var items = group.querySelectorAll("details");
+    items.forEach(function (item) {
+      item.addEventListener("toggle", function () {
+        if (!item.open) return;
+        items.forEach(function (other) {
+          if (other !== item) other.removeAttribute("open");
+        });
+      });
+    });
+  });
+
+  var ref = document.querySelector(".ref-nav");
+  if (ref && "IntersectionObserver" in window) {
+    var links = Array.prototype.slice.call(ref.querySelectorAll("a"));
+    var sections = links.map(function (link) {
+      return document.querySelector(link.getAttribute("href"));
+    });
+    function paintRef() {
+      var current = sections[0];
+      sections.forEach(function (section) {
+        if (section && section.getBoundingClientRect().top <= 150) current = section;
+      });
+      links.forEach(function (link, index) {
+        var on = sections[index] && sections[index] === current;
+        if (on) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+      });
+    }
+    paintRef();
+    window.addEventListener("scroll", paintRef, { passive: true });
+  }
+
   var toggle = document.getElementById("nav-toggle");
   var menu = document.getElementById("mobile-nav");
   var icon = document.getElementById("nav-icon");
