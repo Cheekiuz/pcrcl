@@ -1,5 +1,7 @@
 .page-poodle {
   position: fixed;
+  top: 46vh;
+  right: 10px;
   z-index: 45;
   width: 58px;
   pointer-events: none;
