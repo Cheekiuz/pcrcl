@@ -175,9 +175,9 @@
     btn.addEventListener("pointermove", function (event) {
       var rect = btn.getBoundingClientRect();
       var cx = rect.left + rect.width * 0.5;
-      var cy = rect.top + rect.height * 0.38;
-      var dx = (event.clientX - cx) / (rect.width * 0.5);
-      var dy = (event.clientY - cy) / (rect.height * 0.4);
+      var cy = rect.top + rect.height * 0.42;
+      var dx = (event.clientX - cx) / (rect.width * 0.55);
+      var dy = (event.clientY - cy) / (rect.height * 0.45);
       dx = clamp(dx, -1, 1);
       dy = clamp(dy, -1, 1);
       pupils.forEach(function (pupil) {
