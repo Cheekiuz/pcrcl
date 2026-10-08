@@ -1,5 +1,28 @@
 (function () {
+  var script = document.currentScript;
+  var assetBase = script ? new URL(".", script.src).href : "assets/";
+  if (!document.getElementById("page-poodle-styles")) {
+    var stylesheet = document.createElement("link");
+    stylesheet.id = "page-poodle-styles";
+    stylesheet.rel = "stylesheet";
+    stylesheet.href = assetBase + "home-poodle.css";
+    document.head.appendChild(stylesheet);
+  }
+
   var root = document.getElementById("page-poodle");
+  if (!root) {
+    root = document.createElement("div");
+    root.className = "page-poodle face-left";
+    root.id = "page-poodle";
+    root.innerHTML =
+      '<button class="page-poodle-btn" type="button" aria-label="Pet the toy poodle. It trots beside you as you scroll.">' +
+        '<span class="page-poodle-body">' +
+          '<img class="page-poodle-art" src="' + assetBase + 'poodle-scroll-mascot.png" width="684" height="721" alt="" decoding="async"/>' +
+        '</span>' +
+      '</button>' +
+      '<p class="page-poodle-toast" hidden></p>';
+    document.body.appendChild(root);
+  }
   if (!root) return;
   var btn = root.querySelector(".page-poodle-btn");
   if (!btn) return;
@@ -10,7 +33,6 @@
     return window.matchMedia("(max-width: 639px)").matches;
   }
   var main = document.querySelector("main");
-  var anchorIds = ["#top", "#where", "#kit", "#guides", "#game", "#dogs", "#parkour", "#principles", "#faq"];
   var lines = [
     "Good pet.",
     "Tiny tail emergency.",
@@ -23,16 +45,6 @@
   var lastScroll = window.scrollY;
   var walkTimer;
   var ticking = false;
-
-  function anchors() {
-    return anchorIds.map(function (id) {
-      return document.querySelector(id);
-    }).filter(Boolean);
-  }
-
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
 
   function clamp(v, min, max) {
     return Math.max(min, Math.min(max, v));
@@ -51,37 +63,18 @@
   }
 
   function paintPath() {
-    var list = anchors();
-    if (!list.length || !main) return;
+    if (!main) return;
 
     var header = 76;
     var size = root.offsetHeight || 64;
     var minY = header + 6;
     var maxY = window.innerHeight - size - 10;
     var trackY = window.scrollY + window.innerHeight * 0.46;
-
-    var points = list.map(function (el) {
-      return el.offsetTop + Math.min(el.offsetHeight * 0.35, 120);
-    });
-    var start = points[0];
-    var end = points[points.length - 1];
-    if (trackY <= start) {
-      paintAt(start, 0, minY, maxY, header, size);
-      return;
-    }
-    if (trackY >= end) {
-      paintAt(end, list.length - 1, minY, maxY, header, size);
-      return;
-    }
-    for (var i = 0; i < points.length - 1; i += 1) {
-      if (trackY >= points[i] && trackY <= points[i + 1]) {
-        var span = points[i + 1] - points[i] || 1;
-        var t = (trackY - points[i]) / span;
-        var docY = lerp(points[i], points[i + 1], t);
-        paintAt(docY, i + t, minY, maxY, header, size);
-        return;
-      }
-    }
+    var start = main.offsetTop + 100;
+    var end = Math.max(start + 1, main.offsetTop + main.offsetHeight - 100);
+    var docY = clamp(trackY, start, end);
+    var progress = clamp((docY - start) / (end - start), 0, 1);
+    paintAt(docY, progress * 8, minY, maxY, header, size);
   }
 
   function paintAt(docY, pathIndex, minY, maxY, header, size) {
@@ -193,5 +186,7 @@
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
+  var art = root.querySelector(".page-poodle-art");
+  if (art && !art.complete) art.addEventListener("load", paintPath, { once: true });
   paintPath();
 })();

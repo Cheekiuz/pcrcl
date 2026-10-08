@@ -1,0 +1,105 @@
+.page-poodle {
+  position: fixed;
+  z-index: 45;
+  width: 58px;
+  pointer-events: none;
+  transition: top 0.12s linear, left 0.35s ease, right 0.35s ease;
+}
+.page-poodle-btn {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  filter: drop-shadow(0 7px 16px rgba(120, 76, 44, 0.32));
+  transition: transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.page-poodle.face-left .page-poodle-btn { transform: scaleX(-1); }
+.page-poodle-btn:hover { transform: scale(1.08); }
+.page-poodle.face-left .page-poodle-btn:hover { transform: scaleX(-1) scale(1.08); }
+.page-poodle-btn:active { transform: scale(0.94); }
+.page-poodle.face-left .page-poodle-btn:active { transform: scaleX(-1) scale(0.94); }
+.page-poodle-btn:focus-visible {
+  outline: 2px solid #b22110;
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+.page-poodle--on-hero .page-poodle-btn {
+  filter: drop-shadow(0 8px 18px rgba(12, 8, 6, 0.45));
+}
+.page-poodle-body,
+.page-poodle-art { display: block; width: 100%; height: auto; }
+.page-poodle-art { transform-origin: 50% 82%; }
+.page-poodle.is-wag .page-poodle-art { animation: page-poodle-wag 0.42s ease-in-out 2; }
+.page-poodle.is-hop .page-poodle-body { animation: page-poodle-hop 0.34s ease; }
+.page-poodle.is-walking .page-poodle-body { animation: page-poodle-trot 0.42s ease-in-out infinite; }
+@keyframes page-poodle-wag {
+  0%, 100% { transform: rotate(0deg); }
+  35% { transform: rotate(3deg) translateY(-2px); }
+  70% { transform: rotate(-2deg); }
+}
+@keyframes page-poodle-hop {
+  0%, 100% { transform: translateY(0); }
+  45% { transform: translateY(-4px); }
+}
+@keyframes page-poodle-trot {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+.page-poodle-float {
+  position: absolute;
+  color: #b22110;
+  font-size: 0.85rem;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: page-poodle-heart 1s ease-out forwards;
+}
+.page-poodle--on-hero .page-poodle-float { color: #ffb4a7; }
+@keyframes page-poodle-heart {
+  0% { opacity: 0; transform: translate(-50%, -10%) scale(0.55); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -90%) scale(1); }
+}
+.page-poodle-toast {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  width: max-content;
+  max-width: 9.5rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font: 700 10px/1.35 "Plus Jakarta Sans", sans-serif;
+  text-align: center;
+  color: #5b403c;
+  background: rgba(255, 252, 248, 0.94);
+  border: 1px solid rgba(231, 213, 207, 0.9);
+  box-shadow: 0 6px 16px rgba(23, 28, 35, 0.1);
+  pointer-events: none;
+}
+.page-poodle--on-hero .page-poodle-toast {
+  color: #fff;
+  background: rgba(36, 28, 24, 0.72);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+html[data-theme="dark"] .page-poodle-toast {
+  color: #f6f1ea;
+  background: rgba(38, 32, 28, 0.92);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+@media (min-width: 640px) {
+  .page-poodle { width: 74px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-poodle,
+  .page-poodle-btn { transition: none; }
+  .page-poodle.is-wag .page-poodle-art,
+  .page-poodle.is-hop .page-poodle-body,
+  .page-poodle.is-walking .page-poodle-body { animation: none; }
+  .page-poodle-float { animation: none; opacity: 0; }
+}

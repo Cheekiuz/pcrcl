@@ -1,4 +1,12 @@
 (function () {
+  var siteScript = document.currentScript;
+  if (!document.getElementById("page-poodle-script") && !document.getElementById("page-poodle")) {
+    var poodleScript = document.createElement("script");
+    poodleScript.id = "page-poodle-script";
+    poodleScript.src = siteScript ? new URL("home-poodle.js", siteScript.src).href : "assets/home-poodle.js";
+    document.body.appendChild(poodleScript);
+  }
+
   var themeButton = document.getElementById("theme-toggle");
   var themeIcon = document.getElementById("theme-icon");
   function paintTheme(theme) {
