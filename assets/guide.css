@@ -9,6 +9,9 @@
   --line: #e6d5cc;
   --shadow: none;
   --header: 64px;
+  --scroll-pad: calc(var(--header) + env(safe-area-inset-top, 0px) + 12px);
+  /* Extra scroll margin beyond html scroll-padding (sticky subnav, not the fixed header). */
+  --scroll-extra-ref: 3.25rem;
 }
 html[data-theme="dark"] {
   color-scheme: dark;
@@ -23,7 +26,10 @@ html[data-theme="dark"] {
   --shadow: none;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--scroll-pad);
+}
 body {
   margin: 0;
   background: var(--bg);
@@ -412,13 +418,13 @@ a.download:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px
   line-height: 1.22;
   letter-spacing: -0.02em;
   text-wrap: balance;
-  scroll-margin-top: 8.5rem;
+  scroll-margin-top: var(--scroll-extra-ref);
 }
 .sheet h3 {
   margin: 28px 0 8px;
   font-size: 21px;
   line-height: 1.35;
-  scroll-margin-top: 8.5rem;
+  scroll-margin-top: var(--scroll-extra-ref);
 }
 .sheet .short-version h2 {
   margin: 0 0 8px;
@@ -443,7 +449,7 @@ a.download:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px
 .sheet li { margin: 8px 0; line-height: 1.65; }
 .sheet .do-this li,
 .sheet .week-matters li { margin: 0; }
-.week-matters { margin: 56px 0 8px; scroll-margin-top: 8.5rem; }
+.week-matters { margin: 56px 0 8px; scroll-margin-top: var(--scroll-extra-ref); }
 .week-matters h2 { margin: 8px 0 12px; font-size: 26px; line-height: 1.22; letter-spacing: -0.02em; }
 .week-matters ul { list-style: none; margin: 12px 0 0; padding: 0; }
 .week-matters li {
@@ -831,7 +837,7 @@ html[data-theme="dark"] .journey {
   border-radius: 18px;
   background: var(--card);
   border: 1px solid var(--line);
-  scroll-margin-top: 11rem;
+  scroll-margin-top: 0;
 }
 .journey-stage h2 { margin-top: 8px; font-size: 28px; }
 .journey-checks { list-style: none; margin: 8px 0 18px; padding: 0; display: grid; gap: 10px; }
@@ -903,7 +909,7 @@ a.journey-continue {
 a.journey-continue::after { content: "→"; }
 a.journey-continue:hover { background: #d63b27; }
 a.journey-continue:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-.journey .end { scroll-margin-top: 7rem; margin-top: 28px; }
+.journey .end { scroll-margin-top: 0; margin-top: 28px; }
 .journey .end .journey-links { margin-top: 18px; }
 .journey .end .journey-links a { background: rgba(255, 255, 255, 0.08); color: #fff; text-align: left; }
 .journey .end .journey-links a span { color: #ffb4a7; }
@@ -924,6 +930,11 @@ a.journey-continue:focus-visible { outline: 3px solid var(--ink); outline-offset
     padding: 12px 0 10px;
     background: color-mix(in srgb, var(--bg) 92%, transparent);
     backdrop-filter: blur(16px);
+  }
+  .journey .journey-stage,
+  .journey .end {
+    /* Sticky progress rail height (~232px) so week blocks sit below it. */
+    scroll-margin-top: 14.5rem;
   }
   blockquote { font-size: 24px; }
 }
