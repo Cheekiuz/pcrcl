@@ -52,7 +52,7 @@
       ctaPath: "#dogs",
       ctaLabel: "The Circle",
       ctaNote: "A photo, a name, and one true sentence. The court can take it from there.",
-      ctaText: "Submit your poodle to Circle"
+      ctaText: "Introduce your poodle"
     },
     {
       id: "cheese_parliament",
@@ -68,7 +68,7 @@
       ctaPath: "#dogs",
       ctaLabel: "The Circle",
       ctaNote: "The committee would like an official seat.",
-      ctaText: "Submit your poodle to Circle"
+      ctaText: "Introduce your poodle"
     },
     {
       id: "treat_diplomat",
@@ -81,7 +81,7 @@
       challenge: "Name the last treat out loud, then stop",
       closer: "You opened the meeting. They closed it.",
       ctaId: "first_30_days",
-      ctaPath: "first-30-days/",
+      ctaPath: "first-30-days/#week-1",
       ctaLabel: "The first 30 days",
       ctaNote: "When the treaty is signed, the month is still waiting.",
       ctaText: "Start the first 30 days"
@@ -97,7 +97,7 @@
       challenge: "Give the compliment after the plate is cleared",
       closer: "Innocent until the wrapper opens.",
       ctaId: "first_30_days",
-      ctaPath: "first-30-days/",
+      ctaPath: "first-30-days/#week-1",
       ctaLabel: "The first 30 days",
       ctaNote: "When the case rests, the first month is still here.",
       ctaText: "Start the first 30 days"
@@ -113,7 +113,7 @@
       challenge: "Keep dinner on the clock you already chose",
       closer: "The clock is kept. The sigh is just punctuation.",
       ctaId: "first_30_days",
-      ctaPath: "first-30-days/",
+      ctaPath: "first-30-days/#week-1",
       ctaLabel: "The first 30 days",
       ctaNote: "The routine already has a home.",
       ctaText: "Start the first 30 days"

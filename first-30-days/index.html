@@ -213,11 +213,13 @@ try {
         <p class="dek">From "Oh my god, I have a puppy" to "Okay, we're figuring this out."</p>
         <p class="path-switch">Follow the weeks in order if your puppy just came home. For one specific problem, open <a href="../#guides">Guides</a>. <a href="../30daysguide/">The long guide</a> has every detail.</p>
         <p class="journey-intro">The first month can feel like every question arrives at once. Stay on this page. Tick the week you are in, then continue. A link under the ticks opens one page when you want it. You do not have to read the whole library tonight. Prefer paper? <a href="../assets/first-30-days-guide.pdf" download="poodle-circle-first-30-days-guide.pdf">Download the free First 30 Days guide</a>. A simple day-by-day checklist for bringing your toy poodle home. Free. No email.</p>
-        <section class="short-version" id="at-a-glance">
-          <h2>The short version</h2>
-          <p>A toy poodle puppy's first month is a week-by-week routine, not a night of homework. Sleep, toilet trips, and one quiet room come first. A minute of alone time, brushing, and the harness come next. Barking, teeth, and grooming wait until the third week. You do not need to teach everything at once.</p>
-          <p>Open <a href="../30daysguide/#before">what to buy</a>, the <a href="../30daysguide/#day-1">first night</a>, <a href="../30daysguide/#house">toilet training</a>, and <a href="../30daysguide/#sleep">sleep</a>, then the week you are actually in. Call a veterinarian if the puppy is weak, collapsing, or refusing food.</p>
-        </section>
+        <details class="short-version" id="at-a-glance">
+          <summary>The short version</summary>
+          <div class="short-version__body">
+            <p>A toy poodle puppy's first month is a week-by-week routine, not a night of homework. Sleep, toilet trips, and one quiet room come first. A minute of alone time, brushing, and the harness come next. Barking, teeth, and grooming wait until the third week. You do not need to teach everything at once.</p>
+            <p>Open <a href="../30daysguide/#before">what to buy</a>, the <a href="../30daysguide/#day-1">first night</a>, <a href="../30daysguide/#house">toilet training</a>, and <a href="../30daysguide/#sleep">sleep</a>, then the week you are actually in. Call a veterinarian if the puppy is weak, collapsing, or refusing food.</p>
+          </div>
+        </details>
 
         <div class="journey-progress" id="journey-progress">
           <p class="kicker">Your first 30 days</p>
@@ -408,6 +410,10 @@ try {
     paint();
   }
   paint();
+  var glance = document.getElementById("at-a-glance");
+  if (glance && glance.tagName === "DETAILS" && boxes.some(function (box) { return box.checked; })) {
+    glance.open = true;
+  }
   if ("IntersectionObserver" in window) {
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
