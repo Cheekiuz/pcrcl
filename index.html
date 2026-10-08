@@ -557,89 +557,117 @@ try {
   #top h1, #top .hero-copy {
     text-shadow: 0 2px 16px rgba(20, 16, 14, 0.45);
   }
-  .hero-poodle {
-    position: relative;
-    margin-top: 1.75rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.35rem;
+  .page-poodle {
+    position: fixed;
+    z-index: 45;
+    width: 52px;
+    pointer-events: none;
+    transition: top 0.12s linear, left 0.35s ease, right 0.35s ease;
   }
-  .hero-poodle-hint {
-    margin: 0;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.78);
-    text-shadow: 0 1px 10px rgba(20, 16, 14, 0.45);
-  }
-  .hero-poodle-btn {
+  .page-poodle-btn {
     appearance: none;
     border: 0;
     padding: 0;
     margin: 0;
+    width: 100%;
     background: transparent;
     cursor: pointer;
-    width: min(172px, 46vw);
-    filter: drop-shadow(0 14px 32px rgba(20, 12, 8, 0.38));
-    transition: transform 0.22s ease;
+    pointer-events: auto;
+    filter: drop-shadow(0 6px 14px rgba(36, 28, 24, 0.22));
+    transition: transform 0.2s ease;
     -webkit-tap-highlight-color: transparent;
   }
-  .hero-poodle-btn:hover { transform: scale(1.05) translateY(-2px); }
-  .hero-poodle-btn:active { transform: scale(0.98); }
-  .hero-poodle-btn:focus-visible {
-    outline: 2px solid #ffb4a7;
-    outline-offset: 8px;
-    border-radius: 40%;
+  .page-poodle.face-left .page-poodle-btn { transform: scaleX(-1); }
+  .page-poodle-btn:hover { transform: scale(1.08); }
+  .page-poodle.face-left .page-poodle-btn:hover { transform: scaleX(-1) scale(1.08); }
+  .page-poodle-btn:active { transform: scale(0.94); }
+  .page-poodle.face-left .page-poodle-btn:active { transform: scaleX(-1) scale(0.94); }
+  .page-poodle-btn:focus-visible {
+    outline: 2px solid #b22110;
+    outline-offset: 4px;
+    border-radius: 50%;
   }
-  .hero-poodle-btn svg { width: 100%; height: auto; display: block; overflow: visible; }
-  .hero-poodle .hero-poodle-tail { transform-origin: 152px 124px; transform-box: fill-box; }
-  .hero-poodle.is-wag .hero-poodle-tail { animation: hero-poodle-wag 0.32s ease-in-out 4; }
-  .hero-poodle.is-hop .hero-poodle-body { animation: hero-poodle-hop 0.38s ease; }
-  .hero-poodle.is-wag .hero-poodle-tongue { opacity: 1; transform: translateY(0); }
-  .hero-poodle-tongue {
+  .page-poodle-btn svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .page-poodle--on-hero .page-poodle-btn {
+    filter: drop-shadow(0 8px 18px rgba(12, 8, 6, 0.45));
+  }
+  .page-poodle .page-poodle-tail { transform-origin: 98px 86px; transform-box: fill-box; }
+  .page-poodle.is-wag .page-poodle-tail { animation: page-poodle-wag 0.28s ease-in-out 4; }
+  .page-poodle.is-hop .page-poodle-body { animation: page-poodle-hop 0.34s ease; }
+  .page-poodle.is-walking .page-poodle-body { animation: page-poodle-trot 0.42s ease-in-out infinite; }
+  .page-poodle.is-wag .page-poodle-tongue { opacity: 1; transform: translateY(0); }
+  .page-poodle-tongue {
     opacity: 0;
-    transform: translateY(4px);
-    transition: opacity 0.15s ease, transform 0.15s ease;
+    transform: translateY(3px);
+    transition: opacity 0.12s ease, transform 0.12s ease;
   }
-  @keyframes hero-poodle-wag {
+  @keyframes page-poodle-wag {
     0%, 100% { transform: rotate(0deg); }
-    35% { transform: rotate(14deg); }
-    70% { transform: rotate(-10deg); }
+    40% { transform: rotate(16deg); }
+    75% { transform: rotate(-8deg); }
   }
-  @keyframes hero-poodle-hop {
+  @keyframes page-poodle-hop {
     0%, 100% { transform: translateY(0); }
-    45% { transform: translateY(-7px); }
+    45% { transform: translateY(-4px); }
   }
-  .hero-poodle-float {
+  @keyframes page-poodle-trot {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  .page-poodle-float {
     position: absolute;
-    color: #ffb4a7;
-    font-size: 1.2rem;
+    color: #b22110;
+    font-size: 0.85rem;
     pointer-events: none;
     transform: translate(-50%, -50%);
-    animation: hero-poodle-heart 1.15s ease-out forwards;
+    animation: page-poodle-heart 1s ease-out forwards;
   }
-  @keyframes hero-poodle-heart {
-    0% { opacity: 0; transform: translate(-50%, -20%) scale(0.6); }
-    20% { opacity: 1; }
-    100% { opacity: 0; transform: translate(-50%, -120%) scale(1.05); }
+  .page-poodle--on-hero .page-poodle-float { color: #ffb4a7; }
+  @keyframes page-poodle-heart {
+    0% { opacity: 0; transform: translate(-50%, -10%) scale(0.55); }
+    25% { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, -90%) scale(1); }
   }
-  .hero-poodle-toast {
-    margin: 0.15rem 0 0;
-    max-width: 18rem;
-    font-size: 13px;
-    font-weight: 650;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.94);
-    text-shadow: 0 1px 10px rgba(20, 12, 8, 0.55);
+  .page-poodle-toast {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    width: max-content;
+    max-width: 9.5rem;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: center;
+    color: #5b403c;
+    background: rgba(255, 252, 248, 0.94);
+    border: 1px solid rgba(231, 213, 207, 0.9);
+    box-shadow: 0 6px 16px rgba(23, 28, 35, 0.1);
+    pointer-events: none;
+  }
+  .page-poodle--on-hero .page-poodle-toast {
+    color: #fff;
+    background: rgba(36, 28, 24, 0.72);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+  html[data-theme="dark"] .page-poodle-toast {
+    color: #f6f1ea;
+    background: rgba(38, 32, 28, 0.92);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  @media (min-width: 640px) {
+    .page-poodle { width: 64px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .hero-poodle-btn { transition: none; }
-    .hero-poodle.is-wag .hero-poodle-tail,
-    .hero-poodle.is-hop .hero-poodle-body { animation: none; }
-    .hero-poodle.is-wag .hero-poodle-tongue { opacity: 1; transform: none; }
-    .hero-poodle-float { animation: none; opacity: 0; }
+    .page-poodle { transition: none; }
+    .page-poodle-btn { transition: none; }
+    .page-poodle.is-wag .page-poodle-tail,
+    .page-poodle.is-hop .page-poodle-body,
+    .page-poodle.is-walking .page-poodle-body { animation: none; }
+    .page-poodle-float { animation: none; opacity: 0; }
   }
   .kit-card {
     display: grid;
@@ -1198,6 +1226,53 @@ tailwind.config = {
   </div>
 </header>
 
+<div class="page-poodle page-poodle--on-hero face-left" id="page-poodle" aria-hidden="false">
+  <button class="page-poodle-btn" type="button" aria-label="Pet the toy poodle. It trots beside you as you scroll.">
+    <svg viewBox="0 0 128 136" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="pagePoodleCoat" cx="38%" cy="32%" r="68%">
+          <stop offset="0%" stop-color="#c4956a"/>
+          <stop offset="50%" stop-color="#8b5a34"/>
+          <stop offset="100%" stop-color="#5c3a20"/>
+        </radialGradient>
+        <radialGradient id="pagePoodleCurl" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#d4a574"/>
+          <stop offset="100%" stop-color="#7a5030"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="64" cy="124" rx="34" ry="5" fill="rgba(36,28,24,0.16)"/>
+      <g class="page-poodle-body">
+        <ellipse cx="66" cy="92" rx="28" ry="24" fill="url(#pagePoodleCoat)"/>
+        <circle cx="52" cy="86" r="6" fill="url(#pagePoodleCurl)" opacity="0.75"/>
+        <circle cx="78" cy="84" r="5.5" fill="url(#pagePoodleCurl)" opacity="0.7"/>
+        <g class="page-poodle-tail">
+          <circle cx="94" cy="82" r="9" fill="#7a5030"/>
+          <circle cx="100" cy="72" r="6.5" fill="#9a6840"/>
+        </g>
+        <circle cx="64" cy="52" r="24" fill="url(#pagePoodleCoat)"/>
+        <circle cx="64" cy="34" r="13" fill="#9a6840"/>
+        <circle cx="58" cy="28" r="4.5" fill="#b8895c"/>
+        <circle cx="70" cy="27" r="4" fill="#b8895c"/>
+        <ellipse cx="48" cy="50" rx="7" ry="11" fill="#5c3a20"/>
+        <ellipse cx="80" cy="50" rx="7" ry="11" fill="#5c3a20"/>
+        <ellipse cx="64" cy="58" rx="14" ry="10" fill="#f0e0cc"/>
+        <ellipse cx="64" cy="62" rx="5.5" ry="4.5" fill="#3d2e24"/>
+        <path d="M60 62 Q64 65 68 62" fill="none" stroke="#5c3a20" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="56" cy="48" r="3.8" fill="#fff"/>
+        <circle cx="72" cy="48" r="3.8" fill="#fff"/>
+        <circle class="page-poodle-pupil" cx="56.8" cy="48.8" r="1.7" fill="#241c18"/>
+        <circle class="page-poodle-pupil" cx="72.8" cy="48.8" r="1.7" fill="#241c18"/>
+        <circle cx="56.2" cy="47.8" r="0.65" fill="#fff"/>
+        <circle cx="72.2" cy="47.8" r="0.65" fill="#fff"/>
+        <ellipse class="page-poodle-tongue" cx="64" cy="66" rx="3.2" ry="2.6" fill="#e8837a"/>
+        <ellipse cx="54" cy="108" rx="6" ry="5" fill="#7a5030"/>
+        <ellipse cx="76" cy="108" rx="6" ry="5" fill="#7a5030"/>
+      </g>
+    </svg>
+  </button>
+  <p class="page-poodle-toast" hidden></p>
+</div>
+
 <main class="w-full pt-20 bg-surface">
 <div class="flex flex-col w-full">
 
@@ -1213,55 +1288,6 @@ tailwind.config = {
     </h1>
     <div class="mt-10 flex flex-col items-stretch sm:items-center gap-3 w-full max-w-[420px] sm:max-w-none">
       <a class="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-8 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="first-30-days/#week-1" data-track="first_30_days_cta">Start the first 30 days <span class="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_forward</span></a>
-    </div>
-    <div class="hero-poodle" id="hero-poodle">
-      <p class="hero-poodle-hint">Tap to pet</p>
-      <button class="hero-poodle-btn" type="button" aria-label="Pet the toy poodle mascot">
-        <svg viewBox="0 0 200 220" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="heroPoodleCoat" cx="40%" cy="35%" r="70%">
-              <stop offset="0%" stop-color="#b8895c"/>
-              <stop offset="55%" stop-color="#7a4e2a"/>
-              <stop offset="100%" stop-color="#4d3118"/>
-            </radialGradient>
-            <radialGradient id="heroPoodleFluff" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#c99a6a"/>
-              <stop offset="100%" stop-color="#6b4526"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="100" cy="198" rx="62" ry="10" fill="rgba(20,12,8,0.22)"/>
-          <g class="hero-poodle-body">
-            <ellipse cx="102" cy="138" rx="46" ry="38" fill="url(#heroPoodleCoat)"/>
-            <circle cx="78" cy="128" r="11" fill="url(#heroPoodleFluff)" opacity="0.85"/>
-            <circle cx="118" cy="122" r="10" fill="url(#heroPoodleFluff)" opacity="0.8"/>
-            <circle cx="96" cy="152" r="9" fill="url(#heroPoodleFluff)" opacity="0.75"/>
-            <g class="hero-poodle-tail">
-              <ellipse cx="152" cy="118" rx="16" ry="22" fill="#6b4526" transform="rotate(24 152 118)"/>
-              <circle cx="162" cy="98" r="12" fill="#8b5e38"/>
-              <circle cx="168" cy="88" r="8" fill="#a67142"/>
-            </g>
-            <ellipse cx="102" cy="72" rx="34" ry="30" fill="url(#heroPoodleCoat)"/>
-            <ellipse cx="102" cy="44" rx="20" ry="16" fill="#8b5e38"/>
-            <circle cx="92" cy="36" r="7" fill="#a67142"/>
-            <circle cx="112" cy="34" r="6" fill="#a67142"/>
-            <ellipse cx="72" cy="68" rx="12" ry="20" fill="#5c3a1f" transform="rotate(-18 72 68)"/>
-            <ellipse cx="132" cy="68" rx="12" ry="20" fill="#5c3a1f" transform="rotate(18 132 68)"/>
-            <ellipse cx="102" cy="82" rx="22" ry="16" fill="#e8d4bc"/>
-            <ellipse cx="102" cy="88" rx="9" ry="7" fill="#2a2018"/>
-            <path d="M96 88 Q102 92 108 88" fill="none" stroke="#4d3118" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="88" cy="68" r="5.5" fill="#fff"/>
-            <circle cx="116" cy="68" r="5.5" fill="#fff"/>
-            <circle class="hero-poodle-pupil" cx="89" cy="69" r="2.6" fill="#241c18"/>
-            <circle class="hero-poodle-pupil" cx="117" cy="69" r="2.6" fill="#241c18"/>
-            <circle cx="87" cy="67" r="1" fill="#fff" opacity="0.9"/>
-            <circle cx="115" cy="67" r="1" fill="#fff" opacity="0.9"/>
-            <ellipse class="hero-poodle-tongue" cx="102" cy="94" rx="5" ry="4" fill="#e8837a"/>
-            <ellipse cx="88" cy="152" rx="10" ry="8" fill="#6b4526"/>
-            <ellipse cx="116" cy="152" rx="10" ry="8" fill="#6b4526"/>
-          </g>
-        </svg>
-      </button>
-      <p class="hero-poodle-toast" hidden></p>
     </div>
   </div>
 </section>
