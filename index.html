@@ -196,6 +196,7 @@ try {
   @layer base {
     html, body { margin: 0; padding: 0; }
     body { overscroll-behavior: none; }
+    h1, h2 { text-wrap: balance; }
     main > :first-child { margin-top: 0 !important; }
     main > :last-child { margin-bottom: 0 !important; }
   }
@@ -708,6 +709,20 @@ try {
   .stage-link { transition: transform .18s ease, border-color .18s ease; }
   .stage-link:hover { transform: translateY(-1px); border-color: #b22110; }
   .stage-link:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
+  .home-guide { transition: border-color .18s ease, background-color .18s ease; }
+  .home-guide:hover { border-color: #b22110; background: #fff6f3; }
+  .home-guide:focus-visible { outline: 2px solid #b22110; outline-offset: 3px; }
+  .band-play {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255, 218, 212, 0.95), transparent 58%),
+      #fff8f6;
+  }
+  html[data-theme="dark"] .band-play {
+    background:
+      radial-gradient(circle at 50% 0%, rgba(178, 33, 16, 0.32), transparent 58%),
+      #1c1715;
+  }
+  #quiz-start:focus-visible { outline: 2px solid #171c23; outline-offset: 3px; }
   .circle-send li {
     display: flex;
     align-items: flex-start;
@@ -1029,7 +1044,7 @@ tailwind.config = {
     <div class="mt-10 flex flex-col items-stretch sm:items-center gap-3 w-full max-w-[420px] sm:max-w-none">
       <a class="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-8 py-3.5 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" href="first-30-days/" data-track="first_30_days_cta">Start the first 30 days <span class="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_forward</span></a>
       <a class="inline-flex items-center justify-center w-full sm:w-auto min-h-12 px-5 sm:px-8 py-3.5 rounded-full border border-white/80 bg-white/10 backdrop-blur-sm text-white text-[14px] sm:text-[15px] font-semibold" href="assets/first-30-days-guide.pdf" download="poodle-circle-first-30-days-guide.pdf" data-track="kit_download">Download the free First 30 Days guide</a>
-      <p class="text-[13px] leading-5 text-white max-w-md">A simple day - by - day checklist for bringing your toy poodle home.</p>
+      <p class="text-[13px] leading-5 text-white max-w-md">A simple day-by-day checklist for bringing your toy poodle home.</p>
       <p class="text-[13px] font-semibold text-white">Free. No email.</p>
     </div>
   </div>
@@ -1037,11 +1052,11 @@ tailwind.config = {
 
 <p class="w-full px-6 pt-8 pb-1 bg-[#f8f9ff] text-center text-[15px] leading-6 text-[#5b403c]"><span class="block max-w-xl mx-auto">Practical help for life with a toy poodle. Guides, real owner experiences, and a little fun for the people who love these tiny dogs.</span></p>
 
-<section class="w-full px-4 sm:px-6 pt-6 pb-4 bg-[#f8f9ff]" id="where">
+<section class="w-full px-4 sm:px-6 pt-8 pb-3 bg-[#f8f9ff]" id="where">
   <div class="max-w-[640px] mx-auto">
     <p class="text-center text-[13px] font-bold tracking-[0.14em] uppercase text-primary">Start here: the 4-week path</p>
     <h2 class="mt-2 text-center text-[28px] sm:text-[36px] font-bold tracking-tight text-[#171c23]">Where are you now?</h2>
-    <p class="mt-2 text-center text-[16px] leading-6 text-[#5b403c]">Open the week you are actually in.</p>
+    <p class="mt-2 text-center text-[16px] leading-6 text-[#5b403c]">Just brought a puppy home? Follow these weeks in order.</p>
     <div class="mt-4 grid gap-3">
       <a class="stage-link flex items-center gap-4 min-h-[76px] rounded-[1.5rem] bg-white px-4 sm:px-5 py-4 shadow-[0_12px_32px_rgba(23,28,35,0.08)] border border-[#e7d5cf]/70" href="first-30-days/#week-1">
         <span class="material-symbols-outlined text-primary text-[28px] leading-none shrink-0" aria-hidden="true">cottage</span>
@@ -1076,16 +1091,16 @@ tailwind.config = {
         <span class="material-symbols-outlined text-[#5b403c] shrink-0" aria-hidden="true">arrow_forward</span>
       </a>
     </div>
-    <p class="mt-4 text-center text-[14px] leading-5 text-[#5b403c]">Want every detail: <a class="font-semibold text-[#171c23]" href="30daysguide/">the full guide</a>.</p>
+    <p class="mt-4 text-center text-[14px] leading-5 text-[#5b403c]">Want every detail of the month? <a class="font-semibold text-[#171c23]" href="30daysguide/">Read the long guide</a>.</p>
   </div>
 </section>
 
-<section class="w-full px-6 pt-6 pb-8 bg-[#f8f9ff]" id="kit">
+<section class="w-full px-6 pt-4 pb-14 bg-[#f8f9ff]" id="kit">
   <article class="kit-card mx-auto w-full max-w-[760px] text-left" aria-labelledby="kit-card-title">
       <div class="kit-card__main">
         <p class="kit-card__badge">Free</p>
         <h2 class="mt-4 text-[22px] leading-7 sm:text-[26px] sm:leading-8 font-extrabold tracking-tight text-[#171c23]" id="kit-card-title">The First 30 Days guide</h2>
-        <p class="mt-3 text-[15px] leading-6 text-[#5b403c]">A simple day - by - day checklist for bringing your toy poodle home.</p>
+        <p class="mt-3 text-[15px] leading-6 text-[#5b403c]">Prefer paper? A simple day-by-day checklist for bringing your toy poodle home.</p>
         <a class="mt-6 inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-12 px-6 py-3 rounded-full border border-[#e3beb8]/60 bg-white text-[#171c23] text-[15px] font-semibold" href="assets/first-30-days-guide.pdf" download="poodle-circle-first-30-days-guide.pdf" data-track="kit_download">Download the free First 30 Days guide</a>
         <p class="mt-2 text-[13px] text-[#5b403c]">Free. No email.</p>
       </div>
@@ -1094,13 +1109,13 @@ tailwind.config = {
         <div class="kit-sheet">
           <p class="kit-sheet__file">PDF</p>
           <p class="kit-sheet__brand">Poodle Circle</p>
-          <p class="kit-sheet__title">First - week checklist</p>
+          <p class="kit-sheet__title">First-week checklist</p>
           <p class="kit-sheet__lead">Days 1 to 7</p>
           <ul>
             <li>Toilet trip as soon as you arrive home</li>
             <li>One quiet room only</li>
             <li>Show bed, water, food, toilet spot</li>
-            <li>No welcome - party visitors</li>
+            <li>No welcome-party visitors</li>
             <li>Let the puppy sleep</li>
           </ul>
         </div>
@@ -1108,32 +1123,34 @@ tailwind.config = {
     </article>
 </section>
 
-<section class="w-full py-14 px-6 bg-[#f8f9ff]" id="guides">
+<section class="w-full pt-16 pb-14 px-6 bg-white" id="guides">
   <div class="max-w-[720px] mx-auto">
-    <h2 class="text-[24px] sm:text-[32px] leading-tight font-bold text-center mb-8">What are you dealing with?</h2>
+    <p class="text-center text-[13px] font-bold tracking-[0.14em] uppercase text-primary">Guides</p>
+    <h2 class="mt-2 text-[24px] sm:text-[32px] leading-tight font-bold text-center text-[#171c23]">What are you dealing with?</h2>
+    <p class="mt-2 mb-8 text-center text-[16px] leading-6 text-[#5b403c]">One specific question? Open that answer, whenever you need it.</p>
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="guide-list">
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="line-brushing/">Coat</a>
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="apartment-barking/">Barking</a>
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="teeth/">Teeth</a>
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="night-waking/">Sleep</a>
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="alone-time/">Alone time</a>
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="harness/">Harness</a>
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="home-brushing/">Grooming</a>
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="tear-stains/">Tear stains</a>
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="stairs/">Stairs and outdoors</a>
-      <a class="min-h-14 flex items-center rounded-2xl bg-white px-4 py-3 text-[15px] font-semibold text-[#171c23] shadow-sm" href="biting/">Biting</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="line-brushing/">Coat</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="apartment-barking/">Barking</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="teeth/">Teeth</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="night-waking/">Sleep</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="alone-time/">Alone time</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="harness/">Harness</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="home-brushing/">Grooming</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="tear-stains/">Tear stains</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="stairs/">Stairs and outdoors</a>
+      <a class="home-guide min-h-14 flex items-center rounded-2xl bg-[#f8f9ff] px-4 py-3 text-[15px] font-semibold text-[#171c23] border border-[#e7d5cf]/70" href="biting/">Biting</a>
     </div>
   </div>
 </section>
 
-<section class="w-full py-14 px-6 bg-[#f8f9ff]" id="game">
+<section class="band-play w-full py-16 px-6" id="game">
   <div class="max-w-[760px] mx-auto">
-    <div class="rounded-[2rem] bg-white shadow-sm px-5 py-8 sm:px-10 sm:py-12 relative overflow-hidden" id="quiz">
+    <div class="rounded-[2rem] bg-white shadow-[0_18px_44px_rgba(178,33,16,0.08)] px-5 py-8 sm:px-10 sm:py-12 relative overflow-hidden" id="quiz">
       <div class="text-center" id="quiz-heading">
         <p class="text-[11px] font-bold tracking-[0.16em] uppercase text-primary">A little break from puppy homework</p>
         <h2 class="mt-3 text-[26px] leading-8 sm:text-[32px] sm:leading-10 font-extrabold tracking-tight">How spoiled is your poodle? 🐩</h2>
-        <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">Because there are no bad poodles. Only extremely well - served ones.</p>
-        <button class="mt-8 inline-flex items-center justify-center min-h-12 px-6 rounded-full bg-[#eaeef8] text-[#171c23] text-[15px] font-semibold" id="quiz-start" type="button">Start the questions</button>
+        <p class="mt-3 text-[16px] sm:text-[18px] leading-7 text-[#5b403c]">Because there are no bad poodles. Only extremely well-served ones.</p>
+        <button class="mt-8 inline-flex items-center justify-center min-h-12 px-7 rounded-full bg-primary hover:bg-[#d63b27] text-white text-[15px] font-semibold shadow-md" id="quiz-start" type="button">See how spoiled</button>
       </div>
       <div class="mt-8" id="quiz-progress" hidden>
         <div class="quiz-meta flex items-center justify-between text-[13px] font-semibold text-[#5b403c] mb-2">
@@ -1166,7 +1183,7 @@ tailwind.config = {
         <div class="aspect-[4/3] rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img loading="lazy" decoding="async" width="512" height="279" alt="Chocolate toy poodle Coco on a rug" class="w-full h-full object-cover" src="assets/circle/coco.jpg"/></div>
         <h3 class="text-[20px] font-semibold">Coco</h3>
         <p class="text-[13px] font-semibold text-[#5b403c] mt-1">8 months - Chocolate - London</p>
-        <p class="text-[13px] italic text-[#5b403c] mt-3">“Master of the high - speed hallway zoomies.”</p>
+        <p class="text-[13px] italic text-[#5b403c] mt-3">“Master of the high-speed hallway zoomies.”</p>
       </article>
       <article class="lift rounded-[2rem] bg-white p-5 shadow-sm">
         <div class="aspect-[4/3] rounded-[1rem] overflow-hidden bg-[#eaeef8] mb-4"><img loading="lazy" decoding="async" width="512" height="279" alt="Cream toy poodle Biscotti on a sofa" class="w-full h-full object-cover" src="assets/circle/biscotti.jpg"/></div>
@@ -1221,7 +1238,7 @@ tailwind.config = {
       <p class="text-[15px] leading-6 text-[#5b403c] mt-3">Poodle Circle is a practical, friendly guide for people living with toy poodles, especially during the first 30 days after bringing a puppy home. It is written for everyday owners. It is not veterinary care, and it does not sell puppies.</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <article class="lift p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">01</span><h3 class="text-[20px] font-semibold mt-2">Be kind</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">Every owner was once awake at 3 a.m. with an eight - week - old puppy. No judgment.</p></article>
+      <article class="lift p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">01</span><h3 class="text-[20px] font-semibold mt-2">Be kind</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">Every owner was once awake at 3 a.m. with an eight-week-old puppy. No judgment.</p></article>
       <article class="lift p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">02</span><h3 class="text-[20px] font-semibold mt-2">No puppy sales</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">No breeding ads, brokers, or classifieds. This is a companionship circle.</p></article>
       <article class="lift p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">03</span><h3 class="text-[20px] font-semibold mt-2">Vet first</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">We share habits, not doses. Illness and emergencies belong with a veterinarian.</p></article>
       <article class="lift p-6 rounded-[2rem] bg-white shadow-sm"><span class="text-[28px] font-bold text-primary">04</span><h3 class="text-[20px] font-semibold mt-2">Real homes</h3><p class="text-[13px] leading-5 text-[#5b403c] mt-2">Muddy paws, imperfect haircuts, and the actual dog who lives with you.</p></article>

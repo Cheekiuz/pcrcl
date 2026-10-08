@@ -65,7 +65,7 @@
   function scoreLine(score) {
     if (score < 10) return "Still warming up.";
     if (score < 25) return "Good poodle.";
-    if (score < 50) return "Okay, show - off.";
+    if (score < 50) return "Okay, show-off.";
     if (score < 100) return "Very athletic for someone who owns three beds.";
     return "The tiny athlete has escaped.";
   }

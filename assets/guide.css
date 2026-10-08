@@ -31,6 +31,7 @@ body {
   font-family: "Plus Jakarta Sans", sans-serif;
   line-height: 1.7;
 }
+h1, h2 { text-wrap: balance; }
 a { color: var(--accent); }
 a:hover { text-decoration-thickness: 1px; }
 img { max-width: 100%; display: block; }
