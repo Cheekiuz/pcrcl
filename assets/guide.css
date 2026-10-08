@@ -10,7 +10,8 @@
   --accent: #b22110;
   --line: #e6d5cc;
   --shadow: none;
-  --header: 64px;
+  --header: 76px;
+  --header-height: 64px;
   --scroll-pad: calc(var(--header) + env(safe-area-inset-top, 0px) + 12px);
   /* Extra scroll margin beyond html scroll-padding (sticky subnav, not the fixed header). */
   --scroll-extra-ref: 3.25rem;
@@ -58,26 +59,42 @@ header.site-bar {
   left: 0;
   right: 0;
   z-index: 50;
-  padding: env(safe-area-inset-top) 0 0;
+  padding: max(0.75rem, env(safe-area-inset-top)) 0.75rem 0;
   pointer-events: none;
+  transition: padding 0.45s ease;
 }
+header.site-bar.is-scrolled { padding: 0.5rem 0.5rem 0; }
 header.site-bar .site-header {
   pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  height: var(--header);
-  max-width: 100%;
+  height: var(--header-height);
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  border-radius: 999px;
+  background-color: rgba(247, 244, 239, 0.82);
+  box-shadow: 0 10px 30px rgba(23, 28, 35, 0.08);
+  backdrop-filter: blur(20px);
+  transition: background-color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, backdrop-filter 0.45s ease;
+}
+header.site-bar.is-scrolled .site-header {
   background-color: rgba(247, 244, 239, 0.92);
-  border-bottom: 1px solid rgba(36, 28, 24, 0.08);
-  backdrop-filter: blur(16px);
+  border-color: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 12px 32px rgba(23, 28, 35, 0.1);
+  backdrop-filter: blur(24px);
 }
 html[data-theme="dark"] header.site-bar .site-header {
-  background-color: rgba(22, 19, 17, 0.92);
-  border-bottom-color: rgba(244, 238, 232, 0.08);
+  background-color: rgba(22, 19, 17, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+}
+html[data-theme="dark"] header.site-bar.is-scrolled .site-header {
+  background-color: rgba(22, 19, 17, 0.88);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 .brand { display: flex; align-items: center; flex-shrink: 0; text-decoration: none; }
 .site-header .brand img { height: 40px; width: auto; }
@@ -88,6 +105,13 @@ html[data-theme="dark"] .site-logo-dark { display: block; }
   display: none;
   align-items: center;
   gap: 2px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 12px rgba(30, 35, 42, 0.04);
+}
+html[data-theme="dark"] .site-nav {
+  background: rgba(38, 32, 28, 0.92);
 }
 .site-nav a {
   display: inline-flex;
@@ -96,7 +120,7 @@ html[data-theme="dark"] .site-logo-dark { display: block; }
   padding: 6px 10px;
   border-radius: 999px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 650;
   text-decoration: none;
 }
@@ -117,15 +141,16 @@ button.primary:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: 0;
   border-radius: 999px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.92);
   color: var(--ink);
   cursor: pointer;
 }
+html[data-theme="dark"] .icon-btn { background: #26201c; }
 .material-symbols-outlined {
   font-family: "Material Symbols Outlined";
   font-weight: normal;
@@ -142,11 +167,15 @@ button.primary:focus-visible {
 .site-menu {
   display: none;
   pointer-events: auto;
-  margin: 0;
+  max-width: 1240px;
+  margin: 8px auto 0;
+  padding: 12px 16px;
+  border: 1px solid rgba(230, 213, 204, 0.7);
+  border-radius: 28px;
   background: var(--bg);
-  border-bottom: 1px solid var(--line);
-  padding: 8px 12px 16px;
+  box-shadow: 0 14px 32px rgba(23, 28, 35, 0.12);
 }
+html[data-theme="dark"] .site-menu { border-color: rgba(255, 255, 255, 0.1); }
 .site-menu.is-open { display: block; }
 .site-menu a {
   display: flex;
@@ -170,11 +199,14 @@ button.primary:focus-visible {
 }
 .site-menu a.site-menu-cta:hover { background: #d63b27; color: #fff; }
 @media (min-width: 640px) {
-  :root { --header: 72px; }
+  :root {
+    --header: 92px;
+    --header-height: 80px;
+  }
   header.site-bar .site-header { padding: 0 24px; }
-  .site-header .brand img { height: 48px; }
+  .site-header .brand img { height: 56px; }
 }
-@media (min-width: 1100px) {
+@media (min-width: 1024px) {
   .site-nav { display: flex; }
   #nav-toggle { display: none; }
   .site-menu, .site-menu.is-open { display: none; }
